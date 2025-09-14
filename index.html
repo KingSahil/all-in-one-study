@@ -91,6 +91,19 @@
             border-color: rgba(255, 255, 255, 0.5);
         }
 
+        .btn-stop {
+            background: #ef4444;
+            border: 2px solid #ef4444;
+            color: white;
+        }
+
+        .btn-stop:hover {
+            background: #dc2626;
+            border-color: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3);
+        }
+
         .btn-small {
             padding: 0.5rem 1rem;
             font-size: 0.875rem;
@@ -109,7 +122,7 @@
             backdrop-filter: blur(10px);
             border-radius: 1rem;
             padding: 2rem;
-            transition: var(--transition);
+            transition: var(--transition), opacity 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.2);
             text-align: center;
         }
@@ -857,6 +870,11 @@
             backdrop-filter: blur(20px);
             transition: var(--transition);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            cursor: text;
+            user-select: text;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
         }
 
         .search-bar:focus {
@@ -908,6 +926,8 @@
             z-index: 100;
             display: none;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
         }
 
         .search-result-item {
@@ -986,7 +1006,7 @@
         <!-- Search Bar -->
         <div class="search-container">
             <div class="search-icon">🔍</div>
-            <input type="text" class="search-bar" id="search-input" placeholder="Search tools, simulations, lectures... (Ctrl+K)">
+            <input type="text" class="search-bar" id="search-input" placeholder="Search tools, simulations, lectures... (Ctrl+K)" autocomplete="off" spellcheck="false">
             <div class="search-shortcut">Ctrl+K</div>
             <div class="search-results" id="searchResults"></div>
         </div>
@@ -1053,6 +1073,11 @@
                     <button class="calc-btn operator" onclick="appendTrigFunction('cos')">cos</button>
                     <button class="calc-btn operator" onclick="appendTrigFunction('tan')">tan</button>
                     <button class="calc-btn operator" onclick="appendToCalculator('√')">√</button>
+                    
+                    <button class="calc-btn operator" onclick="appendTrigFunction('asin')">sin⁻¹</button>
+                    <button class="calc-btn operator" onclick="appendTrigFunction('acos')">cos⁻¹</button>
+                    <button class="calc-btn operator" onclick="appendTrigFunction('atan')">tan⁻¹</button>
+                    <button class="calc-btn operator" onclick="appendToCalculator('log(')">log</button>
                     
                     <button class="calc-btn operator" onclick="appendTrigFunction('sec')">sec</button>
                     <button class="calc-btn operator" onclick="appendTrigFunction('csc')">csc</button>
@@ -1131,8 +1156,7 @@
                     </div>
                     <div class="timer-controls">
                         <button class="btn btn-primary" id="startTimer" onclick="startTimer()">Start</button>
-                        <button class="btn btn-outline" onclick="pauseTimer()">Pause</button>
-                        <button class="btn btn-outline" onclick="resetTimer()">Reset</button>
+                        <button class="btn btn-outline" id="resetTimer" onclick="resetTimer()">Reset</button>
                     </div>
                 </div>
                 
@@ -1630,6 +1654,8 @@
         let angleMode = 'deg'; // 'deg' or 'rad'
         let keySequence = '';
         let sequenceTimeout = null;
+        let timerPaused = false;
+        let timerRemainingSeconds = 0;
 
         // Navigation function
         function showTool(toolName) {
@@ -1785,35 +1811,77 @@
         function evaluateExpression(expression) {
             // Determine conversion factor based on angle mode
             const toRadians = angleMode === 'deg' ? ' * Math.PI / 180' : '';
+            const fromRadians = angleMode === 'deg' ? ' * 180 / Math.PI' : '';
             
-            // Handle trigonometric functions
-            expression = expression.replace(/sin\(([^)]+)\)/g, (match, contents) => {
+            // Replace functions in specific order to avoid conflicts
+            // Start with longer function names first
+            
+            // Inverse trigonometric functions (convert result from radians)
+            expression = expression.replace(/asin\(/g, '__TEMP_ASIN__(');
+            expression = expression.replace(/acos\(/g, '__TEMP_ACOS__(');
+            expression = expression.replace(/atan\(/g, '__TEMP_ATAN__(');
+            
+            // Reciprocal functions
+            expression = expression.replace(/cosec\(/g, '__TEMP_COSEC__(');
+            expression = expression.replace(/csc\(/g, '__TEMP_CSC__(');
+            expression = expression.replace(/sec\(/g, '__TEMP_SEC__(');
+            expression = expression.replace(/cot\(/g, '__TEMP_COT__(');
+            
+            // Regular trigonometric functions (convert input to radians)
+            expression = expression.replace(/sin\(/g, '__TEMP_SIN__(');
+            expression = expression.replace(/cos\(/g, '__TEMP_COS__(');
+            expression = expression.replace(/tan\(/g, '__TEMP_TAN__(');
+            
+            // Other functions
+            expression = expression.replace(/log\(/g, '__TEMP_LOG__(');
+            
+            // Now replace with actual Math functions
+            // Inverse functions
+            expression = expression.replace(/__TEMP_ASIN__\(([^)]+)\)/g, (match, contents) => {
+                return `(Math.asin(${contents})${fromRadians})`;
+            });
+            
+            expression = expression.replace(/__TEMP_ACOS__\(([^)]+)\)/g, (match, contents) => {
+                return `(Math.acos(${contents})${fromRadians})`;
+            });
+            
+            expression = expression.replace(/__TEMP_ATAN__\(([^)]+)\)/g, (match, contents) => {
+                return `(Math.atan(${contents})${fromRadians})`;
+            });
+            
+            // Regular functions
+            expression = expression.replace(/__TEMP_SIN__\(([^)]+)\)/g, (match, contents) => {
                 return `Math.sin((${contents})${toRadians})`;
             });
             
-            expression = expression.replace(/cos\(([^)]+)\)/g, (match, contents) => {
+            expression = expression.replace(/__TEMP_COS__\(([^)]+)\)/g, (match, contents) => {
                 return `Math.cos((${contents})${toRadians})`;
             });
             
-            expression = expression.replace(/tan\(([^)]+)\)/g, (match, contents) => {
+            expression = expression.replace(/__TEMP_TAN__\(([^)]+)\)/g, (match, contents) => {
                 return `Math.tan((${contents})${toRadians})`;
             });
             
-            // Handle reciprocal trigonometric functions with error handling
-            expression = expression.replace(/sec\(([^)]+)\)/g, (match, contents) => {
+            // Reciprocal functions
+            expression = expression.replace(/__TEMP_SEC__\(([^)]+)\)/g, (match, contents) => {
                 return `(1 / Math.cos((${contents})${toRadians}))`;
             });
             
-            expression = expression.replace(/cosec\(([^)]+)\)/g, (match, contents) => {
+            expression = expression.replace(/__TEMP_COSEC__\(([^)]+)\)/g, (match, contents) => {
                 return `(1 / Math.sin((${contents})${toRadians}))`;
             });
             
-            expression = expression.replace(/csc\(([^)]+)\)/g, (match, contents) => {
+            expression = expression.replace(/__TEMP_CSC__\(([^)]+)\)/g, (match, contents) => {
                 return `(1 / Math.sin((${contents})${toRadians}))`;
             });
             
-            expression = expression.replace(/cot\(([^)]+)\)/g, (match, contents) => {
+            expression = expression.replace(/__TEMP_COT__\(([^)]+)\)/g, (match, contents) => {
                 return `(1 / Math.tan((${contents})${toRadians}))`;
+            });
+            
+            // Logarithm
+            expression = expression.replace(/__TEMP_LOG__\(([^)]+)\)/g, (match, contents) => {
+                return `Math.log10(${contents})`;
             });
             
             // Handle square root
@@ -1843,7 +1911,7 @@
                 let expression = input.value;
                 
                 // Auto-close trigonometric functions if they're missing closing brackets
-                expression = expression.replace(/(sin|cos|tan|sec|csc|cot)\(([^)]*?)$/g, '$1($2)');
+                expression = expression.replace(/(sin|cos|tan|asin|acos|atan|sec|csc|cot|log)\(([^)]*?)$/g, '$1($2)');
                 
                 const openParens = (expression.match(/\(/g) || []).length;
                 const closeParens = (expression.match(/\)/g) || []).length;
@@ -1863,8 +1931,8 @@
                 // Enhanced validation pattern to include trigonometric functions
                 const allowedPattern = /^[0-9+\-*\/\(\)\.\s]*$/;
                 const cleanExpression = expression
-                    .replace(/Math\.(sin|cos|tan|sqrt|PI)\(/g, '')
-                    .replace(/Math\.(sin|cos|tan|sqrt|PI)/g, '')
+                    .replace(/Math\.(sin|cos|tan|asin|acos|atan|sqrt|log10|PI)\(/g, '')
+                    .replace(/Math\.(sin|cos|tan|asin|acos|atan|sqrt|log10|PI)/g, '')
                     .replace(/\(1 \/ Math\.(sin|cos|tan)\(/g, '')
                     .replace(/180/g, '')
                     .replace(/\)\)/g, '');
@@ -2086,50 +2154,87 @@
         }
 
         function startTimer() {
-            const hours = parseInt(document.getElementById('timerHours').value) || 0;
-            const minutes = parseInt(document.getElementById('timerMinutes').value) || 0;
-            const seconds = parseInt(document.getElementById('timerSeconds').value) || 0;
-            let totalSeconds = hours * 3600 + minutes * 60 + seconds;
-            
-            if (totalSeconds <= 0) {
-                showNotification('Please set a valid time! ⏰', 'warning');
-                return;
-            }
-            
             const startBtn = document.getElementById('startTimer');
-            startBtn.disabled = true;
-            startBtn.textContent = 'Running...';
+            const resetBtn = document.getElementById('resetTimer');
             
-            timerInterval = setInterval(() => {
-                const hrs = Math.floor(totalSeconds / 3600);
-                const mins = Math.floor((totalSeconds % 3600) / 60);
-                const secs = totalSeconds % 60;
-                document.getElementById('timerDisplay').textContent = 
-                    `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            // Check current button state to determine action
+            if (startBtn.textContent === 'Start') {
+                // Starting fresh timer
+                const hours = parseInt(document.getElementById('timerHours').value) || 0;
+                const minutes = parseInt(document.getElementById('timerMinutes').value) || 0;
+                const seconds = parseInt(document.getElementById('timerSeconds').value) || 0;
+                let totalSeconds = hours * 3600 + minutes * 60 + seconds;
                 
                 if (totalSeconds <= 0) {
-                    clearInterval(timerInterval);
-                    startBtn.disabled = false;
-                    startBtn.textContent = 'Start';
-                    showNotification('Timer finished! ⏰', 'success');
-                    playTimerSound();
+                    showNotification('Please set a valid time! ⏰', 'warning');
                     return;
                 }
-                totalSeconds--;
-            }, 1000);
-        }
-
-        function pauseTimer() {
-            clearInterval(timerInterval);
-            const startBtn = document.getElementById('startTimer');
-            startBtn.disabled = false;
-            startBtn.textContent = 'Start';
+                
+                timerRemainingSeconds = totalSeconds;
+                timerPaused = false;
+                startBtn.textContent = 'Pause';
+                
+                timerInterval = setInterval(() => {
+                    const hrs = Math.floor(timerRemainingSeconds / 3600);
+                    const mins = Math.floor((timerRemainingSeconds % 3600) / 60);
+                    const secs = timerRemainingSeconds % 60;
+                    document.getElementById('timerDisplay').textContent = 
+                        `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                    
+                    if (timerRemainingSeconds <= 0) {
+                        clearInterval(timerInterval);
+                        timerInterval = null;
+                        startBtn.textContent = 'Start';
+                        timerPaused = false;
+                        timerRemainingSeconds = 0;
+                        showNotification('Timer finished! ⏰', 'success');
+                        playTimerSound();
+                        return;
+                    }
+                    timerRemainingSeconds--;
+                }, 1000);
+                
+            } else if (startBtn.textContent === 'Pause') {
+                // Pausing the timer
+                clearInterval(timerInterval);
+                timerInterval = null;
+                timerPaused = true;
+                startBtn.textContent = 'Resume';
+                showNotification('Timer paused! ⏸️', 'info');
+                
+            } else if (startBtn.textContent === 'Resume') {
+                // Resuming the timer
+                timerPaused = false;
+                startBtn.textContent = 'Pause';
+                
+                timerInterval = setInterval(() => {
+                    const hrs = Math.floor(timerRemainingSeconds / 3600);
+                    const mins = Math.floor((timerRemainingSeconds % 3600) / 60);
+                    const secs = timerRemainingSeconds % 60;
+                    document.getElementById('timerDisplay').textContent = 
+                        `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                    
+                    if (timerRemainingSeconds <= 0) {
+                        clearInterval(timerInterval);
+                        timerInterval = null;
+                        startBtn.textContent = 'Start';
+                        timerPaused = false;
+                        timerRemainingSeconds = 0;
+                        showNotification('Timer finished! ⏰', 'success');
+                        playTimerSound();
+                        return;
+                    }
+                    timerRemainingSeconds--;
+                }, 1000);
+            }
         }
 
         function resetTimer() {
             clearInterval(timerInterval);
+            timerInterval = null;
+            timerPaused = false;
+            timerRemainingSeconds = 0;
             const startBtn = document.getElementById('startTimer');
-            startBtn.disabled = false;
             startBtn.textContent = 'Start';
             document.getElementById('timerDisplay').textContent = '00:05:00';
             document.getElementById('timerHours').value = 0;
@@ -2215,6 +2320,14 @@
         // Keyboard shortcuts for calculator
         document.addEventListener('keydown', function(e) {
             const calculatorTool = document.getElementById('calculatorTool');
+            const searchInput = document.getElementById('search-input');
+            
+            // Don't interfere with search input when it's focused
+            if (document.activeElement === searchInput) {
+                return;
+            }
+            
+            // Only handle calculator shortcuts when calculator is visible
             if (!calculatorTool || calculatorTool.style.display === 'none') {
                 return;
             }
@@ -2240,7 +2353,22 @@
                 }, 2000);
                 
                 // Check for complete function names and trigger immediately
-                if (keySequence.endsWith('sin') && !keySequence.includes('asin') && !keySequence.includes('cosing')) {
+                if (keySequence.endsWith('asin')) {
+                    appendTrigFunction('asin');
+                    keySequence = '';
+                    clearTimeout(sequenceTimeout);
+                    return;
+                } else if (keySequence.endsWith('acos')) {
+                    appendTrigFunction('acos');
+                    keySequence = '';
+                    clearTimeout(sequenceTimeout);
+                    return;
+                } else if (keySequence.endsWith('atan')) {
+                    appendTrigFunction('atan');
+                    keySequence = '';
+                    clearTimeout(sequenceTimeout);
+                    return;
+                } else if (keySequence.endsWith('sin') && !keySequence.includes('asin') && !keySequence.includes('cosing')) {
                     appendTrigFunction('sin');
                     keySequence = '';
                     clearTimeout(sequenceTimeout);
@@ -2267,6 +2395,11 @@
                     return;
                 } else if (keySequence.endsWith('cot')) {
                     appendTrigFunction('cot');
+                    keySequence = '';
+                    clearTimeout(sequenceTimeout);
+                    return;
+                } else if (keySequence.endsWith('log')) {
+                    appendToCalculator('log(');
                     keySequence = '';
                     clearTimeout(sequenceTimeout);
                     return;
@@ -2442,30 +2575,48 @@
 
         // Show search results
         function showSearchResults(results) {
+            // Clear previous results first
+            searchResults.innerHTML = '';
+            
             if (results.length === 0) {
-                searchResults.innerHTML = '<div class="search-result-item">No results found</div>';
+                searchResults.innerHTML = '<div class="search-result-item no-results">No results found</div>';
             } else {
                 searchResults.innerHTML = results.map(item => `
                     <div class="search-result-item" onclick="navigateToItem('${item.type}', '${item.name}')">
-                        <div class="search-result-title">${item.name}</div>
+                        <div class="search-result-title">${highlightMatch(item.name, searchInput.value)}</div>
                         <div class="search-result-description">${item.description}</div>
                         <div class="search-result-type">${item.type}</div>
                     </div>
                 `).join('');
             }
+            
+            // Show results with smooth transition
             searchResults.style.display = 'block';
+            searchResults.style.opacity = '1';
+        }
+
+        // Highlight matching text in search results
+        function highlightMatch(text, query) {
+            if (!query || query.trim() === '') return text;
+            
+            const regex = new RegExp(`(${query.trim()})`, 'gi');
+            return text.replace(regex, '<mark style="background: rgba(79, 70, 229, 0.3); color: #f1f5f9; padding: 0.1rem 0.2rem; border-radius: 0.2rem;">$1</mark>');
         }
 
         // Hide search results
         function hideSearchResults() {
-            searchResults.style.display = 'none';
+            searchResults.style.opacity = '0';
+            setTimeout(() => {
+                searchResults.style.display = 'none';
+                searchResults.innerHTML = '';
+            }, 150); // Small delay for smooth transition
         }
 
         // Navigate to search result
         function navigateToItem(type, name) {
             hideSearchResults();
             searchInput.value = '';
-            searchContainer.style.display = 'none';
+            // Don't hide the search container - keep it visible
 
             switch (type) {
                 case 'tool':
@@ -2491,43 +2642,155 @@
 
         // Search input event listener
         searchInput.addEventListener('input', function() {
+            console.log('Search input detected:', this.value); // Debug log
             const query = this.value.toLowerCase().trim();
             
+            // Get all tool cards
+            const toolCards = document.querySelectorAll('.tool-card');
+            
             if (query === '') {
+                // Show all tool cards and hide search results dropdown
                 hideSearchResults();
+                toolCards.forEach(card => {
+                    card.style.display = 'block';
+                    // Reset any highlighted text
+                    resetCardHighlight(card);
+                });
                 return;
             }
 
-            const results = searchData.filter(item => 
-                item.name.toLowerCase().includes(query) || 
-                item.description.toLowerCase().includes(query) ||
-                item.type.toLowerCase().includes(query)
-            );
+            // Hide the dropdown search results since we're filtering cards directly
+            hideSearchResults();
+            
+            let hasVisibleCards = false;
 
-            showSearchResults(results);
+            // Filter tool cards based on search query
+            toolCards.forEach(card => {
+                const cardTitle = card.querySelector('h3').textContent.toLowerCase();
+                const cardDescription = card.querySelector('p').textContent.toLowerCase();
+                
+                if (cardTitle.includes(query) || cardDescription.includes(query)) {
+                    // Show matching card and highlight text
+                    card.style.display = 'block';
+                    highlightCardText(card, query);
+                    hasVisibleCards = true;
+                } else {
+                    // Hide non-matching card
+                    card.style.display = 'none';
+                }
+            });
+
+            // If no cards match, show a "no results" message in the main area
+            if (!hasVisibleCards) {
+                showNoResultsMessage();
+            } else {
+                hideNoResultsMessage();
+            }
+        });
+
+        // Function to highlight matching text in tool cards
+        function highlightCardText(card, query) {
+            const title = card.querySelector('h3');
+            const description = card.querySelector('p');
+            
+            // Store original text if not already stored
+            if (!title.dataset.originalText) {
+                title.dataset.originalText = title.textContent;
+            }
+            if (!description.dataset.originalText) {
+                description.dataset.originalText = description.textContent;
+            }
+            
+            // Highlight matching text
+            const regex = new RegExp(`(${query})`, 'gi');
+            title.innerHTML = title.dataset.originalText.replace(regex, '<mark style="background: rgba(79, 70, 229, 0.4); color: #f1f5f9; padding: 0.1rem 0.2rem; border-radius: 0.2rem;">$1</mark>');
+            description.innerHTML = description.dataset.originalText.replace(regex, '<mark style="background: rgba(79, 70, 229, 0.4); color: #f1f5f9; padding: 0.1rem 0.2rem; border-radius: 0.2rem;">$1</mark>');
+        }
+
+        // Function to reset card highlighting
+        function resetCardHighlight(card) {
+            const title = card.querySelector('h3');
+            const description = card.querySelector('p');
+            
+            if (title.dataset.originalText) {
+                title.innerHTML = title.dataset.originalText;
+            }
+            if (description.dataset.originalText) {
+                description.innerHTML = description.dataset.originalText;
+            }
+        }
+
+        // Function to show "no results" message
+        function showNoResultsMessage() {
+            let noResultsDiv = document.getElementById('noResultsMessage');
+            if (!noResultsDiv) {
+                noResultsDiv = document.createElement('div');
+                noResultsDiv.id = 'noResultsMessage';
+                noResultsDiv.style.cssText = `
+                    text-align: center;
+                    padding: 3rem;
+                    color: rgba(241, 245, 249, 0.6);
+                    font-size: 1.2rem;
+                    grid-column: 1 / -1;
+                `;
+                noResultsDiv.innerHTML = '🔍 No tools found matching your search';
+                document.getElementById('toolsGrid').appendChild(noResultsDiv);
+            }
+            noResultsDiv.style.display = 'block';
+        }
+
+        // Function to hide "no results" message
+        function hideNoResultsMessage() {
+            const noResultsDiv = document.getElementById('noResultsMessage');
+            if (noResultsDiv) {
+                noResultsDiv.style.display = 'none';
+            }
+        }
+
+        // Ensure search input can receive focus when clicked
+        searchInput.addEventListener('click', function() {
+            this.focus();
+        });
+
+        // Show search results when search input gets focus and has content
+        searchInput.addEventListener('focus', function() {
+            console.log('Search input focused'); // Debug log
+            const query = this.value.toLowerCase().trim();
+            if (query !== '') {
+                // Trigger the input event to refresh the card filtering
+                this.dispatchEvent(new Event('input'));
+            }
         });
 
         // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
-            // Ctrl+K to open search
+            const searchInput = document.getElementById('search-input');
+            
+            // Ctrl+K to focus search (only if search input is not already focused)
             if (e.ctrlKey && e.key === 'k') {
                 e.preventDefault();
-                searchContainer.style.display = 'block';
                 searchInput.focus();
+                return;
             }
             
-            // Escape to close search
-            if (e.key === 'Escape') {
-                searchContainer.style.display = 'none';
-                hideSearchResults();
+            // Escape to clear search and reset cards (only if search input is focused)
+            if (e.key === 'Escape' && document.activeElement === searchInput) {
                 searchInput.value = '';
+                // Reset all cards to visible
+                const toolCards = document.querySelectorAll('.tool-card');
+                toolCards.forEach(card => {
+                    card.style.display = 'block';
+                    resetCardHighlight(card);
+                });
+                hideNoResultsMessage();
+                searchInput.blur(); // Remove focus from search input
+                return;
             }
         });
 
-        // Close search when clicking outside
+        // Close search results when clicking outside (no longer needed for dropdown, but keep for consistency)
         document.addEventListener('click', function(e) {
             if (!searchContainer.contains(e.target)) {
-                searchContainer.style.display = 'none';
                 hideSearchResults();
             }
         });
