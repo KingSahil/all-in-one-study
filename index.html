@@ -841,109 +841,157 @@
 
         .lectures-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
             margin-bottom: 2rem;
         }
 
-        .lecture-card {
+        .youtube-video-card {
             background: rgba(15, 23, 42, 0.8);
             backdrop-filter: blur(20px);
-            border-radius: 1rem;
-            padding: 2rem;
-            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            border: 1px solid rgba(6, 182, 212, 0.2);
             transition: var(--transition);
+            cursor: pointer;
             position: relative;
         }
 
-        .lecture-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(6, 182, 212, 0.6);
-            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.2);
+        .youtube-video-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(6, 182, 212, 0.4);
+            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.15);
         }
 
-        .lecture-header {
+        .video-thumbnail-container {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            background: rgba(30, 41, 59, 0.6);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .youtube-video-card:hover .video-thumbnail {
+            transform: scale(1.05);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0);
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            justify-content: center;
+            transition: var(--transition);
         }
 
-        .lecture-icon {
-            font-size: 2.5rem;
+        .youtube-video-card:hover .play-overlay {
+            background: rgba(0, 0, 0, 0.3);
         }
 
-        .lecture-info h3 {
-            color: #f1f5f9;
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .lecture-info .subject {
-            color: rgba(6, 182, 212, 0.9);
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .lecture-description {
-            color: rgba(241, 245, 249, 0.8);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .lecture-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .detail-item {
-            background: rgba(30, 41, 59, 0.6);
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            text-align: center;
-            border: 1px solid rgba(6, 182, 212, 0.2);
-        }
-
-        .detail-item .label {
-            color: rgba(241, 245, 249, 0.7);
-            font-size: 0.8rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .detail-item .value {
-            color: #f1f5f9;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .lecture-actions {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .delete-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.3);
+        .play-button {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1e293b;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            transform: scale(0);
+            transition: var(--transition);
+        }
+
+        .youtube-video-card:hover .play-button {
+            transform: scale(1);
+        }
+
+        .delete-btn-thumbnail {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: bold;
+            opacity: 0;
+            transition: var(--transition);
         }
 
-        .delete-btn:hover {
-            background: rgba(239, 68, 68, 0.3);
+        .youtube-video-card:hover .delete-btn-thumbnail {
+            opacity: 1;
+        }
+
+        .delete-btn-thumbnail:hover {
+            background: rgba(239, 68, 68, 0.8);
+        }
+
+        .duration-badge {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .video-info {
+            padding: 1rem;
+        }
+
+        .video-title {
             color: #f1f5f9;
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            line-clamp: 2;
+            overflow: hidden;
+        }
+
+        .channel-name {
+            color: rgba(6, 182, 212, 0.9);
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+        }
+
+        .video-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            font-size: 0.8rem;
+            color: rgba(241, 245, 249, 0.6);
+        }
+
+        .upload-date, .view-count {
+            font-size: 0.8rem;
         }
 
         .empty-state {
@@ -1761,56 +1809,22 @@
             
             <!-- Add Lecture Form -->
             <div class="add-lecture-section">
-                <h3>➕ Add New Lecture</h3>
+                <h3>➕ Add YouTube Lecture</h3>
                 <div class="lecture-form">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="lectureTitle">Lecture Title</label>
-                            <input type="text" id="lectureTitle" placeholder="e.g., Introduction to Calculus">
+                            <input type="text" id="lectureTitle" placeholder="Enter lecture title">
                         </div>
                         <div class="form-group">
-                            <label for="lectureSubject">Subject</label>
-                            <input type="text" id="lectureSubject" placeholder="e.g., Mathematics">
+                            <label for="lectureURL">YouTube URL</label>
+                            <input type="url" id="lectureURL" placeholder="https://www.youtube.com/watch?v=...">
                         </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="lectureURL">Video URL</label>
-                            <input type="url" id="lectureURL" placeholder="YouTube, Vimeo, or direct video link">
-                        </div>
-                        <div class="form-group">
-                            <label for="lectureDuration">Duration (minutes)</label>
-                            <input type="number" id="lectureDuration" placeholder="e.g., 45" min="1">
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="lectureLevel">Difficulty Level</label>
-                            <select id="lectureLevel">
-                                <option value="Beginner">Beginner</option>
-                                <option value="Intermediate">Intermediate</option>
-                                <option value="Advanced">Advanced</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="lectureInstructor">Instructor</label>
-                            <input type="text" id="lectureInstructor" placeholder="Instructor name (optional)">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="lectureDescription">Description</label>
-                        <textarea id="lectureDescription" rows="3" placeholder="Brief description of the lecture content..."></textarea>
                     </div>
                     
                     <div class="form-actions">
                         <button class="btn btn-primary" onclick="addLecture()">
                             ➕ Add Lecture
-                        </button>
-                        <button class="btn btn-secondary" onclick="clearLectureForm()">
-                            � Clear Form
                         </button>
                     </div>
                 </div>
@@ -1819,12 +1833,9 @@
             <!-- Lectures Display -->
             <div class="lectures-display-section">
                 <div class="section-header">
-                    <h3>📚 Your Lectures</h3>
+                    <h3>📚 Your YouTube Lectures</h3>
                     <div class="lecture-controls">
                         <input type="text" id="lectureSearch" placeholder="Search lectures..." onkeyup="searchLectures()">
-                        <select id="subjectFilter" onchange="filterLectures()">
-                            <option value="">All Subjects</option>
-                        </select>
                     </div>
                 </div>
                 
@@ -3135,61 +3146,97 @@
         // Lecture Management Functions
         let userLectures = JSON.parse(localStorage.getItem('userLectures')) || [];
 
-        function addLecture() {
+        async function addLecture() {
             const title = document.getElementById('lectureTitle').value.trim();
-            const subject = document.getElementById('lectureSubject').value.trim();
             const url = document.getElementById('lectureURL').value.trim();
-            const duration = document.getElementById('lectureDuration').value;
-            const level = document.getElementById('lectureLevel').value;
-            const instructor = document.getElementById('lectureInstructor').value.trim();
-            const description = document.getElementById('lectureDescription').value.trim();
 
             // Validation
-            if (!title || !subject || !url || !duration) {
-                showNotification('Please fill in all required fields! ⚠️', 'error');
+            if (!title || !url) {
+                showNotification('Please fill in both title and YouTube URL! ⚠️', 'error');
                 return;
             }
 
-            // Validate URL
-            if (!isValidURL(url)) {
-                showNotification('Please enter a valid URL! ⚠️', 'error');
+            // Validate YouTube URL
+            if (!isYouTubeURL(url)) {
+                showNotification('Please enter a valid YouTube URL! ⚠️', 'error');
                 return;
             }
 
-            const lecture = {
-                id: Date.now().toString(),
-                title,
-                subject,
-                url,
-                duration: parseInt(duration),
-                level,
-                instructor: instructor || 'Unknown',
-                description: description || 'No description provided',
-                dateAdded: new Date().toISOString(),
-                thumbnail: getVideoThumbnail(url)
-            };
+            // Show loading notification
+            showNotification('Fetching video details from YouTube... ⏳', 'info');
 
-            userLectures.push(lecture);
-            saveLectures();
-            displayLectures();
-            clearLectureForm();
-            updateSubjectFilter();
+            try {
+                const videoDetails = await fetchYouTubeDetails(url);
+                
+                const lecture = {
+                    id: Date.now().toString(),
+                    title: videoDetails.title || title,
+                    subject: 'YouTube',
+                    url,
+                    duration: videoDetails.duration || 'Unknown',
+                    level: 'General',
+                    instructor: videoDetails.channelName || 'YouTube',
+                    description: videoDetails.description || 'Added from YouTube',
+                    dateAdded: new Date().toISOString(),
+                    thumbnail: videoDetails.thumbnail || getVideoThumbnail(url),
+                    viewCount: videoDetails.viewCount || 'N/A',
+                    uploadDate: videoDetails.uploadDate || 'Unknown'
+                };
 
-            showNotification(`Lecture "${title}" added successfully! 🎉`, 'success');
+                userLectures.push(lecture);
+                saveLectures();
+                displayLectures();
+                clearLectureForm();
+
+                showNotification(`Lecture "${lecture.title}" added successfully! 🎉`, 'success');
+            } catch (error) {
+                console.error('Error fetching YouTube details:', error);
+                
+                // Fallback to basic lecture creation
+                const lecture = {
+                    id: Date.now().toString(),
+                    title,
+                    subject: 'YouTube',
+                    url,
+                    duration: 'Unknown',
+                    level: 'General',
+                    instructor: 'YouTube',
+                    description: 'Added from YouTube',
+                    dateAdded: new Date().toISOString(),
+                    thumbnail: getVideoThumbnail(url),
+                    viewCount: 'N/A',
+                    uploadDate: 'Unknown'
+                };
+
+                userLectures.push(lecture);
+                saveLectures();
+                displayLectures();
+                clearLectureForm();
+
+                showNotification(`Lecture "${title}" added (some details unavailable) ⚠️`, 'success');
+            }
         }
 
         function clearLectureForm() {
             document.getElementById('lectureTitle').value = '';
-            document.getElementById('lectureSubject').value = '';
             document.getElementById('lectureURL').value = '';
-            document.getElementById('lectureDuration').value = '';
-            document.getElementById('lectureLevel').value = 'Beginner';
-            document.getElementById('lectureInstructor').value = '';
-            document.getElementById('lectureDescription').value = '';
         }
 
         function saveLectures() {
             localStorage.setItem('userLectures', JSON.stringify(userLectures));
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 1) return 'yesterday';
+            if (diffDays < 7) return `${diffDays} days ago`;
+            if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+            if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
+            return `${Math.floor(diffDays / 365)} years ago`;
         }
 
         function displayLectures(lecturesToShow = userLectures) {
@@ -3207,37 +3254,24 @@
             }
 
             grid.innerHTML = lecturesToShow.map(lecture => `
-                <div class="lecture-card">
-                    <button class="delete-btn" onclick="deleteLecture('${lecture.id}')" title="Delete lecture">
-                        ×
-                    </button>
-                    <div class="lecture-header">
-                        <div class="lecture-icon">${getSubjectIcon(lecture.subject)}</div>
-                        <div class="lecture-info">
-                            <h3>${lecture.title}</h3>
-                            <div class="subject">${lecture.subject} • ${lecture.level} Level</div>
+                <div class="youtube-video-card" onclick="playLecture('${lecture.id}')">
+                    <div class="video-thumbnail-container">
+                        <img src="${lecture.thumbnail}" alt="${lecture.title}" class="video-thumbnail" loading="lazy">
+                        <div class="play-overlay">
+                            <div class="play-button">▶</div>
                         </div>
+                        <button class="delete-btn-thumbnail" onclick="event.stopPropagation(); deleteLecture('${lecture.id}')" title="Delete lecture">
+                            ×
+                        </button>
+                        ${lecture.duration !== 'Unknown' ? `<div class="duration-badge">${lecture.duration}</div>` : ''}
                     </div>
-                    <div class="lecture-description">
-                        ${lecture.description}
-                    </div>
-                    <div class="lecture-details">
-                        <div class="detail-item">
-                            <div class="label">Duration</div>
-                            <div class="value">${lecture.duration} min</div>
+                    <div class="video-info">
+                        <div class="video-title" title="${lecture.title}">${lecture.title}</div>
+                        <div class="channel-name">${lecture.instructor}</div>
+                        <div class="video-meta">
+                            <span class="upload-date">Added ${formatDate(lecture.dateAdded)}</span>
+                            ${lecture.viewCount !== 'N/A' ? `<span class="view-count">${lecture.viewCount} views</span>` : ''}
                         </div>
-                        <div class="detail-item">
-                            <div class="label">Level</div>
-                            <div class="value">${lecture.level}</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="label">Instructor</div>
-                            <div class="value">${lecture.instructor}</div>
-                        </div>
-                    </div>
-                    <div class="lecture-actions">
-                        <button class="btn btn-primary" onclick="playLecture('${lecture.id}')">▶ Watch Lecture</button>
-                        <button class="btn btn-secondary" onclick="copyLectureURL('${lecture.id}')">🔗 Copy Link</button>
                     </div>
                 </div>
             `).join('');
@@ -3249,7 +3283,6 @@
                 userLectures = userLectures.filter(l => l.id !== lectureId);
                 saveLectures();
                 displayLectures();
-                updateSubjectFilter();
                 showNotification('Lecture deleted successfully! 🗑️', 'success');
             }
         }
@@ -3270,11 +3303,11 @@
             containerElement.innerHTML = videoHTML;
 
             detailsElement.innerHTML = `
-                <p><strong>Subject:</strong> ${lecture.subject}</p>
-                <p><strong>Duration:</strong> ${lecture.duration} minutes</p>
-                <p><strong>Level:</strong> ${lecture.level}</p>
-                <p><strong>Instructor:</strong> ${lecture.instructor}</p>
-                <p><strong>Description:</strong> ${lecture.description}</p>
+                <p><strong>Channel:</strong> ${lecture.instructor}</p>
+                <p><strong>Duration:</strong> ${lecture.duration}</p>
+                <p><strong>Added:</strong> ${formatDate(lecture.dateAdded)}</p>
+                ${lecture.viewCount !== 'N/A' ? `<p><strong>Views:</strong> ${lecture.viewCount}</p>` : ''}
+                <p><strong>URL:</strong> <a href="${lecture.url}" target="_blank" rel="noopener noreferrer">${lecture.url}</a></p>
             `;
 
             modal.style.display = 'flex';
@@ -3290,50 +3323,22 @@
             container.innerHTML = ''; // Stop video playback
         }
 
-        function copyLectureURL(lectureId) {
-            const lecture = userLectures.find(l => l.id === lectureId);
-            if (lecture) {
-                navigator.clipboard.writeText(lecture.url).then(() => {
-                    showNotification('Lecture URL copied to clipboard! 📋', 'success');
-                });
-            }
-        }
-
         function searchLectures() {
             const searchTerm = document.getElementById('lectureSearch').value.toLowerCase();
-            const subjectFilter = document.getElementById('subjectFilter').value;
             
             let filtered = userLectures;
             
             if (searchTerm) {
                 filtered = filtered.filter(lecture => 
                     lecture.title.toLowerCase().includes(searchTerm) ||
-                    lecture.subject.toLowerCase().includes(searchTerm) ||
-                    lecture.instructor.toLowerCase().includes(searchTerm) ||
-                    lecture.description.toLowerCase().includes(searchTerm)
+                    lecture.instructor.toLowerCase().includes(searchTerm)
                 );
-            }
-            
-            if (subjectFilter) {
-                filtered = filtered.filter(lecture => lecture.subject === subjectFilter);
             }
             
             displayLectures(filtered);
         }
 
-        function filterLectures() {
-            searchLectures(); // Reuse search function
-        }
 
-        function updateSubjectFilter() {
-            const filter = document.getElementById('subjectFilter');
-            const subjects = [...new Set(userLectures.map(l => l.subject))].sort();
-            
-            const currentValue = filter.value;
-            filter.innerHTML = '<option value="">All Subjects</option>' + 
-                subjects.map(subject => `<option value="${subject}">${subject}</option>`).join('');
-            filter.value = currentValue;
-        }
 
         // Utility Functions
         function isValidURL(string) {
@@ -3342,6 +3347,58 @@
                 return url.protocol === 'http:' || url.protocol === 'https:';
             } catch (_) {
                 return false;
+            }
+        }
+
+        function isYouTubeURL(url) {
+            return url.includes('youtube.com/watch') || url.includes('youtu.be/') || url.includes('youtube.com/embed/');
+        }
+
+        async function fetchYouTubeDetails(url) {
+            const videoId = extractYouTubeId(url);
+            if (!videoId) {
+                throw new Error('Invalid YouTube URL');
+            }
+
+            try {
+                // Try to get video details using oEmbed API (basic info)
+                const oEmbedUrl = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
+                const response = await fetch(oEmbedUrl);
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch video details');
+                }
+
+                const data = await response.json();
+                
+                // Extract channel name from author_name
+                const channelName = data.author_name || 'Unknown Channel';
+                
+                // Create thumbnail URL (high quality)
+                const thumbnail = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                
+                return {
+                    title: data.title || 'Unknown Title',
+                    channelName: channelName,
+                    thumbnail: thumbnail,
+                    description: `Video by ${channelName}`,
+                    duration: 'Unknown', // oEmbed doesn't provide duration
+                    viewCount: 'N/A',
+                    uploadDate: 'Unknown'
+                };
+            } catch (error) {
+                console.error('Error fetching YouTube details:', error);
+                
+                // Fallback to basic details
+                return {
+                    title: 'Unknown Title',
+                    channelName: 'Unknown Channel',
+                    thumbnail: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
+                    description: 'Added from YouTube',
+                    duration: 'Unknown',
+                    viewCount: 'N/A',
+                    uploadDate: 'Unknown'
+                };
             }
         }
 
@@ -3398,7 +3455,6 @@
         // Initialize lectures on page load
         function initializeLectures() {
             displayLectures();
-            updateSubjectFilter();
         }
 
         // Add event listener for modal close on background click and ESC key
