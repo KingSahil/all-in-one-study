@@ -573,7 +573,272 @@
             color: #f1f5f9;
         }
 
+        /* Diagonal Scales Simulation Styles */
+        /* Simulations Grid Styles */
+        .simulations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .simulation-card {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .simulation-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        .simulation-card h3 {
+            margin: 0 0 1rem 0;
+            color: #e2e8f0;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .simulation-card p {
+            color: rgba(241, 245, 249, 0.8);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .simulation-content {
+            color: rgba(241, 245, 249, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .simulation-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #9333ea);
+        }
+
+        .diagonal-scales-container {
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        .scale-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-group {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(79, 70, 229, 0.3);
+        }
+
+        .control-group h4 {
+            color: #f1f5f9;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .input-row label {
+            color: rgba(241, 245, 249, 0.8);
+            min-width: 120px;
+            font-size: 0.9rem;
+        }
+
+        .input-row input, .input-row select {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            border-radius: 0.25rem;
+            background: rgba(30, 41, 59, 0.9);
+            color: #f1f5f9;
+            font-size: 0.9rem;
+        }
+
+        .scale-canvas-container {
+            background: #ffffff;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(79, 70, 229, 0.3);
+            overflow: auto;
+        }
+
+        .scale-canvas {
+            width: 100%;
+            min-height: 400px;
+            border: 1px solid #ddd;
+            cursor: crosshair;
+        }
+
+        .scale-info {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            margin-top: 1rem;
+        }
+
+        .scale-info h4 {
+            color: #f1f5f9;
+            margin-bottom: 1rem;
+        }
+
+        .scale-info p {
+            color: rgba(241, 245, 249, 0.8);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .measurement-display {
+            background: rgba(79, 70, 229, 0.2);
+            border-radius: 0.25rem;
+            padding: 0.5rem;
+            margin-top: 1rem;
+            color: #f1f5f9;
+            font-weight: bold;
+            text-align: center;
+        }
+
         /* Lectures Styles */
+        /* Lecture Interface Styles */
+        .add-lecture-section {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .add-lecture-section h3 {
+            color: #f1f5f9;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .lecture-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            color: #f1f5f9;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            color: #f1f5f9;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: rgba(59, 130, 246, 0.6);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-start;
+            margin-top: 1rem;
+        }
+
+        .lectures-display-section {
+            margin-top: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-header h3 {
+            color: #f1f5f9;
+            margin: 0;
+        }
+
+        .lecture-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .lecture-controls input,
+        .lecture-controls select {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            color: #f1f5f9;
+            font-size: 0.9rem;
+        }
+
         .lectures-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -588,6 +853,7 @@
             padding: 2rem;
             border: 1px solid rgba(6, 182, 212, 0.3);
             transition: var(--transition);
+            position: relative;
         }
 
         .lecture-card:hover {
@@ -658,6 +924,128 @@
             flex-wrap: wrap;
         }
 
+        .delete-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+            color: #f1f5f9;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 4rem 2rem;
+            color: rgba(241, 245, 249, 0.6);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h4 {
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Video Modal Styles */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: 1rem;
+            max-width: 90%;
+            max-height: 90%;
+            width: 1000px;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            overflow: hidden;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .modal-header h3 {
+            color: #f1f5f9;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #f1f5f9;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        #videoPlayerContainer {
+            width: 100%;
+            height: 400px;
+            background: #000;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        #videoPlayerContainer iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 0.5rem;
+        }
+
+        .lecture-info {
+            color: rgba(241, 245, 249, 0.8);
+            line-height: 1.6;
+        }
+
         .btn-secondary {
             background: rgba(6, 182, 212, 0.2);
             color: #06b6d4;
@@ -668,6 +1056,22 @@
             background: rgba(6, 182, 212, 0.3);
             color: #f1f5f9;
             border-color: rgba(6, 182, 212, 0.6);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .lecture-controls {
+                flex-direction: column;
+            }
         }
 
         /* Study Material Styles */
@@ -1032,7 +1436,7 @@
                 <button class="btn btn-primary">Open Timer</button>
             </div>
             <div class="tool-card" onclick="showTool('simulations')">
-                <div class="tool-icon">🔬</div>
+                <div class="tool-icon">🗣️</div>
                 <h3>Study Simulations</h3>
                 <p>Interactive learning simulations</p>
                 <button class="btn btn-primary">View Simulations</button>
@@ -1178,8 +1582,24 @@
         <!-- Study Simulations Tool -->
         <div id="simulationsTool" class="tool-section">
             <h2>Study Simulations</h2>
+            
             <div class="simulations-grid">
-                <div class="simulation-card" onclick="runSimulation('physics')">
+                <div class="simulation-card" onclick="openSimulation('engineering-graphics')">
+                    <h3>📐 Engineering Graphics</h3>
+                    <p>Interactive diagonal scales and technical drafting</p>
+                    <div class="simulation-content">
+                        <strong>Learn About:</strong><br>
+                        • Diagonal Scale Construction<br>
+                        • Precise Measurements<br>
+                        • Engineering Drawings<br>
+                        • Drafting Techniques
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <button class="btn btn-primary">Start Simulation</button>
+                    </div>
+                </div>
+
+                <div class="simulation-card" onclick="openSimulation('physics')">
                     <h3>⚡ Physics Lab</h3>
                     <p>Interactive physics experiments and demonstrations</p>
                     <div class="simulation-content">
@@ -1190,11 +1610,11 @@
                         • Pendulum Motion
                     </div>
                     <div style="margin-top: 1rem;">
-                        <button class="btn btn-primary">Start Simulation</button>
+                        <button class="btn btn-primary">Coming Soon</button>
                     </div>
                 </div>
 
-                <div class="simulation-card" onclick="runSimulation('chemistry')">
+                <div class="simulation-card" onclick="openSimulation('chemistry')">
                     <h3>🧪 Chemistry Lab</h3>
                     <p>Virtual chemical reactions and molecular modeling</p>
                     <div class="simulation-content">
@@ -1205,11 +1625,11 @@
                         • Periodic Trends
                     </div>
                     <div style="margin-top: 1rem;">
-                        <button class="btn btn-primary">Start Simulation</button>
+                        <button class="btn btn-primary">Coming Soon</button>
                     </div>
                 </div>
 
-                <div class="simulation-card" onclick="runSimulation('math')">
+                <div class="simulation-card" onclick="openSimulation('math')">
                     <h3>📊 Math Visualizer</h3>
                     <p>Mathematical concepts with visual representations</p>
                     <div class="simulation-content">
@@ -1220,25 +1640,116 @@
                         • Calculus Visualization
                     </div>
                     <div style="margin-top: 1rem;">
-                        <button class="btn btn-primary">Start Simulation</button>
-                    </div>
-                </div>
-
-                <div class="simulation-card" onclick="runSimulation('biology')">
-                    <h3>🧬 Biology Models</h3>
-                    <p>Interactive biological systems and processes</p>
-                    <div class="simulation-content">
-                        <strong>Available Models:</strong><br>
-                        • Cell Division<br>
-                        • DNA Replication<br>
-                        • Ecosystem Dynamics<br>
-                        • Genetic Inheritance
-                    </div>
-                    <div style="margin-top: 1rem;">
-                        <button class="btn btn-primary">Start Simulation</button>
+                        <button class="btn btn-primary">Coming Soon</button>
                     </div>
                 </div>
             </div>
+
+            <!-- Engineering Graphics Simulation (Initially Hidden) -->
+            <div id="engineeringGraphicsSimulation" class="diagonal-scales-container" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h3>📐 Interactive Diagonal Scales Tutorial</h3>
+                    <button class="btn btn-outline" onclick="showSimulationsList()">← Back to Simulations</button>
+                </div>
+                <p style="color: rgba(241, 245, 249, 0.8); margin-bottom: 2rem;">
+                    Learn how to construct and use diagonal scales for precise measurements in engineering drawings. 
+                    This interactive simulation will guide you through the principles and applications of diagonal scales.
+                </p>
+
+                <div class="scale-controls">
+                    <div class="control-group">
+                        <h4>Scale Parameters</h4>
+                        <div class="input-row">
+                            <label>Maximum Value:</label>
+                            <input type="number" id="maxValue" value="100" min="10" max="1000">
+                        </div>
+                        <div class="input-row">
+                            <label>Major Divisions:</label>
+                            <input type="number" id="majorDivisions" value="10" min="5" max="20">
+                        </div>
+                        <div class="input-row">
+                            <label>Minor Divisions:</label>
+                            <input type="number" id="minorDivisions" value="10" min="5" max="20">
+                        </div>
+                        <div class="input-row">
+                            <label>Scale Length (cm):</label>
+                            <input type="number" id="scaleLength" value="15" min="10" max="25">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <h4>Measurement Tool</h4>
+                        <div class="input-row">
+                            <label>Target Value:</label>
+                            <input type="number" id="targetValue" value="23.7" min="0" step="0.1">
+                        </div>
+                        <div class="input-row">
+                            <label>Scale Type:</label>
+                            <select id="scaleType">
+                                <option value="diagonal">Diagonal Scale</option>
+                                <option value="plain">Plain Scale (Comparison)</option>
+                            </select>
+                        </div>
+                        <div class="input-row">
+                            <label>Show Construction:</label>
+                            <input type="checkbox" id="showConstruction" checked>
+                        </div>
+                        <button class="btn btn-primary" onclick="drawDiagonalScale()" style="margin-top: 1rem; width: 100%;">
+                            🎯 Generate Scale
+                        </button>
+                    </div>
+                </div>
+
+                <div class="scale-canvas-container">
+                    <canvas id="scaleCanvas" class="scale-canvas" width="800" height="500"></canvas>
+                </div>
+
+                <div class="measurement-display" id="measurementDisplay">
+                    Click "Generate Scale" to begin the interactive tutorial
+                </div>
+
+                <div class="scale-info">
+                    <h4>� Understanding Diagonal Scales</h4>
+                    <p><strong>What is a Diagonal Scale?</strong> A diagonal scale is used when very small distances are to be measured accurately. It allows reading up to three units (e.g., meters, decimeters, centimeters).</p>
+                    
+                    <p><strong>Construction Principle:</strong> The scale uses diagonal lines to subdivide the smallest divisions of a plain scale, providing higher precision in measurements.</p>
+                    
+                    <p><strong>Applications:</strong></p>
+                    <ul style="color: rgba(241, 245, 249, 0.8); margin-left: 1.5rem;">
+                        <li>Precise measurements in engineering drawings</li>
+                        <li>Architectural plans and blueprints</li>
+                        <li>Surveying and mapping</li>
+                        <li>Technical illustration and drafting</li>
+                    </ul>
+
+                    <p><strong>How to Read:</strong></p>
+                    <ol style="color: rgba(241, 245, 249, 0.8); margin-left: 1.5rem;">
+                        <li>Locate the major division (units)</li>
+                        <li>Find the minor division (tenths)</li>
+                        <li>Follow the diagonal line for hundredths</li>
+                        <li>Add all three readings for the final measurement</li>
+                    </ol>
+                </div>
+
+                <div class="control-group" style="margin-top: 2rem;">
+                    <h4>🎓 Interactive Exercises</h4>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <button class="btn btn-outline" onclick="startTutorial()" style="flex: 1; min-width: 150px;">
+                            📖 Start Tutorial
+                        </button>
+                        <button class="btn btn-outline" onclick="practiceMode()" style="flex: 1; min-width: 150px;">
+                            🎯 Practice Mode
+                        </button>
+                        <button class="btn btn-outline" onclick="showExample()" style="flex: 1; min-width: 150px;">
+                            💡 Show Example
+                        </button>
+                        <button class="btn btn-outline" onclick="resetScale()" style="flex: 1; min-width: 150px;">
+                            🔄 Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div class="tool-controls">
                 <button class="btn btn-outline" onclick="showTool('home')">← Back to Tools</button>
             </div>
@@ -1246,194 +1757,104 @@
 
         <!-- Lectures Tool -->
         <div id="lecturesTool" class="tool-section">
-            <h2>Educational Lectures</h2>
-            <div class="lectures-grid">
-                <div class="lecture-card">
-                    <div class="lecture-header">
-                        <div class="lecture-icon">🔬</div>
-                        <div class="lecture-info">
-                            <h3>Introduction to Quantum Physics</h3>
-                            <div class="subject">Physics • Advanced Level</div>
+            <h2>My Lecture Library</h2>
+            
+            <!-- Add Lecture Form -->
+            <div class="add-lecture-section">
+                <h3>➕ Add New Lecture</h3>
+                <div class="lecture-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lectureTitle">Lecture Title</label>
+                            <input type="text" id="lectureTitle" placeholder="e.g., Introduction to Calculus">
+                        </div>
+                        <div class="form-group">
+                            <label for="lectureSubject">Subject</label>
+                            <input type="text" id="lectureSubject" placeholder="e.g., Mathematics">
                         </div>
                     </div>
-                    <div class="lecture-description">
-                        Explore the fascinating world of quantum mechanics, including wave-particle duality, uncertainty principle, and quantum entanglement. Perfect for advanced physics students.
-                    </div>
-                    <div class="lecture-details">
-                        <div class="detail-item">
-                            <div class="label">Duration</div>
-                            <div class="value">45 min</div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lectureURL">Video URL</label>
+                            <input type="url" id="lectureURL" placeholder="YouTube, Vimeo, or direct video link">
                         </div>
-                        <div class="detail-item">
-                            <div class="label">Level</div>
-                            <div class="value">Advanced</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="label">Language</div>
-                            <div class="value">English</div>
+                        <div class="form-group">
+                            <label for="lectureDuration">Duration (minutes)</label>
+                            <input type="number" id="lectureDuration" placeholder="e.g., 45" min="1">
                         </div>
                     </div>
-                    <div class="lecture-actions">
-                        <button class="btn btn-primary" onclick="watchLecture('quantum-physics')">▶ Watch Lecture</button>
-                        <button class="btn btn-secondary">📚 Download Notes</button>
-                    </div>
-                </div>
-
-                <div class="lecture-card">
-                    <div class="lecture-header">
-                        <div class="lecture-icon">🧮</div>
-                        <div class="lecture-info">
-                            <h3>Calculus: Limits and Derivatives</h3>
-                            <div class="subject">Mathematics • Intermediate Level</div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lectureLevel">Difficulty Level</label>
+                            <select id="lectureLevel">
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="lectureInstructor">Instructor</label>
+                            <input type="text" id="lectureInstructor" placeholder="Instructor name (optional)">
                         </div>
                     </div>
-                    <div class="lecture-description">
-                        Master the fundamental concepts of calculus including limits, continuity, and differentiation. Includes practical examples and problem-solving techniques.
+                    
+                    <div class="form-group full-width">
+                        <label for="lectureDescription">Description</label>
+                        <textarea id="lectureDescription" rows="3" placeholder="Brief description of the lecture content..."></textarea>
                     </div>
-                    <div class="lecture-details">
-                        <div class="detail-item">
-                            <div class="label">Duration</div>
-                            <div class="value">60 min</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="label">Level</div>
-                            <div class="value">Intermediate</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="label">Language</div>
-                            <div class="value">English</div>
-                        </div>
-                    </div>
-                    <div class="lecture-actions">
-                        <button class="btn btn-primary" onclick="watchLecture('calculus-limits')">▶ Watch Lecture</button>
-                        <button class="btn btn-secondary">📚 Download Notes</button>
-                    </div>
-                </div>
-
-                <div class="lecture-card">
-                    <div class="lecture-header">
-                        <div class="lecture-icon">🧪</div>
-                        <div class="lecture-info">
-                            <h3>Organic Chemistry Fundamentals</h3>
-                            <div class="subject">Chemistry • Beginner Level</div>
-                        </div>
-                    </div>
-                    <div class="lecture-description">
-                        Learn the basics of organic chemistry including molecular structures, functional groups, and reaction mechanisms. Great foundation for chemistry students.
-                    </div>
-                    <div class="lecture-details">
-                        <div class="detail-item">
-                            <div class="label">Duration</div>
-                            <div class="value">50 min</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="label">Level</div>
-                            <div class="value">Beginner</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="label">Language</div>
-                            <div class="value">English</div>
-                        </div>
-                    </div>
-                    <div class="lecture-actions">
-                        <button class="btn btn-primary" onclick="watchLecture('organic-chemistry')">▶ Watch Lecture</button>
-                        <button class="btn btn-secondary">📚 Download Notes</button>
-                    </div>
-                </div>
-
-                <div class="lecture-card">
-                    <div class="lecture-header">
-                        <div class="lecture-icon">💻</div>
-                        <div class="lecture-info">
-                            <h3>Introduction to Programming</h3>
-                            <div class="subject">Computer Science • Beginner Level</div>
-                        </div>
-                    </div>
-                    <div class="lecture-description">
-                        Get started with programming concepts, algorithms, and problem-solving techniques. Covers basic syntax and programming fundamentals.
-                    </div>
-                    <div class="lecture-details">
-                        <div class="detail-item">
-                            <div class="label">Duration</div>
-                            <div class="value">75 min</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="label">Level</div>
-                            <div class="value">Beginner</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="label">Language</div>
-                            <div class="value">English</div>
-                        </div>
-                    </div>
-                    <div class="lecture-actions">
-                        <button class="btn btn-primary" onclick="watchLecture('intro-programming')">▶ Watch Lecture</button>
-                        <button class="btn btn-secondary">📚 Download Notes</button>
-                    </div>
-                </div>
-
-                <div class="lecture-card">
-                    <div class="lecture-header">
-                        <div class="lecture-icon">🌍</div>
-                        <div class="lecture-info">
-                            <h3>World History: Ancient Civilizations</h3>
-                            <div class="subject">History • Intermediate Level</div>
-                        </div>
-                    </div>
-                    <div class="lecture-description">
-                        Explore ancient civilizations including Egypt, Greece, Rome, and Mesopotamia. Learn about their cultures, achievements, and lasting impact on modern society.
-                    </div>
-                    <div class="lecture-details">
-                        <div class="detail-item">
-                            <div class="label">Duration</div>
-                            <div class="value">55 min</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="label">Level</div>
-                            <div class="value">Intermediate</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="label">Language</div>
-                            <div class="value">English</div>
-                        </div>
-                    </div>
-                    <div class="lecture-actions">
-                        <button class="btn btn-primary" onclick="watchLecture('ancient-civilizations')">▶ Watch Lecture</button>
-                        <button class="btn btn-secondary">📚 Download Notes</button>
-                    </div>
-                </div>
-
-                <div class="lecture-card">
-                    <div class="lecture-header">
-                        <div class="lecture-icon">🧬</div>
-                        <div class="lecture-info">
-                            <h3>Genetics and Heredity</h3>
-                            <div class="subject">Biology • Intermediate Level</div>
-                        </div>
-                    </div>
-                    <div class="lecture-description">
-                        Understand the principles of genetics, DNA structure, inheritance patterns, and modern genetic technologies. Essential for biology students.
-                    </div>
-                    <div class="lecture-details">
-                        <div class="detail-item">
-                            <div class="label">Duration</div>
-                            <div class="value">65 min</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="label">Level</div>
-                            <div class="value">Intermediate</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="label">Language</div>
-                            <div class="value">English</div>
-                        </div>
-                    </div>
-                    <div class="lecture-actions">
-                        <button class="btn btn-primary" onclick="watchLecture('genetics-heredity')">▶ Watch Lecture</button>
-                        <button class="btn btn-secondary">📚 Download Notes</button>
+                    
+                    <div class="form-actions">
+                        <button class="btn btn-primary" onclick="addLecture()">
+                            ➕ Add Lecture
+                        </button>
+                        <button class="btn btn-secondary" onclick="clearLectureForm()">
+                            � Clear Form
+                        </button>
                     </div>
                 </div>
             </div>
+
+            <!-- Lectures Display -->
+            <div class="lectures-display-section">
+                <div class="section-header">
+                    <h3>📚 Your Lectures</h3>
+                    <div class="lecture-controls">
+                        <input type="text" id="lectureSearch" placeholder="Search lectures..." onkeyup="searchLectures()">
+                        <select id="subjectFilter" onchange="filterLectures()">
+                            <option value="">All Subjects</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="lecturesGrid" class="lectures-grid">
+                    <div class="empty-state">
+                        <div class="empty-icon">🎥</div>
+                        <h4>No lectures added yet</h4>
+                        <p>Add your first lecture using the form above to get started!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Player Modal -->
+            <div id="videoPlayerModal" class="video-modal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="modalLectureTitle">Lecture Title</h3>
+                        <button class="close-btn" onclick="closeVideoPlayer()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="videoPlayerContainer">
+                            <!-- Video player will be inserted here -->
+                        </div>
+                        <div class="lecture-info">
+                            <div id="modalLectureDetails"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="tool-controls">
                 <button class="btn btn-outline" onclick="showTool('home')">← Back to Tools</button>
             </div>
@@ -2454,25 +2875,256 @@
             }
         });
 
-        // Study Simulations Functions
+        // Engineering Graphics & Diagonal Scales Functions
         function initializeSimulations() {
-            showNotification('Study Simulations loaded! 🔬', 'success');
+            showNotification('Engineering Graphics & Drafting Simulation loaded! �', 'success');
+            // Initialize the canvas
+            setTimeout(() => {
+                drawDiagonalScale();
+            }, 500);
         }
 
-        function runSimulation(type) {
-            const simulations = {
-                physics: 'Physics Lab simulation',
-                chemistry: 'Chemistry Lab simulation', 
-                math: 'Math Visualizer simulation',
-                biology: 'Biology Models simulation'
-            };
+        // Simulation Navigation Functions
+        function openSimulation(simulationType) {
+            const simulationsGrid = document.querySelector('.simulations-grid');
+            const engineeringGraphics = document.getElementById('engineeringGraphicsSimulation');
             
-            showNotification(`Starting ${simulations[type]}... 🚀`, 'info');
+            if (simulationType === 'engineering-graphics') {
+                simulationsGrid.style.display = 'none';
+                engineeringGraphics.style.display = 'block';
+            } else {
+                // For other simulations, show "Coming Soon" message
+                alert(`${simulationType.charAt(0).toUpperCase() + simulationType.slice(1)} simulation is coming soon! 🚀\n\nFor now, try the Engineering Graphics simulation to learn about diagonal scales.`);
+            }
+        }
+
+        function showSimulationsList() {
+            const simulationsGrid = document.querySelector('.simulations-grid');
+            const engineeringGraphics = document.getElementById('engineeringGraphicsSimulation');
             
-            // Simulate loading time
-            setTimeout(() => {
-                showNotification(`${simulations[type]} is now running! ✨`, 'success');
-            }, 1500);
+            simulationsGrid.style.display = 'grid';
+            engineeringGraphics.style.display = 'none';
+            
+            // Reset the canvas if it exists
+            const canvas = document.getElementById('scaleCanvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            
+            // Reset measurement display
+            const measurementDisplay = document.getElementById('measurementDisplay');
+            if (measurementDisplay) {
+                measurementDisplay.innerHTML = 'Click "Generate Scale" to begin the interactive tutorial';
+            }
+        }
+
+        // Diagonal Scale Functions
+        function drawDiagonalScale() {
+            const canvas = document.getElementById('scaleCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Get parameters
+            const maxValue = parseInt(document.getElementById('maxValue').value) || 100;
+            const majorDivisions = parseInt(document.getElementById('majorDivisions').value) || 10;
+            const minorDivisions = parseInt(document.getElementById('minorDivisions').value) || 10;
+            const scaleLengthCm = parseInt(document.getElementById('scaleLength').value) || 15;
+            const targetValue = parseFloat(document.getElementById('targetValue').value) || 23.7;
+            const scaleType = document.getElementById('scaleType').value;
+            const showConstruction = document.getElementById('showConstruction').checked;
+            
+            // Convert cm to pixels (assuming 1cm = 30px for display)
+            const scaleLength = scaleLengthCm * 30;
+            const startX = 50;
+            const startY = 100;
+            
+            // Calculate divisions
+            const majorDivLength = scaleLength / majorDivisions;
+            const minorDivLength = majorDivLength / minorDivisions;
+            
+            // Draw main scale line
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(startX + scaleLength, startY);
+            ctx.stroke();
+            
+            // Draw major divisions
+            ctx.lineWidth = 2;
+            ctx.fillStyle = '#333';
+            ctx.font = '12px Arial';
+            
+            for (let i = 0; i <= majorDivisions; i++) {
+                const x = startX + (i * majorDivLength);
+                
+                // Major division line
+                ctx.beginPath();
+                ctx.moveTo(x, startY - 15);
+                ctx.lineTo(x, startY + 15);
+                ctx.stroke();
+                
+                // Major division label
+                const value = (maxValue / majorDivisions) * i;
+                ctx.fillText(value.toString(), x - 10, startY + 35);
+            }
+            
+            if (scaleType === 'diagonal') {
+                // Draw diagonal scale
+                const diagonalHeight = 60;
+                
+                // Draw horizontal lines for minor divisions
+                ctx.strokeStyle = '#666';
+                ctx.lineWidth = 1;
+                
+                for (let i = 0; i <= minorDivisions; i++) {
+                    const y = startY + (i * diagonalHeight / minorDivisions);
+                    ctx.beginPath();
+                    ctx.moveTo(startX, y);
+                    ctx.lineTo(startX + majorDivLength, y);
+                    ctx.stroke();
+                }
+                
+                // Draw diagonal lines
+                ctx.strokeStyle = '#e74c3c';
+                ctx.lineWidth = 1;
+                
+                for (let i = 0; i < majorDivisions; i++) {
+                    const x1 = startX + (i * majorDivLength);
+                    const x2 = startX + ((i + 1) * majorDivLength);
+                    
+                    for (let j = 1; j <= minorDivisions; j++) {
+                        ctx.beginPath();
+                        ctx.moveTo(x1, startY + (j * diagonalHeight / minorDivisions));
+                        ctx.lineTo(x2, startY + ((j - 1) * diagonalHeight / minorDivisions));
+                        ctx.stroke();
+                    }
+                }
+                
+                // Draw measurement demonstration
+                if (targetValue <= maxValue) {
+                    const units = Math.floor(targetValue / (maxValue / majorDivisions));
+                    const remainder = targetValue % (maxValue / majorDivisions);
+                    const tenths = Math.floor(remainder * minorDivisions / (maxValue / majorDivisions));
+                    const hundredths = ((remainder * minorDivisions) % (maxValue / majorDivisions)) / (maxValue / majorDivisions);
+                    
+                    // Highlight the measurement
+                    ctx.strokeStyle = '#2ecc71';
+                    ctx.lineWidth = 3;
+                    
+                    const measureX = startX + (units * majorDivLength) + (tenths * majorDivLength / minorDivisions);
+                    const measureY = startY + (tenths * diagonalHeight / minorDivisions) + 
+                                    (hundredths * (diagonalHeight / minorDivisions));
+                    
+                    // Draw measurement point
+                    ctx.beginPath();
+                    ctx.arc(measureX, measureY, 5, 0, 2 * Math.PI);
+                    ctx.fillStyle = '#2ecc71';
+                    ctx.fill();
+                    
+                    // Draw measurement lines
+                    ctx.beginPath();
+                    ctx.moveTo(measureX, measureY);
+                    ctx.lineTo(measureX, startY - 20);
+                    ctx.stroke();
+                    
+                    // Show measurement value
+                    ctx.fillStyle = '#2ecc71';
+                    ctx.font = 'bold 14px Arial';
+                    ctx.fillText(`${targetValue}`, measureX - 15, startY - 25);
+                }
+                
+                // Add labels for diagonal scale
+                ctx.fillStyle = '#333';
+                ctx.font = '10px Arial';
+                for (let i = 0; i <= minorDivisions; i++) {
+                    const y = startY + (i * diagonalHeight / minorDivisions);
+                    ctx.fillText(i.toString(), startX - 20, y + 3);
+                }
+            }
+            
+            // Add title and instructions
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText(`${scaleType === 'diagonal' ? 'Diagonal' : 'Plain'} Scale - Max: ${maxValue}, Target: ${targetValue}`, startX, 30);
+            
+            if (showConstruction) {
+                ctx.font = '12px Arial';
+                ctx.fillStyle = '#666';
+                ctx.fillText('Red lines: Diagonal divisions for precise measurements', startX, canvas.height - 60);
+                ctx.fillText('Green dot: Target measurement location', startX, canvas.height - 40);
+                ctx.fillText('Scale: 1 major division = ' + (maxValue/majorDivisions), startX, canvas.height - 20);
+            }
+            
+            // Update measurement display
+            updateMeasurementDisplay(targetValue, maxValue, majorDivisions, minorDivisions);
+        }
+        
+        function updateMeasurementDisplay(targetValue, maxValue, majorDivisions, minorDivisions) {
+            const display = document.getElementById('measurementDisplay');
+            
+            if (targetValue > maxValue) {
+                display.innerHTML = `❌ Target value (${targetValue}) exceeds scale maximum (${maxValue})`;
+                display.style.background = 'rgba(231, 76, 60, 0.2)';
+                return;
+            }
+            
+            const unitValue = maxValue / majorDivisions;
+            const units = Math.floor(targetValue / unitValue);
+            const remainder = targetValue % unitValue;
+            const tenths = Math.floor(remainder * minorDivisions / unitValue);
+            const hundredths = Math.round(((remainder * minorDivisions) % unitValue) / unitValue * 10);
+            
+            display.innerHTML = `
+                📏 <strong>Reading: ${targetValue}</strong><br>
+                📊 Breakdown: ${units} units + ${tenths}.${hundredths} subdivisions<br>
+                🎯 Position: Major div ${units}, Minor div ${tenths}, Diagonal ${hundredths}
+            `;
+            display.style.background = 'rgba(79, 70, 229, 0.2)';
+        }
+        
+        function startTutorial() {
+            document.getElementById('maxValue').value = 50;
+            document.getElementById('majorDivisions').value = 5;
+            document.getElementById('minorDivisions').value = 10;
+            document.getElementById('targetValue').value = 12.3;
+            document.getElementById('scaleType').value = 'diagonal';
+            document.getElementById('showConstruction').checked = true;
+            drawDiagonalScale();
+            showNotification('📖 Tutorial started! Study the construction carefully.', 'info');
+        }
+        
+        function practiceMode() {
+            const randomTarget = Math.round(Math.random() * 45 + 5);
+            document.getElementById('targetValue').value = randomTarget + Math.random().toFixed(1);
+            drawDiagonalScale();
+            showNotification('🎯 Practice mode! Try to read the highlighted measurement.', 'info');
+        }
+        
+        function showExample() {
+            document.getElementById('maxValue').value = 100;
+            document.getElementById('majorDivisions').value = 10;
+            document.getElementById('minorDivisions').value = 10;
+            document.getElementById('targetValue').value = 37.6;
+            document.getElementById('scaleType').value = 'diagonal';
+            document.getElementById('showConstruction').checked = true;
+            drawDiagonalScale();
+            showNotification('💡 Example: How to read 37.6 on a diagonal scale', 'success');
+        }
+        
+        function resetScale() {
+            document.getElementById('maxValue').value = 100;
+            document.getElementById('majorDivisions').value = 10;
+            document.getElementById('minorDivisions').value = 10;
+            document.getElementById('scaleLength').value = 15;
+            document.getElementById('targetValue').value = 23.7;
+            document.getElementById('scaleType').value = 'diagonal';
+            document.getElementById('showConstruction').checked = true;
+            drawDiagonalScale();
+            showNotification('🔄 Scale reset to default values', 'info');
         }
 
         // Lectures Functions
@@ -2480,24 +3132,293 @@
             showNotification('Educational Lectures loaded! 🎓', 'success');
         }
 
-        function watchLecture(lectureId) {
-            const lectures = {
-                'quantum-physics': 'Introduction to Quantum Physics',
-                'calculus-limits': 'Calculus: Limits and Derivatives',
-                'organic-chemistry': 'Organic Chemistry Fundamentals',
-                'intro-programming': 'Introduction to Programming',
-                'ancient-civilizations': 'World History: Ancient Civilizations',
-                'genetics-heredity': 'Genetics and Heredity'
+        // Lecture Management Functions
+        let userLectures = JSON.parse(localStorage.getItem('userLectures')) || [];
+
+        function addLecture() {
+            const title = document.getElementById('lectureTitle').value.trim();
+            const subject = document.getElementById('lectureSubject').value.trim();
+            const url = document.getElementById('lectureURL').value.trim();
+            const duration = document.getElementById('lectureDuration').value;
+            const level = document.getElementById('lectureLevel').value;
+            const instructor = document.getElementById('lectureInstructor').value.trim();
+            const description = document.getElementById('lectureDescription').value.trim();
+
+            // Validation
+            if (!title || !subject || !url || !duration) {
+                showNotification('Please fill in all required fields! ⚠️', 'error');
+                return;
+            }
+
+            // Validate URL
+            if (!isValidURL(url)) {
+                showNotification('Please enter a valid URL! ⚠️', 'error');
+                return;
+            }
+
+            const lecture = {
+                id: Date.now().toString(),
+                title,
+                subject,
+                url,
+                duration: parseInt(duration),
+                level,
+                instructor: instructor || 'Unknown',
+                description: description || 'No description provided',
+                dateAdded: new Date().toISOString(),
+                thumbnail: getVideoThumbnail(url)
             };
-            
-            const lectureName = lectures[lectureId];
-            showNotification(`Starting lecture: ${lectureName} 🎬`, 'info');
-            
-            // Simulate lecture loading
-            setTimeout(() => {
-                showNotification(`Now watching: ${lectureName} 📺`, 'success');
-            }, 1000);
+
+            userLectures.push(lecture);
+            saveLectures();
+            displayLectures();
+            clearLectureForm();
+            updateSubjectFilter();
+
+            showNotification(`Lecture "${title}" added successfully! 🎉`, 'success');
         }
+
+        function clearLectureForm() {
+            document.getElementById('lectureTitle').value = '';
+            document.getElementById('lectureSubject').value = '';
+            document.getElementById('lectureURL').value = '';
+            document.getElementById('lectureDuration').value = '';
+            document.getElementById('lectureLevel').value = 'Beginner';
+            document.getElementById('lectureInstructor').value = '';
+            document.getElementById('lectureDescription').value = '';
+        }
+
+        function saveLectures() {
+            localStorage.setItem('userLectures', JSON.stringify(userLectures));
+        }
+
+        function displayLectures(lecturesToShow = userLectures) {
+            const grid = document.getElementById('lecturesGrid');
+            
+            if (lecturesToShow.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🎥</div>
+                        <h4>No lectures found</h4>
+                        <p>${userLectures.length === 0 ? 'Add your first lecture using the form above to get started!' : 'Try adjusting your search or filter criteria.'}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = lecturesToShow.map(lecture => `
+                <div class="lecture-card">
+                    <button class="delete-btn" onclick="deleteLecture('${lecture.id}')" title="Delete lecture">
+                        ×
+                    </button>
+                    <div class="lecture-header">
+                        <div class="lecture-icon">${getSubjectIcon(lecture.subject)}</div>
+                        <div class="lecture-info">
+                            <h3>${lecture.title}</h3>
+                            <div class="subject">${lecture.subject} • ${lecture.level} Level</div>
+                        </div>
+                    </div>
+                    <div class="lecture-description">
+                        ${lecture.description}
+                    </div>
+                    <div class="lecture-details">
+                        <div class="detail-item">
+                            <div class="label">Duration</div>
+                            <div class="value">${lecture.duration} min</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Level</div>
+                            <div class="value">${lecture.level}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Instructor</div>
+                            <div class="value">${lecture.instructor}</div>
+                        </div>
+                    </div>
+                    <div class="lecture-actions">
+                        <button class="btn btn-primary" onclick="playLecture('${lecture.id}')">▶ Watch Lecture</button>
+                        <button class="btn btn-secondary" onclick="copyLectureURL('${lecture.id}')">🔗 Copy Link</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function deleteLecture(lectureId) {
+            const lecture = userLectures.find(l => l.id === lectureId);
+            if (lecture && confirm(`Are you sure you want to delete "${lecture.title}"?`)) {
+                userLectures = userLectures.filter(l => l.id !== lectureId);
+                saveLectures();
+                displayLectures();
+                updateSubjectFilter();
+                showNotification('Lecture deleted successfully! 🗑️', 'success');
+            }
+        }
+
+        function playLecture(lectureId) {
+            const lecture = userLectures.find(l => l.id === lectureId);
+            if (!lecture) return;
+
+            const modal = document.getElementById('videoPlayerModal');
+            const titleElement = document.getElementById('modalLectureTitle');
+            const containerElement = document.getElementById('videoPlayerContainer');
+            const detailsElement = document.getElementById('modalLectureDetails');
+
+            titleElement.textContent = lecture.title;
+            
+            // Create video player based on URL type
+            const videoHTML = createVideoPlayer(lecture.url);
+            containerElement.innerHTML = videoHTML;
+
+            detailsElement.innerHTML = `
+                <p><strong>Subject:</strong> ${lecture.subject}</p>
+                <p><strong>Duration:</strong> ${lecture.duration} minutes</p>
+                <p><strong>Level:</strong> ${lecture.level}</p>
+                <p><strong>Instructor:</strong> ${lecture.instructor}</p>
+                <p><strong>Description:</strong> ${lecture.description}</p>
+            `;
+
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVideoPlayer() {
+            const modal = document.getElementById('videoPlayerModal');
+            const container = document.getElementById('videoPlayerContainer');
+            
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            container.innerHTML = ''; // Stop video playback
+        }
+
+        function copyLectureURL(lectureId) {
+            const lecture = userLectures.find(l => l.id === lectureId);
+            if (lecture) {
+                navigator.clipboard.writeText(lecture.url).then(() => {
+                    showNotification('Lecture URL copied to clipboard! 📋', 'success');
+                });
+            }
+        }
+
+        function searchLectures() {
+            const searchTerm = document.getElementById('lectureSearch').value.toLowerCase();
+            const subjectFilter = document.getElementById('subjectFilter').value;
+            
+            let filtered = userLectures;
+            
+            if (searchTerm) {
+                filtered = filtered.filter(lecture => 
+                    lecture.title.toLowerCase().includes(searchTerm) ||
+                    lecture.subject.toLowerCase().includes(searchTerm) ||
+                    lecture.instructor.toLowerCase().includes(searchTerm) ||
+                    lecture.description.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            if (subjectFilter) {
+                filtered = filtered.filter(lecture => lecture.subject === subjectFilter);
+            }
+            
+            displayLectures(filtered);
+        }
+
+        function filterLectures() {
+            searchLectures(); // Reuse search function
+        }
+
+        function updateSubjectFilter() {
+            const filter = document.getElementById('subjectFilter');
+            const subjects = [...new Set(userLectures.map(l => l.subject))].sort();
+            
+            const currentValue = filter.value;
+            filter.innerHTML = '<option value="">All Subjects</option>' + 
+                subjects.map(subject => `<option value="${subject}">${subject}</option>`).join('');
+            filter.value = currentValue;
+        }
+
+        // Utility Functions
+        function isValidURL(string) {
+            try {
+                const url = new URL(string);
+                return url.protocol === 'http:' || url.protocol === 'https:';
+            } catch (_) {
+                return false;
+            }
+        }
+
+        function getSubjectIcon(subject) {
+            const icons = {
+                'Mathematics': '🧮',
+                'Physics': '🔬',
+                'Chemistry': '🧪',
+                'Biology': '🧬',
+                'Computer Science': '💻',
+                'History': '🌍',
+                'Literature': '📚',
+                'Economics': '📈',
+                'Psychology': '🧠',
+                'Engineering': '⚙️',
+                'Art': '�',
+                'Music': '🎵'
+            };
+            return icons[subject] || '📖';
+        }
+
+        function getVideoThumbnail(url) {
+            if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                const videoId = extractYouTubeId(url);
+                return videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : null;
+            }
+            return null;
+        }
+
+        function extractYouTubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        function createVideoPlayer(url) {
+            if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                const videoId = extractYouTubeId(url);
+                if (videoId) {
+                    return `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allowfullscreen></iframe>`;
+                }
+            } else if (url.includes('vimeo.com')) {
+                const vimeoId = url.split('/').pop();
+                return `<iframe src="https://player.vimeo.com/video/${vimeoId}?autoplay=1" allowfullscreen></iframe>`;
+            } else {
+                return `<video controls autoplay style="width: 100%; height: 100%;"><source src="${url}" type="video/mp4">Your browser does not support the video tag.</video>`;
+            }
+            
+            return `<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #f1f5f9;">
+                <p>Unable to play this video format. <a href="${url}" target="_blank" style="color: #3b82f6;">Open in new tab</a></p>
+            </div>`;
+        }
+
+        // Initialize lectures on page load
+        function initializeLectures() {
+            displayLectures();
+            updateSubjectFilter();
+        }
+
+        // Add event listener for modal close on background click and ESC key
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('videoPlayerModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        closeVideoPlayer();
+                    }
+                });
+            }
+            
+            // Close modal with ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
+                    closeVideoPlayer();
+                }
+            });
+        });
 
         // Study Material Functions
         function initializeStudyMaterial() {
@@ -2552,13 +3473,13 @@
             { name: 'Calculator', type: 'tool', description: 'Advanced calculator with trigonometric functions' },
             { name: 'Timer', type: 'tool', description: 'Study timer with hours, minutes, and seconds' },
             { name: 'Notepad', type: 'tool', description: 'Take notes with file management' },
-            { name: 'Study Simulations', type: 'section', description: 'Interactive learning simulations' },
+            { name: 'Study Simulations', type: 'section', description: 'Engineering Graphics & Drafting simulation' },
             { name: 'Lectures', type: 'section', description: 'Educational video lectures and courses' },
             { name: 'Study Material', type: 'section', description: 'PYQs, assignments, and study resources' },
-            { name: 'Physics Lab Simulator', type: 'simulation', description: 'Virtual physics experiments and lab simulations' },
-            { name: 'Chemistry Kit', type: 'simulation', description: 'Interactive chemistry experiments and reactions' },
-            { name: 'Biology Explorer', type: 'simulation', description: 'Explore biological systems and processes' },
-            { name: 'Math Visualizer', type: 'simulation', description: 'Visualize mathematical concepts and equations' },
+            { name: 'Engineering Graphics', type: 'simulation', description: 'Interactive diagonal scales and drafting tutorial' },
+            { name: 'Diagonal Scales', type: 'simulation', description: 'Learn to construct and use diagonal scales for precise measurements' },
+            { name: 'Drafting Tools', type: 'simulation', description: 'Engineering drawing tools and measurement techniques' },
+            { name: 'Scale Reading', type: 'simulation', description: 'Practice reading measurements from diagonal scales' },
             { name: 'Introduction to Programming', type: 'lecture', description: 'Learn the basics of programming languages' },
             { name: 'Data Structures & Algorithms', type: 'lecture', description: 'Master data structures and algorithmic thinking' },
             { name: 'Calculus Fundamentals', type: 'lecture', description: 'Comprehensive calculus course from basics to advanced' },
