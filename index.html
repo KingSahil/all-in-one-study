@@ -2012,6 +2012,773 @@
                 text-align: center;
             }
         }
+
+        /* Fun Learning Styles */
+        .fun-nav {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid rgba(6, 182, 212, 0.3);
+            padding-bottom: 1rem;
+        }
+
+        .fun-nav-btn {
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            color: #f1f5f9;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .fun-nav-btn:hover {
+            background: rgba(6, 182, 212, 0.1);
+            border-color: #06b6d4;
+            transform: translateY(-2px);
+        }
+
+        .fun-nav-btn.active {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            border-color: #06b6d4;
+            color: #0f172a;
+            box-shadow: 0 5px 15px rgba(6, 182, 212, 0.3);
+        }
+
+        .fun-section {
+            display: none;
+        }
+
+        .fun-section.active {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h3 {
+            color: #f1f5f9;
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        /* Flashcard Styles */
+        .flashcard-form {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(168, 85, 247, 0.1));
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .flashcard-form h4 {
+            color: #06b6d4;
+            margin-bottom: 1.5rem;
+        }
+
+        .flashcard-study {
+            margin-bottom: 2rem;
+        }
+
+        .study-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .study-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .study-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .category-filter select {
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 0.5rem;
+            color: #f1f5f9;
+            padding: 0.5rem;
+        }
+
+        .flashcard-container {
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .flashcard {
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.8));
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flashcard:hover {
+            transform: translateY(-5px);
+            border-color: #06b6d4;
+            box-shadow: 0 15px 30px rgba(6, 182, 212, 0.2);
+        }
+
+        .flashcard.flipped {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(6, 182, 212, 0.2));
+            border-color: #a855f7;
+        }
+
+        .flashcard-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #f1f5f9;
+            word-wrap: break-word;
+        }
+
+        .flashcard-type {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(6, 182, 212, 0.8);
+            color: #0f172a;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .flashcard.flipped .flashcard-type {
+            background: rgba(168, 85, 247, 0.8);
+        }
+
+        .flashcard-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            border: none;
+            color: #0f172a;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(6, 182, 212, 0.3);
+        }
+
+        .flip-btn {
+            background: linear-gradient(135deg, #a855f7, #9333ea);
+        }
+
+        .flashcard-management {
+            margin-top: 2rem;
+        }
+
+        .flashcard-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .flashcard-item {
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .flashcard-item-info h5 {
+            color: #f1f5f9;
+            margin: 0 0 0.25rem 0;
+            font-size: 0.9rem;
+        }
+
+        .flashcard-item-info p {
+            color: rgba(241, 245, 249, 0.7);
+            margin: 0;
+            font-size: 0.8rem;
+        }
+
+        .flashcard-item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .flashcard-item-actions .btn {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        /* Quiz Styles */
+        .quiz-generator {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(168, 85, 247, 0.1));
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-generator h4 {
+            color: #06b6d4;
+            margin-bottom: 1.5rem;
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .generate-btn.loading {
+            background: linear-gradient(135deg, #64748b, #475569);
+            cursor: not-allowed;
+        }
+
+        .quiz-container {
+            background: rgba(15, 23, 42, 0.9);
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-header {
+            margin-bottom: 2rem;
+        }
+
+        .quiz-header h4 {
+            color: #f1f5f9;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-progress {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .progress-text {
+            color: rgba(241, 245, 249, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            margin-bottom: 2rem;
+        }
+
+        .question-text {
+            color: #f1f5f9;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 0.5rem;
+            border-left: 4px solid #06b6d4;
+        }
+
+        .question-options {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .option-btn {
+            background: rgba(30, 41, 59, 0.8);
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            color: #f1f5f9;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .option-btn:hover {
+            background: rgba(6, 182, 212, 0.1);
+            border-color: #06b6d4;
+        }
+
+        .option-btn.selected {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            border-color: #06b6d4;
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .quiz-results {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1));
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .results-header h4 {
+            color: #10b981;
+            margin-bottom: 2rem;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .score-circle span {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .results-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .result-item {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .result-item .label {
+            color: rgba(241, 245, 249, 0.7);
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .result-item .value {
+            color: #10b981;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .results-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* Statistics Styles */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.8));
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-color: #06b6d4;
+            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.2);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-number {
+            color: #06b6d4;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: rgba(241, 245, 249, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .recent-activity {
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        .recent-activity h4 {
+            color: #f1f5f9;
+            margin-bottom: 1rem;
+        }
+
+        .activity-list {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .activity-item {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .activity-info {
+            color: #f1f5f9;
+            font-size: 0.9rem;
+        }
+
+        .activity-time {
+            color: rgba(241, 245, 249, 0.6);
+            font-size: 0.8rem;
+        }
+
+        .empty-flashcards {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .empty-flashcards .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-flashcards h4 {
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-flashcards p {
+            color: rgba(241, 245, 249, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .fun-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .study-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .flashcard-navigation {
+                flex-wrap: wrap;
+            }
+            
+            .quiz-controls {
+                flex-direction: column;
+            }
+            
+            .results-actions {
+                flex-direction: column;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        /* Floating Windows & Pop-out Styles */
+        .tool-card-header {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            z-index: 2;
+        }
+
+        .popout-btn {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #0f172a;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }
+
+        .popout-btn:hover {
+            transform: translateY(-2px) scale(1.1);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
+            background: linear-gradient(135deg, #0891b2, #0e7490);
+        }
+
+        .floating-windows-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .floating-window {
+            position: absolute;
+            min-width: 300px;
+            min-height: 200px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.95));
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            pointer-events: auto;
+            resize: both;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .floating-window.minimized {
+            height: 40px !important;
+            min-height: 40px;
+            resize: none;
+        }
+
+        .floating-window.maximized {
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            border-radius: 0;
+            resize: none;
+        }
+
+        .floating-window:hover {
+            border-color: #06b6d4;
+            box-shadow: 0 25px 50px rgba(6, 182, 212, 0.2);
+        }
+
+        .window-header {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(168, 85, 247, 0.1));
+            border-bottom: 1px solid rgba(6, 182, 212, 0.3);
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: move;
+            user-select: none;
+        }
+
+        .window-title {
+            color: #f1f5f9;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .window-control-btn {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .minimize-btn {
+            background: #f59e0b;
+            color: #78350f;
+        }
+
+        .maximize-btn {
+            background: #10b981;
+            color: #064e3b;
+        }
+
+        .close-btn {
+            background: #ef4444;
+            color: #7f1d1d;
+        }
+
+        .window-control-btn:hover {
+            transform: scale(1.1);
+            filter: brightness(1.1);
+        }
+
+        .window-content {
+            height: calc(100% - 50px);
+            overflow: auto;
+            padding: 1rem;
+        }
+
+        .floating-window.minimized .window-content {
+            display: none;
+        }
+
+        /* Taskbar for minimized windows */
+        .floating-taskbar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.9);
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 2rem;
+            padding: 0.5rem 1rem;
+            display: flex;
+            gap: 0.5rem;
+            backdrop-filter: blur(10px);
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+
+        .taskbar-item {
+            background: rgba(6, 182, 212, 0.2);
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            color: #f1f5f9;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .taskbar-item:hover {
+            background: rgba(6, 182, 212, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .taskbar-item.active {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            color: #0f172a;
+        }
+
+        /* Drag visual feedback */
+        .window-dragging {
+            opacity: 0.8;
+            transform: scale(0.98);
+            z-index: 1002;
+        }
+
+        .snap-zone {
+            position: fixed;
+            background: rgba(6, 182, 212, 0.2);
+            border: 2px dashed #06b6d4;
+            border-radius: 0.5rem;
+            pointer-events: none;
+            z-index: 999;
+            transition: all 0.2s ease;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .floating-window {
+                min-width: 280px;
+                max-width: 90vw;
+            }
+            
+            .floating-taskbar {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                transform: none;
+                border-radius: 1rem;
+            }
+            
+            .taskbar-item {
+                flex: 1;
+                justify-content: center;
+                padding: 0.75rem 0.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2032,23 +2799,32 @@
 
         <!-- Main Tools Grid -->
         <div id="toolsGrid" class="tools-grid">
-            <div class="tool-card" onclick="showTool('calculator')">
+            <div class="tool-card">
+                <div class="tool-card-header">
+                    <button class="popout-btn" onclick="openFloatingWindow('calculator')" title="Open in floating window">📌</button>
+                </div>
                 <div class="tool-icon">🧮</div>
                 <h3>Calculator</h3>
                 <p>Basic and scientific calculator</p>
-                <button class="btn btn-primary">Use Calculator</button>
+                <button class="btn btn-primary" onclick="showTool('calculator')">Use Calculator</button>
             </div>
-            <div class="tool-card" onclick="showTool('notepad')">
+            <div class="tool-card">
+                <div class="tool-card-header">
+                    <button class="popout-btn" onclick="openFloatingWindow('notepad')" title="Open in floating window">📌</button>
+                </div>
                 <div class="tool-icon">📝</div>
                 <h3>Notepad</h3>
                 <p>Simple text editor and notes</p>
-                <button class="btn btn-primary">Open Notepad</button>
+                <button class="btn btn-primary" onclick="showTool('notepad')">Open Notepad</button>
             </div>
-            <div class="tool-card" onclick="showTool('timer')">
+            <div class="tool-card">
+                <div class="tool-card-header">
+                    <button class="popout-btn" onclick="openFloatingWindow('timer')" title="Open in floating window">📌</button>
+                </div>
                 <div class="tool-icon">⏱️</div>
                 <h3>Timer</h3>
                 <p>Countdown timer and stopwatch</p>
-                <button class="btn btn-primary">Open Timer</button>
+                <button class="btn btn-primary" onclick="showTool('timer')">Open Timer</button>
             </div>
             <div class="tool-card" onclick="showTool('simulations')">
                 <div class="tool-icon">🗣️</div>
@@ -2062,17 +2838,26 @@
                 <p>Educational content and courses</p>
                 <button class="btn btn-primary">Browse Lectures</button>
             </div>
-            <div class="tool-card" onclick="showTool('ai-chatbot')">
+            <div class="tool-card">
+                <div class="tool-card-header">
+                    <button class="popout-btn" onclick="openFloatingWindow('ai-chatbot')" title="Open in floating window">📌</button>
+                </div>
                 <div class="tool-icon">🤖</div>
                 <h3>AI Study Assistant</h3>
                 <p>Get help with study doubts and questions</p>
-                <button class="btn btn-primary">Start Chat</button>
+                <button class="btn btn-primary" onclick="showTool('ai-chatbot')">Start Chat</button>
             </div>
             <div class="tool-card" onclick="showTool('study-material')">
                 <div class="tool-icon">📚</div>
                 <h3>Study Material</h3>
                 <p>PYQs, assignments, and study resources</p>
                 <button class="btn btn-primary">Browse Materials</button>
+            </div>
+            <div class="tool-card" onclick="showTool('fun')">
+                <div class="tool-icon">🎯</div>
+                <h3>Fun Learning</h3>
+                <p>Interactive flashcards and AI-generated quizzes</p>
+                <button class="btn btn-primary">Start Learning</button>
             </div>
         </div>
 
@@ -2496,11 +3281,11 @@
                 <!-- Category Filters -->
                 <div class="category-filters">
                     <button class="filter-btn active" onclick="filterMaterials('all')" data-category="all">All</button>
-                    <button class="filter-btn" onclick="filterMaterials('pyq')" data-category="pyq">� PYQs</button>
+                    <button class="filter-btn" onclick="filterMaterials('pyq')" data-category="pyq">📜 PYQs</button>
                     <button class="filter-btn" onclick="filterMaterials('assignment')" data-category="assignment">📝 Assignments</button>
                     <button class="filter-btn" onclick="filterMaterials('notes')" data-category="notes">📚 Notes</button>
                     <button class="filter-btn" onclick="filterMaterials('lab')" data-category="lab">⚗️ Lab</button>
-                    <button class="filter-btn" onclick="filterMaterials('other')" data-category="other">� Other</button>
+                    <button class="filter-btn" onclick="filterMaterials('other')" data-category="other">🗣️ Other</button>
                 </div>
 
                 <!-- Materials Grid -->
@@ -2565,6 +3350,247 @@
                 <button class="btn btn-outline" onclick="showTool('home')">← Back to Tools</button>
             </div>
         </div>
+
+        <!-- Fun Learning Tool -->
+        <div id="funTool" class="tool-section">
+            <h2>🎯 Fun Learning</h2>
+            <p class="tool-description">Master concepts with interactive flashcards and AI-generated quizzes!</p>
+            
+            <!-- Fun Learning Navigation -->
+            <div class="fun-nav">
+                <button class="fun-nav-btn active" onclick="showFunSection('flashcards')" data-section="flashcards">
+                    🗂️ Flashcards
+                </button>
+                <button class="fun-nav-btn" onclick="showFunSection('quiz')" data-section="quiz">
+                    🧩 AI Quiz
+                </button>
+                <button class="fun-nav-btn" onclick="showFunSection('stats')" data-section="stats">
+                    📊 Statistics
+                </button>
+            </div>
+
+            <!-- Flashcards Section -->
+            <div id="flashcardsSection" class="fun-section active">
+                <div class="section-header">
+                    <h3>📚 Study Flashcards</h3>
+                    <button class="btn btn-primary" onclick="showAddFlashcardForm()">➕ Add Flashcard</button>
+                </div>
+
+                <!-- Add Flashcard Form -->
+                <div id="addFlashcardForm" class="flashcard-form" style="display: none;">
+                    <h4>Create New Flashcard</h4>
+                    <div class="form-group">
+                        <label for="flashcardQuestion">❓ Question/Front Side</label>
+                        <textarea id="flashcardQuestion" placeholder="Enter the question or front side..." rows="3" maxlength="300"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="flashcardAnswer">✅ Answer/Back Side</label>
+                        <textarea id="flashcardAnswer" placeholder="Enter the answer or back side..." rows="3" maxlength="300"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="flashcardCategory">📂 Category</label>
+                        <input type="text" id="flashcardCategory" placeholder="e.g., Mathematics, Physics, Chemistry" maxlength="50">
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-primary" onclick="addFlashcard()">💾 Save Flashcard</button>
+                        <button class="btn btn-secondary" onclick="hideAddFlashcardForm()">❌ Cancel</button>
+                    </div>
+                </div>
+
+                <!-- Flashcard Study Mode -->
+                <div id="flashcardStudy" class="flashcard-study">
+                    <div class="study-controls">
+                        <div class="study-info">
+                            <span id="flashcardCounter">0 / 0</span>
+                            <div class="category-filter">
+                                <select id="categoryFilter" onchange="filterFlashcards()">
+                                    <option value="all">All Categories</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="study-actions">
+                            <button class="btn btn-outline" onclick="shuffleFlashcards()">🔀 Shuffle</button>
+                            <button class="btn btn-outline" onclick="resetStudyMode()">🔄 Reset</button>
+                        </div>
+                    </div>
+
+                    <!-- Flashcard Display -->
+                    <div id="flashcardContainer" class="flashcard-container">
+                        <div class="empty-flashcards">
+                            <div class="empty-icon">🗂️</div>
+                            <h4>No flashcards yet</h4>
+                            <p>Create your first flashcard to start studying!</p>
+                        </div>
+                    </div>
+
+                    <!-- Study Controls -->
+                    <div class="flashcard-navigation" id="flashcardNavigation" style="display: none;">
+                        <button class="nav-btn" onclick="previousFlashcard()">⬅️ Previous</button>
+                        <button class="nav-btn flip-btn" onclick="flipFlashcard()">🔄 Flip Card</button>
+                        <button class="nav-btn" onclick="nextFlashcard()">➡️ Next</button>
+                    </div>
+                </div>
+
+                <!-- Flashcard Management -->
+                <div class="flashcard-management">
+                    <h4>📋 Manage Flashcards</h4>
+                    <div id="flashcardList" class="flashcard-list">
+                        <!-- Flashcard list will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Quiz Section -->
+            <div id="quizSection" class="fun-section">
+                <div class="section-header">
+                    <h3>🧩 AI-Generated Quiz</h3>
+                    <div class="quiz-stats" id="quizStats">
+                        <span class="stat-item">Quizzes Taken: <span id="quizzesTaken">0</span></span>
+                        <span class="stat-item">Best Score: <span id="bestScore">0%</span></span>
+                    </div>
+                </div>
+
+                <!-- Quiz Generator Form -->
+                <div id="quizGeneratorForm" class="quiz-generator">
+                    <h4>🎯 Generate Custom Quiz</h4>
+                    <div class="form-group">
+                        <label for="quizTopic">📖 Topic</label>
+                        <input type="text" id="quizTopic" placeholder="e.g., Calculus derivatives, Photosynthesis, Chemical bonding..." maxlength="100" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quizDifficulty">⚡ Difficulty</label>
+                            <select id="quizDifficulty">
+                                <option value="easy">🟢 Easy</option>
+                                <option value="medium" selected>🟡 Medium</option>
+                                <option value="hard">🔴 Hard</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quizQuestions">🔢 Questions</label>
+                            <select id="quizQuestions">
+                                <option value="5">5 Questions</option>
+                                <option value="10" selected>10 Questions</option>
+                                <option value="15">15 Questions</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary generate-btn" onclick="generateQuiz()" id="generateQuizBtn">
+                        <span class="btn-icon">🚀</span>
+                        <span class="btn-text">Generate Quiz</span>
+                    </button>
+                </div>
+
+                <!-- Quiz Display -->
+                <div id="quizContainer" class="quiz-container" style="display: none;">
+                    <div class="quiz-header">
+                        <h4 id="quizTitle">Quiz Title</h4>
+                        <div class="quiz-progress">
+                            <div class="progress-text">
+                                Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-content">
+                        <div class="question-container">
+                            <div class="question-text" id="questionText">Question will appear here</div>
+                            <div class="question-options" id="questionOptions">
+                                <!-- Options will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-controls">
+                        <button class="btn btn-outline" onclick="previousQuestion()" id="prevBtn" disabled>⬅️ Previous</button>
+                        <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn">Next ➡️</button>
+                        <button class="btn btn-success" onclick="submitQuiz()" id="submitBtn" style="display: none;">✅ Submit Quiz</button>
+                    </div>
+                </div>
+
+                <!-- Quiz Results -->
+                <div id="quizResults" class="quiz-results" style="display: none;">
+                    <div class="results-header">
+                        <h4>🎉 Quiz Complete!</h4>
+                        <div class="score-display">
+                            <div class="score-circle">
+                                <span id="finalScore">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="results-details">
+                        <div class="result-item">
+                            <span class="label">Correct Answers:</span>
+                            <span class="value" id="correctAnswers">0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Total Questions:</span>
+                            <span class="value" id="totalQuestionsResult">0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Time Taken:</span>
+                            <span class="value" id="timeTaken">0:00</span>
+                        </div>
+                    </div>
+                    <div class="results-actions">
+                        <button class="btn btn-primary" onclick="resetQuiz()">🔄 Take Another Quiz</button>
+                        <button class="btn btn-secondary" onclick="reviewAnswers()">📋 Review Answers</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Section -->
+            <div id="statsSection" class="fun-section">
+                <div class="section-header">
+                    <h3>📊 Learning Statistics</h3>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🗂️</div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="totalFlashcards">0</div>
+                            <div class="stat-label">Total Flashcards</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📚</div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="studySessions">0</div>
+                            <div class="stat-label">Study Sessions</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🧩</div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="totalQuizzes">0</div>
+                            <div class="stat-label">Quizzes Taken</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="averageScore">0%</div>
+                            <div class="stat-label">Average Score</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <h4>📋 Recent Activity</h4>
+                    <div id="recentActivity" class="activity-list">
+                        <!-- Recent activities will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-controls">
+                <button class="btn btn-outline" onclick="showTool('home')">← Back to Tools</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -2582,16 +3608,28 @@
         // Navigation function
         function showTool(toolName) {
             // Hide all tools
-            const tools = ['calculatorTool', 'notepadTool', 'timerTool', 'simulationsTool', 'lecturesTool', 'study-materialTool', 'ai-chatbotTool'];
+            const tools = ['calculatorTool', 'notepadTool', 'timerTool', 'simulationsTool', 'lecturesTool', 'study-materialTool', 'ai-chatbotTool', 'funTool'];
             tools.forEach(tool => {
                 document.getElementById(tool).style.display = 'none';
             });
 
+            // Get search container
+            const searchContainer = document.querySelector('.search-container');
+
             if (toolName === 'home') {
                 document.getElementById('toolsGrid').style.display = 'grid';
+                // Show search bar on homepage
+                if (searchContainer) {
+                    searchContainer.style.display = 'block';
+                }
             } else {
                 document.getElementById('toolsGrid').style.display = 'none';
                 document.getElementById(toolName + 'Tool').style.display = 'block';
+                
+                // Hide search bar on tool pages
+                if (searchContainer) {
+                    searchContainer.style.display = 'none';
+                }
                 
                 // Initialize specific tools
                 if (toolName === 'calculator') {
@@ -2606,6 +3644,8 @@
                     initializeLectures();
                 } else if (toolName === 'study-material') {
                     initializeStudyMaterial();
+                } else if (toolName === 'fun') {
+                    initializeFunLearning();
                 }
             }
         }
@@ -4782,6 +5822,937 @@
                 }, 300);
             }, 3000);
         }
+
+        // Fun Learning Functions
+        let flashcards = [];
+        let currentFlashcardIndex = 0;
+        let isFlashcardFlipped = false;
+        let currentQuiz = null;
+        let currentQuestionIndex = 0;
+        let quizAnswers = [];
+        let quizStartTime = null;
+        let funStats = {
+            totalFlashcards: 0,
+            studySessions: 0,
+            totalQuizzes: 0,
+            quizScores: [],
+            recentActivity: []
+        };
+
+        function initializeFunLearning() {
+            loadFlashcards();
+            loadFunStats();
+            showFunSection('flashcards');
+            updateFlashcardStats();
+            updateQuizStats();
+            updateStatsDisplay();
+        }
+
+        function showFunSection(section) {
+            // Update navigation
+            document.querySelectorAll('.fun-nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-section="${section}"]`).classList.add('active');
+
+            // Show section
+            document.querySelectorAll('.fun-section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            document.getElementById(section + 'Section').classList.add('active');
+
+            if (section === 'stats') {
+                updateStatsDisplay();
+            }
+        }
+
+        // Flashcard Functions
+        function loadFlashcards() {
+            const saved = localStorage.getItem('funFlashcards');
+            if (saved) {
+                flashcards = JSON.parse(saved);
+            }
+            updateFlashcardDisplay();
+            updateCategoryFilter();
+            updateFlashcardList();
+        }
+
+        function saveFlashcards() {
+            localStorage.setItem('funFlashcards', JSON.stringify(flashcards));
+            updateFlashcardStats();
+        }
+
+        function showAddFlashcardForm() {
+            document.getElementById('addFlashcardForm').style.display = 'block';
+            document.getElementById('flashcardQuestion').focus();
+        }
+
+        function hideAddFlashcardForm() {
+            document.getElementById('addFlashcardForm').style.display = 'none';
+            clearFlashcardForm();
+        }
+
+        function clearFlashcardForm() {
+            document.getElementById('flashcardQuestion').value = '';
+            document.getElementById('flashcardAnswer').value = '';
+            document.getElementById('flashcardCategory').value = '';
+        }
+
+        function addFlashcard() {
+            const question = document.getElementById('flashcardQuestion').value.trim();
+            const answer = document.getElementById('flashcardAnswer').value.trim();
+            const category = document.getElementById('flashcardCategory').value.trim() || 'General';
+
+            if (!question || !answer) {
+                alert('Please fill in both question and answer fields.');
+                return;
+            }
+
+            const flashcard = {
+                id: Date.now(),
+                question: question,
+                answer: answer,
+                category: category,
+                dateCreated: new Date().toISOString(),
+                timesStudied: 0
+            };
+
+            flashcards.push(flashcard);
+            saveFlashcards();
+            updateFlashcardDisplay();
+            updateCategoryFilter();
+            updateFlashcardList();
+            hideAddFlashcardForm();
+            
+            addActivity('Created flashcard', category);
+            showNotification('Flashcard added successfully! 🎉', 'success');
+        }
+
+        function updateFlashcardDisplay() {
+            const container = document.getElementById('flashcardContainer');
+            const navigation = document.getElementById('flashcardNavigation');
+            const counter = document.getElementById('flashcardCounter');
+
+            const filter = document.getElementById('categoryFilter').value;
+            const filteredCards = filter === 'all' ? flashcards : flashcards.filter(card => card.category === filter);
+
+            if (filteredCards.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-flashcards">
+                        <div class="empty-icon">🗂️</div>
+                        <h4>No flashcards available</h4>
+                        <p>${filter === 'all' ? 'Create your first flashcard to start studying!' : 'No flashcards found in this category.'}</p>
+                    </div>
+                `;
+                navigation.style.display = 'none';
+                counter.textContent = '0 / 0';
+                return;
+            }
+
+            if (currentFlashcardIndex >= filteredCards.length) {
+                currentFlashcardIndex = 0;
+            }
+
+            const card = filteredCards[currentFlashcardIndex];
+            isFlashcardFlipped = false;
+
+            container.innerHTML = `
+                <div class="flashcard" onclick="flipFlashcard()">
+                    <div class="flashcard-type">Question</div>
+                    <div class="flashcard-content">${card.question}</div>
+                </div>
+            `;
+
+            navigation.style.display = 'flex';
+            counter.textContent = `${currentFlashcardIndex + 1} / ${filteredCards.length}`;
+        }
+
+        function flipFlashcard() {
+            const flashcard = document.querySelector('.flashcard');
+            const content = document.querySelector('.flashcard-content');
+            const type = document.querySelector('.flashcard-type');
+
+            const filter = document.getElementById('categoryFilter').value;
+            const filteredCards = filter === 'all' ? flashcards : flashcards.filter(card => card.category === filter);
+            const card = filteredCards[currentFlashcardIndex];
+
+            if (!isFlashcardFlipped) {
+                flashcard.classList.add('flipped');
+                content.textContent = card.answer;
+                type.textContent = 'Answer';
+                isFlashcardFlipped = true;
+                
+                // Increment study count
+                card.timesStudied++;
+                saveFlashcards();
+            } else {
+                flashcard.classList.remove('flipped');
+                content.textContent = card.question;
+                type.textContent = 'Question';
+                isFlashcardFlipped = false;
+            }
+        }
+
+        function nextFlashcard() {
+            const filter = document.getElementById('categoryFilter').value;
+            const filteredCards = filter === 'all' ? flashcards : flashcards.filter(card => card.category === filter);
+            
+            currentFlashcardIndex = (currentFlashcardIndex + 1) % filteredCards.length;
+            updateFlashcardDisplay();
+        }
+
+        function previousFlashcard() {
+            const filter = document.getElementById('categoryFilter').value;
+            const filteredCards = filter === 'all' ? flashcards : flashcards.filter(card => card.category === filter);
+            
+            currentFlashcardIndex = currentFlashcardIndex === 0 ? filteredCards.length - 1 : currentFlashcardIndex - 1;
+            updateFlashcardDisplay();
+        }
+
+        function shuffleFlashcards() {
+            const filter = document.getElementById('categoryFilter').value;
+            if (filter === 'all') {
+                flashcards = flashcards.sort(() => Math.random() - 0.5);
+            }
+            currentFlashcardIndex = 0;
+            updateFlashcardDisplay();
+            showNotification('Flashcards shuffled! 🔀', 'success');
+        }
+
+        function resetStudyMode() {
+            currentFlashcardIndex = 0;
+            updateFlashcardDisplay();
+            addActivity('Started study session', 'Flashcards');
+            funStats.studySessions++;
+            saveFunStats();
+        }
+
+        function filterFlashcards() {
+            currentFlashcardIndex = 0;
+            updateFlashcardDisplay();
+        }
+
+        function updateCategoryFilter() {
+            const filter = document.getElementById('categoryFilter');
+            const categories = [...new Set(flashcards.map(card => card.category))];
+            
+            const currentValue = filter.value;
+            filter.innerHTML = '<option value="all">All Categories</option>';
+            
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                filter.appendChild(option);
+            });
+            
+            filter.value = currentValue;
+        }
+
+        function updateFlashcardList() {
+            const list = document.getElementById('flashcardList');
+            if (flashcards.length === 0) {
+                list.innerHTML = '<p style="color: rgba(241, 245, 249, 0.6); text-align: center;">No flashcards created yet.</p>';
+                return;
+            }
+
+            list.innerHTML = flashcards.map(card => `
+                <div class="flashcard-item">
+                    <div class="flashcard-item-info">
+                        <h5>${card.question.length > 50 ? card.question.substring(0, 50) + '...' : card.question}</h5>
+                        <p>${card.category} • Studied ${card.timesStudied} times</p>
+                    </div>
+                    <div class="flashcard-item-actions">
+                        <button class="btn btn-secondary btn-sm" onclick="editFlashcard(${card.id})">✏️ Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteFlashcard(${card.id})">🗑️ Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function deleteFlashcard(id) {
+            if (confirm('Are you sure you want to delete this flashcard?')) {
+                flashcards = flashcards.filter(card => card.id !== id);
+                saveFlashcards();
+                updateFlashcardDisplay();
+                updateCategoryFilter();
+                updateFlashcardList();
+                showNotification('Flashcard deleted! 🗑️', 'success');
+            }
+        }
+
+        function editFlashcard(id) {
+            const card = flashcards.find(c => c.id === id);
+            if (card) {
+                document.getElementById('flashcardQuestion').value = card.question;
+                document.getElementById('flashcardAnswer').value = card.answer;
+                document.getElementById('flashcardCategory').value = card.category;
+                
+                // Remove the old card and show form
+                deleteFlashcard(id);
+                showAddFlashcardForm();
+            }
+        }
+
+        // AI Quiz Functions
+        async function generateQuiz() {
+            const topic = document.getElementById('quizTopic').value.trim();
+            const difficulty = document.getElementById('quizDifficulty').value;
+            const numQuestions = parseInt(document.getElementById('quizQuestions').value);
+
+            if (!topic) {
+                alert('Please enter a topic for the quiz.');
+                return;
+            }
+
+            const generateBtn = document.getElementById('generateQuizBtn');
+            const originalText = generateBtn.innerHTML;
+            generateBtn.innerHTML = '<span class="btn-icon">⏳</span><span class="btn-text">Generating...</span>';
+            generateBtn.classList.add('loading');
+            generateBtn.disabled = true;
+
+            try {
+                const prompt = `Generate ${numQuestions} multiple choice questions about "${topic}" at ${difficulty} difficulty level. 
+                
+                Format your response as a JSON array with this exact structure:
+                [
+                  {
+                    "question": "Question text here",
+                    "options": ["Option A", "Option B", "Option C", "Option D"],
+                    "correct": 0
+                  }
+                ]
+                
+                Rules:
+                - Each question should have exactly 4 options
+                - The "correct" field should be the index (0-3) of the correct answer
+                - Make questions educational and relevant to the topic
+                - Vary the position of correct answers
+                - Return only the JSON array, no other text`;
+
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: prompt
+                            }]
+                        }]
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const quizText = data.candidates[0].content.parts[0].text;
+                
+                // Extract JSON from response
+                const jsonMatch = quizText.match(/\[[\s\S]*\]/);
+                if (!jsonMatch) {
+                    throw new Error('Invalid response format from AI');
+                }
+
+                const questions = JSON.parse(jsonMatch[0]);
+                
+                if (!Array.isArray(questions) || questions.length === 0) {
+                    throw new Error('No questions generated');
+                }
+
+                currentQuiz = {
+                    topic: topic,
+                    difficulty: difficulty,
+                    questions: questions,
+                    totalQuestions: questions.length
+                };
+
+                startQuiz();
+                addActivity('Generated AI quiz', topic);
+
+            } catch (error) {
+                console.error('Error generating quiz:', error);
+                showNotification('Failed to generate quiz. Please try again! ❌', 'error');
+            } finally {
+                generateBtn.innerHTML = originalText;
+                generateBtn.classList.remove('loading');
+                generateBtn.disabled = false;
+            }
+        }
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            quizAnswers = [];
+            quizStartTime = Date.now();
+
+            document.getElementById('quizGeneratorForm').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('quizResults').style.display = 'none';
+
+            document.getElementById('quizTitle').textContent = `${currentQuiz.topic} Quiz (${currentQuiz.difficulty})`;
+            document.getElementById('totalQuestions').textContent = currentQuiz.totalQuestions;
+
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = currentQuiz.questions[currentQuestionIndex];
+            
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('questionOptions');
+            optionsContainer.innerHTML = question.options.map((option, index) => `
+                <button class="option-btn" onclick="selectOption(${index})" data-option="${index}">
+                    ${String.fromCharCode(65 + index)}. ${option}
+                </button>
+            `).join('');
+
+            // Update progress
+            const progress = ((currentQuestionIndex + 1) / currentQuiz.totalQuestions) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+            
+            if (currentQuestionIndex === currentQuiz.totalQuestions - 1) {
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('submitBtn').style.display = 'block';
+            } else {
+                document.getElementById('nextBtn').style.display = 'block';
+                document.getElementById('submitBtn').style.display = 'none';
+            }
+
+            // Restore previous answer if any
+            if (quizAnswers[currentQuestionIndex] !== undefined) {
+                const selectedBtn = document.querySelector(`[data-option="${quizAnswers[currentQuestionIndex]}"]`);
+                if (selectedBtn) {
+                    selectedBtn.classList.add('selected');
+                }
+            }
+        }
+
+        function selectOption(optionIndex) {
+            // Remove previous selection
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+
+            // Add selection to clicked option
+            document.querySelector(`[data-option="${optionIndex}"]`).classList.add('selected');
+            
+            // Store answer
+            quizAnswers[currentQuestionIndex] = optionIndex;
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < currentQuiz.totalQuestions - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        function submitQuiz() {
+            const timeTaken = Date.now() - quizStartTime;
+            let correctAnswers = 0;
+
+            currentQuiz.questions.forEach((question, index) => {
+                if (quizAnswers[index] === question.correct) {
+                    correctAnswers++;
+                }
+            });
+
+            const score = Math.round((correctAnswers / currentQuiz.totalQuestions) * 100);
+            
+            // Update stats
+            funStats.totalQuizzes++;
+            funStats.quizScores.push(score);
+            addActivity('Completed quiz', `${score}% on ${currentQuiz.topic}`);
+            saveFunStats();
+
+            // Show results
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('quizResults').style.display = 'block';
+
+            document.getElementById('finalScore').textContent = score + '%';
+            document.getElementById('correctAnswers').textContent = correctAnswers;
+            document.getElementById('totalQuestionsResult').textContent = currentQuiz.totalQuestions;
+            
+            const minutes = Math.floor(timeTaken / 60000);
+            const seconds = Math.floor((timeTaken % 60000) / 1000);
+            document.getElementById('timeTaken').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            updateQuizStats();
+        }
+
+        function resetQuiz() {
+            document.getElementById('quizGeneratorForm').style.display = 'block';
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('quizResults').style.display = 'none';
+            currentQuiz = null;
+        }
+
+        function reviewAnswers() {
+            // This could be expanded to show detailed answer review
+            alert('Answer review feature coming soon!');
+        }
+
+        // Statistics Functions
+        function loadFunStats() {
+            const saved = localStorage.getItem('funStats');
+            if (saved) {
+                funStats = { ...funStats, ...JSON.parse(saved) };
+            }
+        }
+
+        function saveFunStats() {
+            localStorage.setItem('funStats', JSON.stringify(funStats));
+        }
+
+        function updateFlashcardStats() {
+            funStats.totalFlashcards = flashcards.length;
+            saveFunStats();
+        }
+
+        function updateQuizStats() {
+            document.getElementById('quizzesTaken').textContent = funStats.totalQuizzes;
+            const bestScore = funStats.quizScores.length > 0 ? Math.max(...funStats.quizScores) : 0;
+            document.getElementById('bestScore').textContent = bestScore + '%';
+        }
+
+        function updateStatsDisplay() {
+            document.getElementById('totalFlashcards').textContent = funStats.totalFlashcards;
+            document.getElementById('studySessions').textContent = funStats.studySessions;
+            document.getElementById('totalQuizzes').textContent = funStats.totalQuizzes;
+            
+            const avgScore = funStats.quizScores.length > 0 
+                ? Math.round(funStats.quizScores.reduce((a, b) => a + b, 0) / funStats.quizScores.length)
+                : 0;
+            document.getElementById('averageScore').textContent = avgScore + '%';
+
+            // Update recent activity
+            const activityContainer = document.getElementById('recentActivity');
+            if (funStats.recentActivity.length === 0) {
+                activityContainer.innerHTML = '<p style="color: rgba(241, 245, 249, 0.6); text-align: center;">No recent activity.</p>';
+            } else {
+                activityContainer.innerHTML = funStats.recentActivity.slice(0, 5).map(activity => `
+                    <div class="activity-item">
+                        <div class="activity-info">${activity.action} - ${activity.details}</div>
+                        <div class="activity-time">${formatTime(activity.timestamp)}</div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function addActivity(action, details) {
+            funStats.recentActivity.unshift({
+                action: action,
+                details: details,
+                timestamp: new Date().toISOString()
+            });
+            
+            // Keep only last 10 activities
+            if (funStats.recentActivity.length > 10) {
+                funStats.recentActivity = funStats.recentActivity.slice(0, 10);
+            }
+            
+            saveFunStats();
+        }
+
+        function formatTime(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diff = now - date;
+            
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+            
+            if (days > 0) return `${days}d ago`;
+            if (hours > 0) return `${hours}h ago`;
+            if (minutes > 0) return `${minutes}m ago`;
+            return 'Just now';
+        }
+
+        // Floating Windows System
+        let floatingWindows = new Map();
+        let windowZIndex = 1000;
+        let isDragging = false;
+        let dragOffset = { x: 0, y: 0 };
+        let activeWindow = null;
+
+        function openFloatingWindow(toolType) {
+            // Check if window already exists
+            if (floatingWindows.has(toolType)) {
+                const existingWindow = floatingWindows.get(toolType);
+                bringWindowToFront(existingWindow);
+                return;
+            }
+
+            const windowId = `floating-${toolType}-${Date.now()}`;
+            const window = createFloatingWindow(windowId, toolType);
+            
+            floatingWindows.set(toolType, window);
+            document.getElementById('floatingWindowsContainer').appendChild(window);
+            
+            // Position window with slight offset for multiple windows
+            const offset = floatingWindows.size * 30;
+            window.style.left = `${100 + offset}px`;
+            window.style.top = `${100 + offset}px`;
+            
+            bringWindowToFront(window);
+            initializeFloatingTool(toolType, window);
+            
+            showNotification(`${getToolTitle(toolType)} opened in floating window! 🪟`, 'success');
+        }
+
+        function createFloatingWindow(windowId, toolType) {
+            const window = document.createElement('div');
+            window.className = 'floating-window';
+            window.id = windowId;
+            window.setAttribute('data-tool-type', toolType);
+            
+            const toolIcon = getToolIcon(toolType);
+            const toolTitle = getToolTitle(toolType);
+            
+            window.innerHTML = `
+                <div class="window-header" onmousedown="startDrag(event, '${windowId}')">
+                    <div class="window-title">
+                        <span>${toolIcon}</span>
+                        <span>${toolTitle}</span>
+                    </div>
+                    <div class="window-controls">
+                        <button class="window-control-btn minimize-btn" onclick="minimizeWindow('${windowId}')" title="Minimize">−</button>
+                        <button class="window-control-btn maximize-btn" onclick="toggleMaximize('${windowId}')" title="Maximize">□</button>
+                        <button class="window-control-btn close-btn" onclick="closeFloatingWindow('${windowId}')" title="Close">×</button>
+                    </div>
+                </div>
+                <div class="window-content" id="${windowId}-content">
+                    <div class="loading-message">Loading ${toolTitle}...</div>
+                </div>
+            `;
+            
+            return window;
+        }
+
+        function getToolIcon(toolType) {
+            const icons = {
+                'calculator': '🧮',
+                'notepad': '📝',
+                'timer': '⏱️',
+                'ai-chatbot': '🤖'
+            };
+            return icons[toolType] || '📱';
+        }
+
+        function getToolTitle(toolType) {
+            const titles = {
+                'calculator': 'Calculator',
+                'notepad': 'Notepad',
+                'timer': 'Timer',
+                'ai-chatbot': 'AI Assistant'
+            };
+            return titles[toolType] || 'Tool';
+        }
+
+        function initializeFloatingTool(toolType, window) {
+            const content = window.querySelector('.window-content');
+            
+            switch(toolType) {
+                case 'calculator':
+                    content.innerHTML = createCalculatorContent();
+                    initializeCalculator();
+                    break;
+                case 'notepad':
+                    content.innerHTML = createNotepadContent();
+                    loadNotepadContent();
+                    break;
+                case 'timer':
+                    content.innerHTML = createTimerContent();
+                    initializeTimer();
+                    break;
+                case 'ai-chatbot':
+                    content.innerHTML = createChatbotContent();
+                    initializeChatbot();
+                    break;
+            }
+        }
+
+        function createCalculatorContent() {
+            return `
+                <div class="calculator">
+                    <div class="calculator-display">
+                        <input type="text" id="calculatorInput-floating" readonly value="0">
+                    </div>
+                    <div class="calculator-mode">
+                        <button class="mode-btn active" id="degreeMode-floating" onclick="toggleAngleMode('floating')">DEG</button>
+                        <span class="mode-separator">|</span>
+                        <button class="mode-btn" id="radianMode-floating" onclick="toggleAngleMode('floating')">RAD</button>
+                    </div>
+                    <div class="calculator-buttons">
+                        <button class="calc-btn clear" onclick="clearCalculator('floating')">C</button>
+                        <button class="calc-btn operator" onclick="appendToCalculator('(', 'floating')">(</button>
+                        <button class="calc-btn operator" onclick="appendToCalculator(')', 'floating')">)</button>
+                        <button class="calc-btn operator" onclick="deleteLastCalculator('floating')">⌫</button>
+                        
+                        <button class="calc-btn operator" onclick="appendTrigFunction('sin', 'floating')">sin</button>
+                        <button class="calc-btn operator" onclick="appendTrigFunction('cos', 'floating')">cos</button>
+                        <button class="calc-btn operator" onclick="appendTrigFunction('tan', 'floating')">tan</button>
+                        <button class="calc-btn operator" onclick="appendToCalculator('√', 'floating')">√</button>
+                        
+                        <button class="calc-btn number" onclick="appendToCalculator('7', 'floating')">7</button>
+                        <button class="calc-btn number" onclick="appendToCalculator('8', 'floating')">8</button>
+                        <button class="calc-btn number" onclick="appendToCalculator('9', 'floating')">9</button>
+                        <button class="calc-btn operator" onclick="appendToCalculator('/', 'floating')">/</button>
+                        
+                        <button class="calc-btn number" onclick="appendToCalculator('4', 'floating')">4</button>
+                        <button class="calc-btn number" onclick="appendToCalculator('5', 'floating')">5</button>
+                        <button class="calc-btn number" onclick="appendToCalculator('6', 'floating')">6</button>
+                        <button class="calc-btn operator" onclick="appendToCalculator('*', 'floating')">×</button>
+                        
+                        <button class="calc-btn number" onclick="appendToCalculator('1', 'floating')">1</button>
+                        <button class="calc-btn number" onclick="appendToCalculator('2', 'floating')">2</button>
+                        <button class="calc-btn number" onclick="appendToCalculator('3', 'floating')">3</button>
+                        <button class="calc-btn operator" onclick="appendToCalculator('-', 'floating')">-</button>
+                        
+                        <button class="calc-btn number" onclick="appendToCalculator('0', 'floating')">0</button>
+                        <button class="calc-btn number" onclick="appendToCalculator('.', 'floating')">.</button>
+                        <button class="calc-btn operator" onclick="appendToCalculator('+', 'floating')">+</button>
+                        <button class="calc-btn equals" onclick="calculateResult('floating')" style="grid-row: span 2;">=</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createNotepadContent() {
+            return `
+                <div class="notepad">
+                    <div class="notepad-toolbar">
+                        <button class="btn btn-secondary" onclick="clearNotepad('floating')">🗑️ Clear</button>
+                        <button class="btn btn-secondary" onclick="saveNotepadContent('floating')">💾 Save</button>
+                        <span class="word-count" id="wordCount-floating">0 words</span>
+                    </div>
+                    <textarea id="notepadTextarea-floating" class="notepad-textarea" placeholder="Start typing your notes..."></textarea>
+                </div>
+            `;
+        }
+
+        function createTimerContent() {
+            return `
+                <div class="timer-container">
+                    <div class="timer-tabs">
+                        <button class="timer-tab active" onclick="switchTimerMode('countdown', 'floating')" id="countdownTab-floating">⏱️ Countdown</button>
+                        <button class="timer-tab" onclick="switchTimerMode('stopwatch', 'floating')" id="stopwatchTab-floating">⏰ Stopwatch</button>
+                    </div>
+                    
+                    <div id="countdownTimer-floating" class="timer-mode active">
+                        <div class="timer-display" id="timerDisplay-floating">00:05:00</div>
+                        <div class="timer-inputs">
+                            <input type="number" id="minutesInput-floating" min="0" max="59" value="5" placeholder="Min">
+                            <span>:</span>
+                            <input type="number" id="secondsInput-floating" min="0" max="59" value="0" placeholder="Sec">
+                        </div>
+                        <div class="timer-controls">
+                            <button class="btn btn-primary" onclick="startTimer('floating')" id="startTimerBtn-floating">▶️ Start</button>
+                            <button class="btn btn-secondary" onclick="pauseTimer('floating')" id="pauseTimerBtn-floating">⏸️ Pause</button>
+                            <button class="btn btn-outline" onclick="resetTimer('floating')" id="resetTimerBtn-floating">🔄 Reset</button>
+                        </div>
+                    </div>
+                    
+                    <div id="stopwatchTimer-floating" class="timer-mode">
+                        <div class="timer-display" id="stopwatchDisplay-floating">00:00:00</div>
+                        <div class="timer-controls">
+                            <button class="btn btn-primary" onclick="startStopwatch('floating')" id="startStopwatchBtn-floating">▶️ Start</button>
+                            <button class="btn btn-secondary" onclick="pauseStopwatch('floating')" id="pauseStopwatchBtn-floating">⏸️ Pause</button>
+                            <button class="btn btn-outline" onclick="resetStopwatch('floating')" id="resetStopwatchBtn-floating">🔄 Reset</button>
+                            <button class="btn btn-secondary" onclick="addLap('floating')" id="lapBtn-floating">🏁 Lap</button>
+                        </div>
+                        <div class="lap-times" id="lapTimes-floating"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createChatbotContent() {
+            return `
+                <div class="chatbot-container-floating">
+                    <div class="chat-messages" id="chatMessages-floating">
+                        <div class="message assistant-message">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-content">
+                                <div class="message-text">
+                                    Hello! I'm your AI Study Assistant. How can I help you today?
+                                </div>
+                                <div class="message-time">Just now</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-container">
+                        <div class="chat-input-wrapper">
+                            <input type="text" id="chatInput-floating" placeholder="Ask your question..." autocomplete="off">
+                            <button class="send-button" onclick="sendMessage('floating')">📤</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function bringWindowToFront(window) {
+            windowZIndex++;
+            window.style.zIndex = windowZIndex;
+            
+            // Update active window
+            document.querySelectorAll('.floating-window').forEach(w => w.classList.remove('active'));
+            window.classList.add('active');
+            activeWindow = window;
+        }
+
+        function minimizeWindow(windowId) {
+            const window = document.getElementById(windowId);
+            window.classList.add('minimized');
+            
+            // Add to taskbar if not exists
+            updateTaskbar();
+        }
+
+        function toggleMaximize(windowId) {
+            const window = document.getElementById(windowId);
+            window.classList.toggle('maximized');
+            
+            const button = window.querySelector('.maximize-btn');
+            if (window.classList.contains('maximized')) {
+                button.innerHTML = '❐';
+                button.title = 'Restore';
+            } else {
+                button.innerHTML = '□';
+                button.title = 'Maximize';
+            }
+        }
+
+        function closeFloatingWindow(windowId) {
+            const window = document.getElementById(windowId);
+            const toolType = window.getAttribute('data-tool-type');
+            
+            window.remove();
+            floatingWindows.delete(toolType);
+            updateTaskbar();
+        }
+
+        function updateTaskbar() {
+            const minimizedWindows = document.querySelectorAll('.floating-window.minimized');
+            let taskbar = document.querySelector('.floating-taskbar');
+            
+            if (minimizedWindows.length === 0) {
+                if (taskbar) taskbar.remove();
+                return;
+            }
+            
+            if (!taskbar) {
+                taskbar = document.createElement('div');
+                taskbar.className = 'floating-taskbar';
+                document.body.appendChild(taskbar);
+            }
+            
+            taskbar.innerHTML = Array.from(minimizedWindows).map(window => {
+                const toolType = window.getAttribute('data-tool-type');
+                const icon = getToolIcon(toolType);
+                const title = getToolTitle(toolType);
+                
+                return `
+                    <div class="taskbar-item" onclick="restoreWindow('${window.id}')">
+                        <span>${icon}</span>
+                        <span>${title}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function restoreWindow(windowId) {
+            const window = document.getElementById(windowId);
+            window.classList.remove('minimized');
+            bringWindowToFront(window);
+            updateTaskbar();
+        }
+
+        // Drag functionality
+        function startDrag(event, windowId) {
+            event.preventDefault();
+            const window = document.getElementById(windowId);
+            
+            if (window.classList.contains('maximized')) return;
+            
+            isDragging = true;
+            activeWindow = window;
+            window.classList.add('window-dragging');
+            
+            const rect = window.getBoundingClientRect();
+            dragOffset.x = event.clientX - rect.left;
+            dragOffset.y = event.clientY - rect.top;
+            
+            bringWindowToFront(window);
+            
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', stopDrag);
+        }
+
+        function drag(event) {
+            if (!isDragging || !activeWindow) return;
+            
+            const x = event.clientX - dragOffset.x;
+            const y = event.clientY - dragOffset.y;
+            
+            // Keep window within viewport
+            const windowRect = activeWindow.getBoundingClientRect();
+            const maxX = window.innerWidth - windowRect.width;
+            const maxY = window.innerHeight - windowRect.height;
+            
+            activeWindow.style.left = `${Math.max(0, Math.min(x, maxX))}px`;
+            activeWindow.style.top = `${Math.max(0, Math.min(y, maxY))}px`;
+        }
+
+        function stopDrag() {
+            if (activeWindow) {
+                activeWindow.classList.remove('window-dragging');
+            }
+            
+            isDragging = false;
+            activeWindow = null;
+            
+            document.removeEventListener('mousemove', drag);
+            document.removeEventListener('mouseup', stopDrag);
+        }
+
+        // Window management keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.altKey && e.key === 'F4') {
+                e.preventDefault();
+                if (activeWindow) {
+                    closeFloatingWindow(activeWindow.id);
+                }
+            }
+        });
+
+        // Click outside to remove focus
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.floating-window')) {
+                document.querySelectorAll('.floating-window').forEach(w => w.classList.remove('active'));
+                activeWindow = null;
+            }
+        });
     </script>
+
+    <!-- Floating Windows Container -->
+    <div id="floatingWindowsContainer" class="floating-windows-container"></div>
 </body>
 </html>
