@@ -1,0 +1,2541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All-in-One Study App</title>
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --accent-color: #06b6d4;
+            --background: #0f172a;
+            --text-color: #f1f5f9;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--background);
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(79, 70, 229, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Button Styles */
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-card h3 {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-card p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Tool Sections - Hidden by default */
+        .tool-section {
+            display: none;
+            text-align: center;
+            padding: 2rem 0;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .tool-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Calculator Styles */
+        .calculator {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            margin: 0 auto 2rem auto;
+            max-width: 400px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .calculator-display {
+            margin-bottom: 1rem;
+            position: relative;
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 0.75rem;
+            padding: 0.25rem;
+            border: 2px solid rgba(79, 70, 229, 0.3);
+        }
+
+        .calculator-display input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.89rem;
+            background: rgba(30, 41, 59, 0.9);
+            border: none;
+            border-radius: 0.5rem;
+            text-align: right;
+            color: #f1f5f9;
+            font-weight: 700;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+            min-height: 60px;
+            line-height: 1.2;
+        }
+
+        .calculator-mode {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            gap: 0.5rem;
+        }
+
+        .mode-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 0.25rem;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .mode-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .mode-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .mode-separator {
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
+        }
+
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calc-btn {
+            padding: 0.8rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            min-height: 50px;
+        }
+
+        .calc-btn.zero-btn {
+            grid-column: span 2;
+            text-align: left;
+            padding-left: 1.5rem;
+        }
+
+        .calc-btn.number {
+            background: rgba(255, 255, 255, 0.95);
+            color: #2d3748;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .calc-btn.number:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .calc-btn.operator {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .calc-btn.operator:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+        }
+
+        .calc-btn.equals {
+            background: var(--accent-color);
+            color: white;
+            box-shadow: 0 2px 8px rgba(240, 147, 251, 0.3);
+        }
+
+        .calc-btn.equals:hover {
+            background: #e879f9;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(240, 147, 251, 0.4);
+        }
+
+        .calc-btn.clear {
+            background: #ef4444;
+            color: white;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+        }
+
+        .calc-btn.clear:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+        }
+
+        /* Notepad Styles */
+        .notepad-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .notepad {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .notepad-toolbar {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        #notepadText {
+            width: 100%;
+            min-height: 400px;
+            padding: 1rem;
+            font-size: 1rem;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            border-radius: 0.5rem;
+            resize: vertical;
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #f1f5f9;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+
+        #notepadText::placeholder {
+            color: rgba(241, 245, 249, 0.6);
+        }
+
+        #notepadText:focus {
+            outline: none;
+            border-color: rgba(79, 70, 229, 0.6);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .saved-files-panel {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            text-align: left;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .saved-files-panel h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .saved-files-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .saved-file-item {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border: 1px solid rgba(79, 70, 229, 0.2);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .saved-file-item:hover {
+            transform: translateY(-2px);
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(79, 70, 229, 0.4);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.2);
+        }
+
+        .file-info strong {
+            color: white;
+            display: block;
+            font-size: 1rem;
+        }
+
+        .file-info small {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.75rem;
+        }
+
+        .no-files {
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* Timer Styles */
+        .timer-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .timer-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            padding: 0.25rem;
+        }
+
+        .timer-tab {
+            flex: 1;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            border-radius: 0.25rem;
+            transition: var(--transition);
+        }
+
+        .timer-tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .timer-display, .stopwatch-display {
+            font-size: 4rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            background: rgba(30, 41, 59, 0.8);
+            padding: 1rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .timer-input {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .timer-input input {
+            width: 70px;
+            padding: 0.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            border-radius: 0.5rem;
+            color: #f1f5f9;
+            backdrop-filter: blur(10px);
+        }
+
+        .timer-input span {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .timer-controls, .stopwatch-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .lap-times {
+            margin-top: 2rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .lap-time {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        /* Tool Controls */
+        .tool-controls {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        /* Study Simulations Styles */
+        .simulations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .simulation-card {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .simulation-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(79, 70, 229, 0.6);
+            box-shadow: 0 10px 40px rgba(79, 70, 229, 0.2);
+        }
+
+        .simulation-card h3 {
+            color: #f1f5f9;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .simulation-card p {
+            color: rgba(241, 245, 249, 0.8);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .simulation-content {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9rem;
+            color: #f1f5f9;
+        }
+
+        /* Lectures Styles */
+        .lectures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .lecture-card {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            transition: var(--transition);
+        }
+
+        .lecture-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(6, 182, 212, 0.6);
+            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.2);
+        }
+
+        .lecture-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .lecture-icon {
+            font-size: 2.5rem;
+        }
+
+        .lecture-info h3 {
+            color: #f1f5f9;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .lecture-info .subject {
+            color: rgba(6, 182, 212, 0.9);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .lecture-description {
+            color: rgba(241, 245, 249, 0.8);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .lecture-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-item {
+            background: rgba(30, 41, 59, 0.6);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+
+        .detail-item .label {
+            color: rgba(241, 245, 249, 0.7);
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-item .value {
+            color: #f1f5f9;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .lecture-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            background: rgba(6, 182, 212, 0.2);
+            color: #06b6d4;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(6, 182, 212, 0.3);
+            color: #f1f5f9;
+            border-color: rgba(6, 182, 212, 0.6);
+        }
+
+        /* Study Material Styles */
+        .study-material-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .material-category {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .material-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .material-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .material-item {
+            background: rgba(51, 65, 85, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .material-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .material-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .material-icon {
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(99, 102, 241, 0.2);
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        .material-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #f1f5f9;
+        }
+
+        .material-meta {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        .material-description {
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .material-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 10px;
+        }
+
+        .material-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .notepad-container {
+                grid-template-columns: 1fr;
+            }
+
+            .calculator {
+                max-width: 100%;
+            }
+
+            .timer-display, .stopwatch-display {
+                font-size: 2.5rem;
+            }
+
+            .timer-input input {
+                width: 60px;
+                font-size: 1.2rem;
+            }
+
+            .simulations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lectures-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lecture-details {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .lecture-actions {
+                flex-direction: column;
+            }
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            color: white;
+            font-weight: 600;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: #10b981;
+        }
+
+        .notification.error {
+            background: #ef4444;
+        }
+
+        .notification.warning {
+            background: #f59e0b;
+        }
+
+        .notification.info {
+            background: #3b82f6;
+        }
+
+        /* Search Bar Styles */
+        .search-container {
+            position: relative;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            font-size: 1.1rem;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(79, 70, 229, 0.3);
+            border-radius: 2rem;
+            color: #f1f5f9;
+            backdrop-filter: blur(20px);
+            transition: var(--transition);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: rgba(79, 70, 229, 0.6);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1), 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-bar::placeholder {
+            color: rgba(241, 245, 249, 0.5);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(241, 245, 249, 0.5);
+            font-size: 1.2rem;
+            pointer-events: none;
+        }
+
+        .search-shortcut {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(241, 245, 249, 0.5);
+            font-size: 0.8rem;
+            background: rgba(30, 41, 59, 0.6);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            pointer-events: none;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            border-radius: 1rem;
+            margin-top: 0.5rem;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .search-result-item {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(79, 70, 229, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-item:hover {
+            background: rgba(79, 70, 229, 0.2);
+        }
+
+        .search-result-title {
+            color: #f1f5f9;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-result-description {
+            color: rgba(241, 245, 249, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .search-result-type {
+            color: rgba(79, 70, 229, 0.8);
+            font-size: 0.8rem;
+            background: rgba(79, 70, 229, 0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            margin-left: auto;
+        }
+
+        .no-results {
+            padding: 2rem;
+            text-align: center;
+            color: rgba(241, 245, 249, 0.6);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: #10b981;
+        }
+
+        .notification.error {
+            background: #ef4444;
+        }
+
+        .notification.warning {
+            background: #f59e0b;
+        }
+
+        .notification.info {
+            background: #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>All-in-One Study App</h1>
+            <p>Your complete toolkit for studying and productivity</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-icon">🔍</div>
+            <input type="text" class="search-bar" id="search-input" placeholder="Search tools, simulations, lectures... (Ctrl+K)">
+            <div class="search-shortcut">Ctrl+K</div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+
+        <!-- Main Tools Grid -->
+        <div id="toolsGrid" class="tools-grid">
+            <div class="tool-card" onclick="showTool('calculator')">
+                <div class="tool-icon">🧮</div>
+                <h3>Calculator</h3>
+                <p>Basic and scientific calculator</p>
+                <button class="btn btn-primary">Use Calculator</button>
+            </div>
+            <div class="tool-card" onclick="showTool('notepad')">
+                <div class="tool-icon">📝</div>
+                <h3>Notepad</h3>
+                <p>Simple text editor and notes</p>
+                <button class="btn btn-primary">Open Notepad</button>
+            </div>
+            <div class="tool-card" onclick="showTool('timer')">
+                <div class="tool-icon">⏱️</div>
+                <h3>Timer</h3>
+                <p>Countdown timer and stopwatch</p>
+                <button class="btn btn-primary">Open Timer</button>
+            </div>
+            <div class="tool-card" onclick="showTool('simulations')">
+                <div class="tool-icon">🔬</div>
+                <h3>Study Simulations</h3>
+                <p>Interactive learning simulations</p>
+                <button class="btn btn-primary">View Simulations</button>
+            </div>
+            <div class="tool-card" onclick="showTool('lectures')">
+                <div class="tool-icon">🎓</div>
+                <h3>Lectures</h3>
+                <p>Educational content and courses</p>
+                <button class="btn btn-primary">Browse Lectures</button>
+            </div>
+            <div class="tool-card" onclick="showTool('study-material')">
+                <div class="tool-icon">📚</div>
+                <h3>Study Material</h3>
+                <p>PYQs, assignments, and study resources</p>
+                <button class="btn btn-primary">Browse Materials</button>
+            </div>
+        </div>
+
+        <!-- Calculator Tool -->
+        <div id="calculatorTool" class="tool-section">
+            <h2>Calculator</h2>
+            <div class="calculator">
+                <div class="calculator-display">
+                    <input type="text" id="calculatorInput" readonly value="0">
+                </div>
+                <div class="calculator-mode">
+                    <button class="mode-btn active" id="degreeMode" onclick="toggleAngleMode()">DEG</button>
+                    <span class="mode-separator">|</span>
+                    <button class="mode-btn" id="radianMode" onclick="toggleAngleMode()">RAD</button>
+                </div>
+                <div class="calculator-buttons">
+                    <button class="calc-btn clear" onclick="clearCalculator()">C</button>
+                    <button class="calc-btn operator" onclick="appendToCalculator('(')">(</button>
+                    <button class="calc-btn operator" onclick="appendToCalculator(')')">)</button>
+                    <button class="calc-btn operator" onclick="deleteLastCalculator()">⌫</button>
+                    
+                    <button class="calc-btn operator" onclick="appendTrigFunction('sin')">sin</button>
+                    <button class="calc-btn operator" onclick="appendTrigFunction('cos')">cos</button>
+                    <button class="calc-btn operator" onclick="appendTrigFunction('tan')">tan</button>
+                    <button class="calc-btn operator" onclick="appendToCalculator('√')">√</button>
+                    
+                    <button class="calc-btn operator" onclick="appendTrigFunction('sec')">sec</button>
+                    <button class="calc-btn operator" onclick="appendTrigFunction('csc')">csc</button>
+                    <button class="calc-btn operator" onclick="appendTrigFunction('cot')">cot</button>
+                    <button class="calc-btn operator" onclick="appendToCalculator('^')">^</button>
+                    
+                    <button class="calc-btn operator" onclick="appendToCalculator('/')">/</button>
+                    <button class="calc-btn operator" onclick="appendToCalculator('*')">×</button>
+                    <button class="calc-btn operator" onclick="appendToCalculator('-')">-</button>
+                    <button class="calc-btn operator" onclick="appendToCalculator('+')">+</button>
+                    
+                    <button class="calc-btn number" onclick="appendToCalculator('7')">7</button>
+                    <button class="calc-btn number" onclick="appendToCalculator('8')">8</button>
+                    <button class="calc-btn number" onclick="appendToCalculator('9')">9</button>
+                    <button class="calc-btn operator" onclick="appendToCalculator('!')">!</button>
+                    
+                    <button class="calc-btn number" onclick="appendToCalculator('4')">4</button>
+                    <button class="calc-btn number" onclick="appendToCalculator('5')">5</button>
+                    <button class="calc-btn number" onclick="appendToCalculator('6')">6</button>
+                    <button class="calc-btn number" onclick="appendToCalculator('.')">.</button>
+                    
+                    <button class="calc-btn number" onclick="appendToCalculator('1')">1</button>
+                    <button class="calc-btn number" onclick="appendToCalculator('2')">2</button>
+                    <button class="calc-btn number" onclick="appendToCalculator('3')">3</button>
+                    <button class="calc-btn equals" onclick="calculateResult()" style="grid-row: span 2;">=</button>
+                    
+                    <button class="calc-btn number zero-btn" onclick="appendToCalculator('0')">0</button>
+                </div>
+            </div>
+            <div class="tool-controls">
+                <button class="btn btn-outline" onclick="showTool('home')">← Back to Tools</button>
+            </div>
+        </div>
+
+        <!-- Notepad Tool -->
+        <div id="notepadTool" class="tool-section">
+            <h2>Notepad</h2>
+            <div class="notepad-container">
+                <div class="notepad">
+                    <div class="notepad-toolbar">
+                        <button class="btn btn-small" onclick="saveNote()">💾 Save</button>
+                        <button class="btn btn-small" onclick="clearNote()">🗑️ Clear</button>
+                        <button class="btn btn-small" onclick="downloadNote()">📥 Download</button>
+                    </div>
+                    <textarea id="notepadText" placeholder="Start typing your notes here..."></textarea>
+                </div>
+                <div class="saved-files-panel">
+                    <h3>Saved Files</h3>
+                    <div id="savedFilesList" class="saved-files-list">
+                        <p class="no-files">No saved files</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tool-controls">
+                <button class="btn btn-outline" onclick="showTool('home')">← Back to Tools</button>
+            </div>
+        </div>
+
+        <!-- Timer Tool -->
+        <div id="timerTool" class="tool-section">
+            <h2>Timer & Stopwatch</h2>
+            <div class="timer-container">
+                <div class="timer-tabs">
+                    <button class="timer-tab active" id="timerTab" onclick="switchTimerTab('timer')">Timer</button>
+                    <button class="timer-tab" id="stopwatchTab" onclick="switchTimerTab('stopwatch')">Stopwatch</button>
+                </div>
+                
+                <div class="timer-section" id="timerSection">
+                    <div class="timer-display" id="timerDisplay">00:05:00</div>
+                    <div class="timer-input">
+                        <input type="number" id="timerHours" min="0" max="23" value="0" placeholder="HH">
+                        <span>:</span>
+                        <input type="number" id="timerMinutes" min="0" max="59" value="5" placeholder="MM">
+                        <span>:</span>
+                        <input type="number" id="timerSeconds" min="0" max="59" value="0" placeholder="SS">
+                    </div>
+                    <div class="timer-controls">
+                        <button class="btn btn-primary" id="startTimer" onclick="startTimer()">Start</button>
+                        <button class="btn btn-outline" onclick="pauseTimer()">Pause</button>
+                        <button class="btn btn-outline" onclick="resetTimer()">Reset</button>
+                    </div>
+                </div>
+                
+                <div class="stopwatch-section" id="stopwatchSection" style="display: none;">
+                    <div class="stopwatch-display" id="stopwatchDisplay">00:00:00</div>
+                    <div class="stopwatch-controls">
+                        <button class="btn btn-primary" id="startStopwatch" onclick="startStopwatch()">Start</button>
+                        <button class="btn btn-outline" onclick="lapStopwatch()">Lap</button>
+                        <button class="btn btn-outline" onclick="resetStopwatch()">Reset</button>
+                    </div>
+                    <div class="lap-times" id="lapTimes"></div>
+                </div>
+            </div>
+            <div class="tool-controls">
+                <button class="btn btn-outline" onclick="showTool('home')">← Back to Tools</button>
+            </div>
+        </div>
+
+        <!-- Study Simulations Tool -->
+        <div id="simulationsTool" class="tool-section">
+            <h2>Study Simulations</h2>
+            <div class="simulations-grid">
+                <div class="simulation-card" onclick="runSimulation('physics')">
+                    <h3>⚡ Physics Lab</h3>
+                    <p>Interactive physics experiments and demonstrations</p>
+                    <div class="simulation-content">
+                        <strong>Available Experiments:</strong><br>
+                        • Projectile Motion<br>
+                        • Wave Interference<br>
+                        • Electric Fields<br>
+                        • Pendulum Motion
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <button class="btn btn-primary">Start Simulation</button>
+                    </div>
+                </div>
+
+                <div class="simulation-card" onclick="runSimulation('chemistry')">
+                    <h3>🧪 Chemistry Lab</h3>
+                    <p>Virtual chemical reactions and molecular modeling</p>
+                    <div class="simulation-content">
+                        <strong>Available Reactions:</strong><br>
+                        • Acid-Base Titration<br>
+                        • Molecular Bonding<br>
+                        • Chemical Equilibrium<br>
+                        • Periodic Trends
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <button class="btn btn-primary">Start Simulation</button>
+                    </div>
+                </div>
+
+                <div class="simulation-card" onclick="runSimulation('math')">
+                    <h3>📊 Math Visualizer</h3>
+                    <p>Mathematical concepts with visual representations</p>
+                    <div class="simulation-content">
+                        <strong>Available Tools:</strong><br>
+                        • Function Graphing<br>
+                        • Geometry Proofs<br>
+                        • Statistics Plots<br>
+                        • Calculus Visualization
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <button class="btn btn-primary">Start Simulation</button>
+                    </div>
+                </div>
+
+                <div class="simulation-card" onclick="runSimulation('biology')">
+                    <h3>🧬 Biology Models</h3>
+                    <p>Interactive biological systems and processes</p>
+                    <div class="simulation-content">
+                        <strong>Available Models:</strong><br>
+                        • Cell Division<br>
+                        • DNA Replication<br>
+                        • Ecosystem Dynamics<br>
+                        • Genetic Inheritance
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <button class="btn btn-primary">Start Simulation</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tool-controls">
+                <button class="btn btn-outline" onclick="showTool('home')">← Back to Tools</button>
+            </div>
+        </div>
+
+        <!-- Lectures Tool -->
+        <div id="lecturesTool" class="tool-section">
+            <h2>Educational Lectures</h2>
+            <div class="lectures-grid">
+                <div class="lecture-card">
+                    <div class="lecture-header">
+                        <div class="lecture-icon">🔬</div>
+                        <div class="lecture-info">
+                            <h3>Introduction to Quantum Physics</h3>
+                            <div class="subject">Physics • Advanced Level</div>
+                        </div>
+                    </div>
+                    <div class="lecture-description">
+                        Explore the fascinating world of quantum mechanics, including wave-particle duality, uncertainty principle, and quantum entanglement. Perfect for advanced physics students.
+                    </div>
+                    <div class="lecture-details">
+                        <div class="detail-item">
+                            <div class="label">Duration</div>
+                            <div class="value">45 min</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Level</div>
+                            <div class="value">Advanced</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Language</div>
+                            <div class="value">English</div>
+                        </div>
+                    </div>
+                    <div class="lecture-actions">
+                        <button class="btn btn-primary" onclick="watchLecture('quantum-physics')">▶ Watch Lecture</button>
+                        <button class="btn btn-secondary">📚 Download Notes</button>
+                    </div>
+                </div>
+
+                <div class="lecture-card">
+                    <div class="lecture-header">
+                        <div class="lecture-icon">🧮</div>
+                        <div class="lecture-info">
+                            <h3>Calculus: Limits and Derivatives</h3>
+                            <div class="subject">Mathematics • Intermediate Level</div>
+                        </div>
+                    </div>
+                    <div class="lecture-description">
+                        Master the fundamental concepts of calculus including limits, continuity, and differentiation. Includes practical examples and problem-solving techniques.
+                    </div>
+                    <div class="lecture-details">
+                        <div class="detail-item">
+                            <div class="label">Duration</div>
+                            <div class="value">60 min</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Level</div>
+                            <div class="value">Intermediate</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Language</div>
+                            <div class="value">English</div>
+                        </div>
+                    </div>
+                    <div class="lecture-actions">
+                        <button class="btn btn-primary" onclick="watchLecture('calculus-limits')">▶ Watch Lecture</button>
+                        <button class="btn btn-secondary">📚 Download Notes</button>
+                    </div>
+                </div>
+
+                <div class="lecture-card">
+                    <div class="lecture-header">
+                        <div class="lecture-icon">🧪</div>
+                        <div class="lecture-info">
+                            <h3>Organic Chemistry Fundamentals</h3>
+                            <div class="subject">Chemistry • Beginner Level</div>
+                        </div>
+                    </div>
+                    <div class="lecture-description">
+                        Learn the basics of organic chemistry including molecular structures, functional groups, and reaction mechanisms. Great foundation for chemistry students.
+                    </div>
+                    <div class="lecture-details">
+                        <div class="detail-item">
+                            <div class="label">Duration</div>
+                            <div class="value">50 min</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Level</div>
+                            <div class="value">Beginner</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Language</div>
+                            <div class="value">English</div>
+                        </div>
+                    </div>
+                    <div class="lecture-actions">
+                        <button class="btn btn-primary" onclick="watchLecture('organic-chemistry')">▶ Watch Lecture</button>
+                        <button class="btn btn-secondary">📚 Download Notes</button>
+                    </div>
+                </div>
+
+                <div class="lecture-card">
+                    <div class="lecture-header">
+                        <div class="lecture-icon">💻</div>
+                        <div class="lecture-info">
+                            <h3>Introduction to Programming</h3>
+                            <div class="subject">Computer Science • Beginner Level</div>
+                        </div>
+                    </div>
+                    <div class="lecture-description">
+                        Get started with programming concepts, algorithms, and problem-solving techniques. Covers basic syntax and programming fundamentals.
+                    </div>
+                    <div class="lecture-details">
+                        <div class="detail-item">
+                            <div class="label">Duration</div>
+                            <div class="value">75 min</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Level</div>
+                            <div class="value">Beginner</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Language</div>
+                            <div class="value">English</div>
+                        </div>
+                    </div>
+                    <div class="lecture-actions">
+                        <button class="btn btn-primary" onclick="watchLecture('intro-programming')">▶ Watch Lecture</button>
+                        <button class="btn btn-secondary">📚 Download Notes</button>
+                    </div>
+                </div>
+
+                <div class="lecture-card">
+                    <div class="lecture-header">
+                        <div class="lecture-icon">🌍</div>
+                        <div class="lecture-info">
+                            <h3>World History: Ancient Civilizations</h3>
+                            <div class="subject">History • Intermediate Level</div>
+                        </div>
+                    </div>
+                    <div class="lecture-description">
+                        Explore ancient civilizations including Egypt, Greece, Rome, and Mesopotamia. Learn about their cultures, achievements, and lasting impact on modern society.
+                    </div>
+                    <div class="lecture-details">
+                        <div class="detail-item">
+                            <div class="label">Duration</div>
+                            <div class="value">55 min</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Level</div>
+                            <div class="value">Intermediate</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Language</div>
+                            <div class="value">English</div>
+                        </div>
+                    </div>
+                    <div class="lecture-actions">
+                        <button class="btn btn-primary" onclick="watchLecture('ancient-civilizations')">▶ Watch Lecture</button>
+                        <button class="btn btn-secondary">📚 Download Notes</button>
+                    </div>
+                </div>
+
+                <div class="lecture-card">
+                    <div class="lecture-header">
+                        <div class="lecture-icon">🧬</div>
+                        <div class="lecture-info">
+                            <h3>Genetics and Heredity</h3>
+                            <div class="subject">Biology • Intermediate Level</div>
+                        </div>
+                    </div>
+                    <div class="lecture-description">
+                        Understand the principles of genetics, DNA structure, inheritance patterns, and modern genetic technologies. Essential for biology students.
+                    </div>
+                    <div class="lecture-details">
+                        <div class="detail-item">
+                            <div class="label">Duration</div>
+                            <div class="value">65 min</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Level</div>
+                            <div class="value">Intermediate</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="label">Language</div>
+                            <div class="value">English</div>
+                        </div>
+                    </div>
+                    <div class="lecture-actions">
+                        <button class="btn btn-primary" onclick="watchLecture('genetics-heredity')">▶ Watch Lecture</button>
+                        <button class="btn btn-secondary">📚 Download Notes</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tool-controls">
+                <button class="btn btn-outline" onclick="showTool('home')">← Back to Tools</button>
+            </div>
+        </div>
+
+        <!-- Study Material Tool -->
+        <div id="study-materialTool" class="tool-section">
+            <h2>Study Material</h2>
+            <div class="study-material-grid">
+                <div class="material-category">
+                    <h3>📄 Previous Year Questions (PYQs)</h3>
+                    <div class="material-list">
+                        <div class="material-item">
+                            <div class="material-header">
+                                <div class="material-icon">🧮</div>
+                                <div class="material-info">
+                                    <h4>Mathematics PYQs</h4>
+                                    <div class="material-meta">Calculus, Algebra, Statistics • 2019-2024</div>
+                                </div>
+                            </div>
+                            <div class="material-description">
+                                Comprehensive collection of previous year mathematics questions covering calculus, linear algebra, differential equations, and statistics.
+                            </div>
+                            <div class="material-details">
+                                <div class="detail-item">
+                                    <div class="label">Years</div>
+                                    <div class="value">2019-2024</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">Questions</div>
+                                    <div class="value">500+</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">Format</div>
+                                    <div class="value">PDF</div>
+                                </div>
+                            </div>
+                            <div class="material-actions">
+                                <button class="btn btn-primary" onclick="downloadMaterial('math-pyqs')">📥 Download</button>
+                                <button class="btn btn-secondary" onclick="viewMaterial('math-pyqs')">👁 Preview</button>
+                            </div>
+                        </div>
+
+                        <div class="material-item">
+                            <div class="material-header">
+                                <div class="material-icon">🔬</div>
+                                <div class="material-info">
+                                    <h4>Physics PYQs</h4>
+                                    <div class="material-meta">Mechanics, Thermodynamics, Optics • 2018-2024</div>
+                                </div>
+                            </div>
+                            <div class="material-description">
+                                Previous year physics questions covering mechanics, thermodynamics, electromagnetism, optics, and modern physics concepts.
+                            </div>
+                            <div class="material-details">
+                                <div class="detail-item">
+                                    <div class="label">Years</div>
+                                    <div class="value">2018-2024</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">Questions</div>
+                                    <div class="value">450+</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">Format</div>
+                                    <div class="value">PDF</div>
+                                </div>
+                            </div>
+                            <div class="material-actions">
+                                <button class="btn btn-primary" onclick="downloadMaterial('physics-pyqs')">📥 Download</button>
+                                <button class="btn btn-secondary" onclick="viewMaterial('physics-pyqs')">👁 Preview</button>
+                            </div>
+                        </div>
+
+                        <div class="material-item">
+                            <div class="material-header">
+                                <div class="material-icon">🧪</div>
+                                <div class="material-info">
+                                    <h4>Chemistry PYQs</h4>
+                                    <div class="material-meta">Organic, Inorganic, Physical • 2019-2024</div>
+                                </div>
+                            </div>
+                            <div class="material-description">
+                                Previous year chemistry questions covering organic chemistry, inorganic chemistry, physical chemistry, and chemical bonding.
+                            </div>
+                            <div class="material-details">
+                                <div class="detail-item">
+                                    <div class="label">Years</div>
+                                    <div class="value">2019-2024</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">Questions</div>
+                                    <div class="value">400+</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">Format</div>
+                                    <div class="value">PDF</div>
+                                </div>
+                            </div>
+                            <div class="material-actions">
+                                <button class="btn btn-primary" onclick="downloadMaterial('chemistry-pyqs')">📥 Download</button>
+                                <button class="btn btn-secondary" onclick="viewMaterial('chemistry-pyqs')">👁 Preview</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="material-category">
+                    <h3>📝 Assignments</h3>
+                    <div class="material-list">
+                        <div class="material-item">
+                            <div class="material-header">
+                                <div class="material-icon">💻</div>
+                                <div class="material-info">
+                                    <h4>Programming Assignments</h4>
+                                    <div class="material-meta">Data Structures, Algorithms, OOP • 12 Assignments</div>
+                                </div>
+                            </div>
+                            <div class="material-description">
+                                Comprehensive programming assignments covering data structures, algorithms, object-oriented programming, and software design patterns.
+                            </div>
+                            <div class="material-details">
+                                <div class="detail-item">
+                                    <div class="label">Level</div>
+                                    <div class="value">Intermediate</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">Count</div>
+                                    <div class="value">12</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">Language</div>
+                                    <div class="value">Python/Java</div>
+                                </div>
+                            </div>
+                            <div class="material-actions">
+                                <button class="btn btn-primary" onclick="downloadMaterial('programming-assignments')">📥 Download</button>
+                                <button class="btn btn-secondary" onclick="viewMaterial('programming-assignments')">👁 Preview</button>
+                            </div>
+                        </div>
+
+                        <div class="material-item">
+                            <div class="material-header">
+                                <div class="material-icon">📊</div>
+                                <div class="material-info">
+                                    <h4>Statistics Assignments</h4>
+                                    <div class="material-meta">Probability, Hypothesis Testing, Regression • 8 Assignments</div>
+                                </div>
+                            </div>
+                            <div class="material-description">
+                                Statistical analysis assignments covering probability distributions, hypothesis testing, regression analysis, and data interpretation.
+                            </div>
+                            <div class="material-details">
+                                <div class="detail-item">
+                                    <div class="label">Level</div>
+                                    <div class="value">Advanced</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">Count</div>
+                                    <div class="value">8</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">Tools</div>
+                                    <div class="value">R/SPSS</div>
+                                </div>
+                            </div>
+                            <div class="material-actions">
+                                <button class="btn btn-primary" onclick="downloadMaterial('statistics-assignments')">📥 Download</button>
+                                <button class="btn btn-secondary" onclick="viewMaterial('statistics-assignments')">👁 Preview</button>
+                            </div>
+                        </div>
+
+                        <div class="material-item">
+                            <div class="material-header">
+                                <div class="material-icon">⚗️</div>
+                                <div class="material-info">
+                                    <h4>Lab Assignments</h4>
+                                    <div class="material-meta">Physics Lab, Chemistry Lab • 15 Experiments</div>
+                                </div>
+                            </div>
+                            <div class="material-description">
+                                Practical laboratory assignments with detailed procedures, observations, and analysis for physics and chemistry experiments.
+                            </div>
+                            <div class="material-details">
+                                <div class="detail-item">
+                                    <div class="label">Type</div>
+                                    <div class="value">Practical</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">Count</div>
+                                    <div class="value">15</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">Format</div>
+                                    <div class="value">Lab Manual</div>
+                                </div>
+                            </div>
+                            <div class="material-actions">
+                                <button class="btn btn-primary" onclick="downloadMaterial('lab-assignments')">📥 Download</button>
+                                <button class="btn btn-secondary" onclick="viewMaterial('lab-assignments')">👁 Preview</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tool-controls">
+                <button class="btn btn-outline" onclick="showTool('home')">← Back to Tools</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let timerInterval = null;
+        let stopwatchInterval = null;
+        let stopwatchTime = 0;
+        let lapCounter = 1;
+        let angleMode = 'deg'; // 'deg' or 'rad'
+        let keySequence = '';
+        let sequenceTimeout = null;
+
+        // Navigation function
+        function showTool(toolName) {
+            // Hide all tools
+            const tools = ['calculatorTool', 'notepadTool', 'timerTool', 'simulationsTool', 'lecturesTool', 'study-materialTool'];
+            tools.forEach(tool => {
+                document.getElementById(tool).style.display = 'none';
+            });
+
+            if (toolName === 'home') {
+                document.getElementById('toolsGrid').style.display = 'grid';
+            } else {
+                document.getElementById('toolsGrid').style.display = 'none';
+                document.getElementById(toolName + 'Tool').style.display = 'block';
+                
+                // Initialize specific tools
+                if (toolName === 'calculator') {
+                    initializeCalculator();
+                } else if (toolName === 'notepad') {
+                    loadNotepadContent();
+                } else if (toolName === 'timer') {
+                    initializeTimer();
+                } else if (toolName === 'simulations') {
+                    initializeSimulations();
+                } else if (toolName === 'lectures') {
+                    initializeLectures();
+                } else if (toolName === 'study-material') {
+                    initializeStudyMaterial();
+                }
+            }
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => notification.classList.add('show'), 100);
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => document.body.removeChild(notification), 300);
+            }, 3000);
+        }
+
+        // Angle mode toggle function
+        function toggleAngleMode() {
+            const degBtn = document.getElementById('degreeMode');
+            const radBtn = document.getElementById('radianMode');
+            
+            if (angleMode === 'deg') {
+                angleMode = 'rad';
+                degBtn.classList.remove('active');
+                radBtn.classList.add('active');
+                showNotification('Switched to Radians 📐', 'info');
+            } else {
+                angleMode = 'deg';
+                radBtn.classList.remove('active');
+                degBtn.classList.add('active');
+                showNotification('Switched to Degrees 📐', 'info');
+            }
+        }
+
+        // Calculator Functions
+        function initializeCalculator() {
+            const input = document.getElementById('calculatorInput');
+            if (input && !input.value) {
+                input.value = '0';
+            }
+            if (input) {
+                input.focus();
+            }
+        }
+
+        function appendTrigFunction(funcName) {
+            const input = document.getElementById('calculatorInput');
+            const currentValue = input.value;
+            const lastChar = currentValue.slice(-1);
+            
+            // Add multiplication if needed
+            if (currentValue !== '0' && currentValue !== 'Error' && /\d$/.test(lastChar)) {
+                input.value += '×' + funcName + '(';
+            } else if (currentValue === '0' || currentValue === 'Error') {
+                input.value = funcName + '(';
+            } else {
+                input.value += funcName + '(';
+            }
+            
+            // Focus the input for immediate typing
+            input.focus();
+        }
+
+        function appendToCalculator(value) {
+            const input = document.getElementById('calculatorInput');
+            const currentValue = input.value;
+            
+            if (currentValue === '0' && value !== '.' && value !== ')') {
+                input.value = value;
+            } else if (currentValue === 'Error') {
+                input.value = value;
+            } else {
+                const lastChar = currentValue.slice(-1);
+                const operators = ['+', '-', '*', '×', '/', '^'];
+                
+                if (operators.includes(lastChar) && operators.includes(value)) {
+                    input.value = currentValue.slice(0, -1) + value;
+                } else if (value === ')' && currentValue === '0') {
+                    return;
+                } else if (value === '(' && /\d$/.test(lastChar)) {
+                    input.value += '×' + value;
+                } else if (value === '√') {
+                    if (/\d$/.test(lastChar)) {
+                        input.value += '×√';
+                    } else {
+                        input.value += '√';
+                    }
+                } else if (value === '!') {
+                    if (/[\d)]$/.test(lastChar)) {
+                        input.value += value;
+                    }
+                } else {
+                    input.value += value;
+                }
+            }
+        }
+
+        function clearCalculator() {
+            document.getElementById('calculatorInput').value = '0';
+        }
+
+        function deleteLastCalculator() {
+            const input = document.getElementById('calculatorInput');
+            if (input.value.length > 1) {
+                input.value = input.value.slice(0, -1);
+            } else {
+                input.value = '0';
+            }
+        }
+
+        function calculateFactorial(n) {
+            if (n < 0) return NaN;
+            if (n === 0 || n === 1) return 1;
+            if (n > 170) return Infinity;
+            
+            let result = 1;
+            for (let i = 2; i <= n; i++) {
+                result *= i;
+            }
+            return result;
+        }
+
+        function evaluateExpression(expression) {
+            // Determine conversion factor based on angle mode
+            const toRadians = angleMode === 'deg' ? ' * Math.PI / 180' : '';
+            
+            // Handle trigonometric functions
+            expression = expression.replace(/sin\(([^)]+)\)/g, (match, contents) => {
+                return `Math.sin((${contents})${toRadians})`;
+            });
+            
+            expression = expression.replace(/cos\(([^)]+)\)/g, (match, contents) => {
+                return `Math.cos((${contents})${toRadians})`;
+            });
+            
+            expression = expression.replace(/tan\(([^)]+)\)/g, (match, contents) => {
+                return `Math.tan((${contents})${toRadians})`;
+            });
+            
+            // Handle reciprocal trigonometric functions with error handling
+            expression = expression.replace(/sec\(([^)]+)\)/g, (match, contents) => {
+                return `(1 / Math.cos((${contents})${toRadians}))`;
+            });
+            
+            expression = expression.replace(/cosec\(([^)]+)\)/g, (match, contents) => {
+                return `(1 / Math.sin((${contents})${toRadians}))`;
+            });
+            
+            expression = expression.replace(/csc\(([^)]+)\)/g, (match, contents) => {
+                return `(1 / Math.sin((${contents})${toRadians}))`;
+            });
+            
+            expression = expression.replace(/cot\(([^)]+)\)/g, (match, contents) => {
+                return `(1 / Math.tan((${contents})${toRadians}))`;
+            });
+            
+            // Handle square root
+            expression = expression.replace(/√\(([^)]+)\)/g, (match, contents) => {
+                return `Math.sqrt(${contents})`;
+            });
+            
+            expression = expression.replace(/√(\d+\.?\d*)/g, (match, number) => {
+                return `Math.sqrt(${number})`;
+            });
+            
+            // Handle factorial
+            expression = expression.replace(/(\d+\.?\d*)!/g, (match, number) => {
+                const num = parseFloat(number);
+                if (num !== Math.floor(num) || num < 0) {
+                    throw new Error('Factorial only works with non-negative integers');
+                }
+                return calculateFactorial(num).toString();
+            });
+            
+            return expression;
+        }
+
+        function calculateResult() {
+            const input = document.getElementById('calculatorInput');
+            try {
+                let expression = input.value;
+                
+                // Auto-close trigonometric functions if they're missing closing brackets
+                expression = expression.replace(/(sin|cos|tan|sec|csc|cot)\(([^)]*?)$/g, '$1($2)');
+                
+                const openParens = (expression.match(/\(/g) || []).length;
+                const closeParens = (expression.match(/\)/g) || []).length;
+                
+                if (openParens !== closeParens) {
+                    throw new Error('Unbalanced parentheses');
+                }
+                
+                expression = evaluateExpression(expression);
+                expression = expression.replace(/×/g, '*');
+                expression = expression.replace(/\^/g, '**');
+                
+                if (/[+\-*\/\*\*]$/.test(expression)) {
+                    throw new Error('Invalid expression');
+                }
+                
+                // Enhanced validation pattern to include trigonometric functions
+                const allowedPattern = /^[0-9+\-*\/\(\)\.\s]*$/;
+                const cleanExpression = expression
+                    .replace(/Math\.(sin|cos|tan|sqrt|PI)\(/g, '')
+                    .replace(/Math\.(sin|cos|tan|sqrt|PI)/g, '')
+                    .replace(/\(1 \/ Math\.(sin|cos|tan)\(/g, '')
+                    .replace(/180/g, '')
+                    .replace(/\)\)/g, '');
+                
+                if (!allowedPattern.test(cleanExpression)) {
+                    throw new Error('Invalid characters in expression');
+                }
+                
+                const result = new Function('return ' + expression)();
+                
+                if (result === Infinity) {
+                    input.value = '∞';
+                    return;
+                } else if (result === -Infinity) {
+                    input.value = '-∞';
+                    return;
+                } else if (isNaN(result)) {
+                    throw new Error('Undefined result');
+                } else if (!isFinite(result)) {
+                    throw new Error('Invalid result');
+                }
+                
+                const formattedResult = Number.isInteger(result) ? 
+                    result.toString() : 
+                    parseFloat(result.toFixed(10)).toString();
+                
+                input.value = formattedResult;
+            } catch (error) {
+                if (error.message === 'Undefined result') {
+                    input.value = 'Undefined';
+                    showNotification('Function undefined at this point! ⚠️', 'warning');
+                } else if (error.message.includes('Factorial')) {
+                    input.value = 'Error';
+                    showNotification(error.message + ' ⚠️', 'warning');
+                } else {
+                    input.value = 'Error';
+                    showNotification('Invalid expression! ❌', 'error');
+                }
+                setTimeout(() => {
+                    input.value = '0';
+                }, 2000);
+            }
+        }
+
+        // Notepad Functions
+        function saveNote() {
+            const content = document.getElementById('notepadText').value;
+            if (!content.trim()) {
+                showNotification('Nothing to save! 📝', 'warning');
+                return;
+            }
+            
+            const filename = prompt('Enter filename:', 'my-note');
+            if (!filename) {
+                showNotification('Save cancelled! ❌', 'info');
+                return;
+            }
+            
+            const timestamp = new Date().toISOString();
+            const fileData = {
+                content: content,
+                filename: filename,
+                timestamp: timestamp
+            };
+            
+            const savedFiles = JSON.parse(localStorage.getItem('notepad_saved_files') || '[]');
+            
+            const existingIndex = savedFiles.findIndex(file => file.filename === filename);
+            if (existingIndex !== -1) {
+                if (!confirm(`File "${filename}" already exists. Overwrite?`)) {
+                    showNotification('Save cancelled! ❌', 'info');
+                    return;
+                }
+                savedFiles[existingIndex] = fileData;
+            } else {
+                savedFiles.push(fileData);
+            }
+            
+            localStorage.setItem('notepad_saved_files', JSON.stringify(savedFiles));
+            localStorage.setItem('notepad_content', content);
+            
+            showNotification(`File "${filename}" saved! 💾`, 'success');
+            updateSavedFilesList();
+        }
+
+        function clearNote() {
+            if (confirm('Are you sure you want to clear all text?')) {
+                document.getElementById('notepadText').value = '';
+                localStorage.removeItem('notepad_content');
+                showNotification('Note cleared! 🗑️', 'info');
+            }
+        }
+
+        function downloadNote() {
+            const content = document.getElementById('notepadText').value;
+            if (!content.trim()) {
+                showNotification('Nothing to download! 📝', 'warning');
+                return;
+            }
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'note.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            showNotification('Note downloaded! 📥', 'success');
+        }
+
+        function loadNotepadContent() {
+            const savedContent = localStorage.getItem('notepad_content');
+            if (savedContent) {
+                document.getElementById('notepadText').value = savedContent;
+            }
+            updateSavedFilesList();
+        }
+
+        function updateSavedFilesList() {
+            const savedFiles = JSON.parse(localStorage.getItem('notepad_saved_files') || '[]');
+            const filesList = document.getElementById('savedFilesList');
+            
+            if (!filesList) return;
+            
+            if (savedFiles.length === 0) {
+                filesList.innerHTML = '<p class="no-files">No saved files</p>';
+                return;
+            }
+            
+            filesList.innerHTML = savedFiles.map((file, index) => `
+                <div class="saved-file-item">
+                    <div class="file-info">
+                        <strong>${file.filename}</strong>
+                        <small>${new Date(file.timestamp).toLocaleString()}</small>
+                    </div>
+                    <div class="file-actions">
+                        <button class="btn btn-small" onclick="loadFile('${file.filename.replace(/'/g, "\\'")}')">📂 Load</button>
+                        <button class="btn btn-small" onclick="downloadFile('${file.filename.replace(/'/g, "\\'")}')">📥 Download</button>
+                        <button class="btn btn-small" onclick="deleteFile('${file.filename.replace(/'/g, "\\'")}')">🗑️ Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadFile(filename) {
+            const savedFiles = JSON.parse(localStorage.getItem('notepad_saved_files') || '[]');
+            const file = savedFiles.find(f => f.filename === filename);
+            
+            if (file) {
+                document.getElementById('notepadText').value = file.content;
+                localStorage.setItem('notepad_content', file.content);
+                showNotification(`File "${filename}" loaded! 📂`, 'success');
+            } else {
+                showNotification('File not found! ❌', 'error');
+            }
+        }
+
+        function downloadFile(filename) {
+            const savedFiles = JSON.parse(localStorage.getItem('notepad_saved_files') || '[]');
+            const file = savedFiles.find(f => f.filename === filename);
+            
+            if (file) {
+                const blob = new Blob([file.content], { type: 'text/plain' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${filename}.txt`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                showNotification(`File "${filename}" downloaded! 📥`, 'success');
+            } else {
+                showNotification('File not found! ❌', 'error');
+            }
+        }
+
+        function deleteFile(filename) {
+            if (!confirm(`Are you sure you want to delete "${filename}"?`)) {
+                return;
+            }
+            
+            const savedFiles = JSON.parse(localStorage.getItem('notepad_saved_files') || '[]');
+            const filteredFiles = savedFiles.filter(f => f.filename !== filename);
+            
+            if (filteredFiles.length < savedFiles.length) {
+                localStorage.setItem('notepad_saved_files', JSON.stringify(filteredFiles));
+                showNotification(`File "${filename}" deleted! 🗑️`, 'info');
+                updateSavedFilesList();
+            } else {
+                showNotification('File not found! ❌', 'error');
+            }
+        }
+
+        // Timer Functions
+        function initializeTimer() {
+            switchTimerTab('timer');
+        }
+
+        function switchTimerTab(tab) {
+            const timerTab = document.getElementById('timerTab');
+            const stopwatchTab = document.getElementById('stopwatchTab');
+            const timerSection = document.getElementById('timerSection');
+            const stopwatchSection = document.getElementById('stopwatchSection');
+            
+            if (tab === 'timer') {
+                timerTab.classList.add('active');
+                stopwatchTab.classList.remove('active');
+                timerSection.style.display = 'block';
+                stopwatchSection.style.display = 'none';
+            } else {
+                timerTab.classList.remove('active');
+                stopwatchTab.classList.add('active');
+                timerSection.style.display = 'none';
+                stopwatchSection.style.display = 'block';
+            }
+        }
+
+        function startTimer() {
+            const hours = parseInt(document.getElementById('timerHours').value) || 0;
+            const minutes = parseInt(document.getElementById('timerMinutes').value) || 0;
+            const seconds = parseInt(document.getElementById('timerSeconds').value) || 0;
+            let totalSeconds = hours * 3600 + minutes * 60 + seconds;
+            
+            if (totalSeconds <= 0) {
+                showNotification('Please set a valid time! ⏰', 'warning');
+                return;
+            }
+            
+            const startBtn = document.getElementById('startTimer');
+            startBtn.disabled = true;
+            startBtn.textContent = 'Running...';
+            
+            timerInterval = setInterval(() => {
+                const hrs = Math.floor(totalSeconds / 3600);
+                const mins = Math.floor((totalSeconds % 3600) / 60);
+                const secs = totalSeconds % 60;
+                document.getElementById('timerDisplay').textContent = 
+                    `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                
+                if (totalSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    startBtn.disabled = false;
+                    startBtn.textContent = 'Start';
+                    showNotification('Timer finished! ⏰', 'success');
+                    playTimerSound();
+                    return;
+                }
+                totalSeconds--;
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            const startBtn = document.getElementById('startTimer');
+            startBtn.disabled = false;
+            startBtn.textContent = 'Start';
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            const startBtn = document.getElementById('startTimer');
+            startBtn.disabled = false;
+            startBtn.textContent = 'Start';
+            document.getElementById('timerDisplay').textContent = '00:05:00';
+            document.getElementById('timerHours').value = 0;
+            document.getElementById('timerMinutes').value = 5;
+            document.getElementById('timerSeconds').value = 0;
+        }
+
+        function startStopwatch() {
+            const startBtn = document.getElementById('startStopwatch');
+            
+            if (startBtn.textContent === 'Start') {
+                startBtn.textContent = 'Stop';
+                stopwatchInterval = setInterval(() => {
+                    stopwatchTime++;
+                    updateStopwatchDisplay();
+                }, 10);
+            } else {
+                startBtn.textContent = 'Start';
+                clearInterval(stopwatchInterval);
+            }
+        }
+
+        function lapStopwatch() {
+            if (stopwatchInterval) {
+                const lapTime = formatStopwatchTime(stopwatchTime);
+                const lapDiv = document.createElement('div');
+                lapDiv.className = 'lap-time';
+                lapDiv.innerHTML = `<span>Lap ${lapCounter}</span><span>${lapTime}</span>`;
+                document.getElementById('lapTimes').appendChild(lapDiv);
+                lapCounter++;
+            }
+        }
+
+        function resetStopwatch() {
+            clearInterval(stopwatchInterval);
+            stopwatchTime = 0;
+            lapCounter = 1;
+            document.getElementById('startStopwatch').textContent = 'Start';
+            updateStopwatchDisplay();
+            document.getElementById('lapTimes').innerHTML = '';
+        }
+
+        function updateStopwatchDisplay() {
+            document.getElementById('stopwatchDisplay').textContent = formatStopwatchTime(stopwatchTime);
+        }
+
+        function formatStopwatchTime(time) {
+            const minutes = Math.floor(time / 6000);
+            const seconds = Math.floor((time % 6000) / 100);
+            const centiseconds = time % 100;
+            return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${centiseconds.toString().padStart(2, '0')}`;
+        }
+
+        function playTimerSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.5);
+            } catch (error) {
+                console.log('Could not play timer sound:', error);
+            }
+        }
+
+        // Auto-save notepad content as user types
+        document.addEventListener('DOMContentLoaded', function() {
+            const notepadText = document.getElementById('notepadText');
+            if (notepadText) {
+                notepadText.addEventListener('input', function() {
+                    localStorage.setItem('notepad_content', this.value);
+                });
+            }
+        });
+
+        // Keyboard shortcuts for calculator
+        document.addEventListener('keydown', function(e) {
+            const calculatorTool = document.getElementById('calculatorTool');
+            if (!calculatorTool || calculatorTool.style.display === 'none') {
+                return;
+            }
+
+            const key = e.key.toLowerCase();
+            
+            // Handle letter sequences for function names
+            if (/[a-z]/.test(key) && key.length === 1) {
+                e.preventDefault();
+                
+                keySequence += key;
+                
+                // Show typing indicator
+                const input = document.getElementById('calculatorInput');
+                const currentValue = input.value;
+                
+                // Clear previous sequence timeout
+                clearTimeout(sequenceTimeout);
+                
+                // Set new timeout to clear sequence after 2 seconds
+                sequenceTimeout = setTimeout(() => {
+                    keySequence = '';
+                }, 2000);
+                
+                // Check for complete function names and trigger immediately
+                if (keySequence.endsWith('sin') && !keySequence.includes('asin') && !keySequence.includes('cosing')) {
+                    appendTrigFunction('sin');
+                    keySequence = '';
+                    clearTimeout(sequenceTimeout);
+                    return;
+                } else if (keySequence.endsWith('cos') && !keySequence.includes('acos')) {
+                    appendTrigFunction('cos');
+                    keySequence = '';
+                    clearTimeout(sequenceTimeout);
+                    return;
+                } else if (keySequence.endsWith('tan') && !keySequence.includes('atan')) {
+                    appendTrigFunction('tan');
+                    keySequence = '';
+                    clearTimeout(sequenceTimeout);
+                    return;
+                } else if (keySequence.endsWith('sec')) {
+                    appendTrigFunction('sec');
+                    keySequence = '';
+                    clearTimeout(sequenceTimeout);
+                    return;
+                } else if (keySequence.endsWith('csc') || keySequence.endsWith('cosec')) {
+                    appendTrigFunction('csc');
+                    keySequence = '';
+                    clearTimeout(sequenceTimeout);
+                    return;
+                } else if (keySequence.endsWith('cot')) {
+                    appendTrigFunction('cot');
+                    keySequence = '';
+                    clearTimeout(sequenceTimeout);
+                    return;
+                } else if (keySequence.endsWith('sqrt')) {
+                    appendToCalculator('√');
+                    keySequence = '';
+                    clearTimeout(sequenceTimeout);
+                    return;
+                } else if (keySequence.endsWith('pow')) {
+                    appendToCalculator('^');
+                    keySequence = '';
+                    clearTimeout(sequenceTimeout);
+                    return;
+                } else if (keySequence.endsWith('fact') || keySequence.endsWith('factorial')) {
+                    appendToCalculator('!');
+                    keySequence = '';
+                    clearTimeout(sequenceTimeout);
+                    return;
+                }
+                
+                console.log('Current sequence:', keySequence); // Debug log
+                return; // Don't process other actions while building sequence
+            }
+            
+            // Clear sequence for non-letter keys
+            keySequence = '';
+            clearTimeout(sequenceTimeout);
+            
+            // Handle individual keys and special combinations
+            if (/[0-9+\-*/.()^!=]/.test(e.key) || e.key === 'Enter' || e.key === 'Backspace' || e.key === 'Delete' || e.key === 'Escape' || e.key === 'c' || e.key === 'C') {
+                e.preventDefault();
+                
+                if (/[0-9+\-/.()^!=]/.test(e.key)) {
+                    if (e.key === '*') {
+                        appendToCalculator('×');
+                    } else {
+                        appendToCalculator(e.key);
+                    }
+                } else if (e.key === 'Enter') {
+                    calculateResult();
+                } else if (e.key === 'Backspace') {
+                    deleteLastCalculator();
+                } else if (e.key === 'Delete' || e.key === 'Escape' || e.key === 'c' || e.key === 'C') {
+                    clearCalculator();
+                }
+            }
+            
+            // Handle 'd' key for degree/radian toggle when not building a sequence
+            if (e.key === 'd' && keySequence === '') {
+                e.preventDefault();
+                toggleAngleMode();
+            }
+        });
+
+        // Study Simulations Functions
+        function initializeSimulations() {
+            showNotification('Study Simulations loaded! 🔬', 'success');
+        }
+
+        function runSimulation(type) {
+            const simulations = {
+                physics: 'Physics Lab simulation',
+                chemistry: 'Chemistry Lab simulation', 
+                math: 'Math Visualizer simulation',
+                biology: 'Biology Models simulation'
+            };
+            
+            showNotification(`Starting ${simulations[type]}... 🚀`, 'info');
+            
+            // Simulate loading time
+            setTimeout(() => {
+                showNotification(`${simulations[type]} is now running! ✨`, 'success');
+            }, 1500);
+        }
+
+        // Lectures Functions
+        function initializeLectures() {
+            showNotification('Educational Lectures loaded! 🎓', 'success');
+        }
+
+        function watchLecture(lectureId) {
+            const lectures = {
+                'quantum-physics': 'Introduction to Quantum Physics',
+                'calculus-limits': 'Calculus: Limits and Derivatives',
+                'organic-chemistry': 'Organic Chemistry Fundamentals',
+                'intro-programming': 'Introduction to Programming',
+                'ancient-civilizations': 'World History: Ancient Civilizations',
+                'genetics-heredity': 'Genetics and Heredity'
+            };
+            
+            const lectureName = lectures[lectureId];
+            showNotification(`Starting lecture: ${lectureName} 🎬`, 'info');
+            
+            // Simulate lecture loading
+            setTimeout(() => {
+                showNotification(`Now watching: ${lectureName} 📺`, 'success');
+            }, 1000);
+        }
+
+        // Study Material Functions
+        function initializeStudyMaterial() {
+            showNotification('Study Materials loaded! 📚', 'success');
+        }
+
+        function downloadMaterial(materialId) {
+            const materials = {
+                'math-pyqs': 'Mathematics Previous Year Questions (2019-2024)',
+                'physics-pyqs': 'Physics Previous Year Questions (2018-2024)',
+                'chemistry-pyqs': 'Chemistry Previous Year Questions (2019-2024)',
+                'programming-assignments': 'Programming Assignments - Data Structures & Algorithms',
+                'statistics-assignments': 'Statistics Assignments - Probability & Regression',
+                'lab-assignments': 'Laboratory Assignments - Physics & Chemistry'
+            };
+            
+            const materialName = materials[materialId];
+            showNotification(`Downloading: ${materialName} 📥`, 'info');
+            
+            // Simulate download process
+            setTimeout(() => {
+                showNotification(`Download complete: ${materialName} ✅`, 'success');
+            }, 1500);
+        }
+
+        function viewMaterial(materialId) {
+            const materials = {
+                'math-pyqs': 'Mathematics Previous Year Questions (2019-2024)',
+                'physics-pyqs': 'Physics Previous Year Questions (2018-2024)',
+                'chemistry-pyqs': 'Chemistry Previous Year Questions (2019-2024)',
+                'programming-assignments': 'Programming Assignments - Data Structures & Algorithms',
+                'statistics-assignments': 'Statistics Assignments - Probability & Regression',
+                'lab-assignments': 'Laboratory Assignments - Physics & Chemistry'
+            };
+            
+            const materialName = materials[materialId];
+            showNotification(`Opening preview: ${materialName} 👁`, 'info');
+            
+            // Simulate preview loading
+            setTimeout(() => {
+                showNotification(`Preview ready: ${materialName} 📖`, 'success');
+            }, 1000);
+        }
+
+        // Search functionality
+        const searchContainer = document.querySelector('.search-container');
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('searchResults');
+
+        // Search data - all tools, simulations, and lectures
+        const searchData = [
+            { name: 'Calculator', type: 'tool', description: 'Advanced calculator with trigonometric functions' },
+            { name: 'Timer', type: 'tool', description: 'Study timer with hours, minutes, and seconds' },
+            { name: 'Notepad', type: 'tool', description: 'Take notes with file management' },
+            { name: 'Study Simulations', type: 'section', description: 'Interactive learning simulations' },
+            { name: 'Lectures', type: 'section', description: 'Educational video lectures and courses' },
+            { name: 'Study Material', type: 'section', description: 'PYQs, assignments, and study resources' },
+            { name: 'Physics Lab Simulator', type: 'simulation', description: 'Virtual physics experiments and lab simulations' },
+            { name: 'Chemistry Kit', type: 'simulation', description: 'Interactive chemistry experiments and reactions' },
+            { name: 'Biology Explorer', type: 'simulation', description: 'Explore biological systems and processes' },
+            { name: 'Math Visualizer', type: 'simulation', description: 'Visualize mathematical concepts and equations' },
+            { name: 'Introduction to Programming', type: 'lecture', description: 'Learn the basics of programming languages' },
+            { name: 'Data Structures & Algorithms', type: 'lecture', description: 'Master data structures and algorithmic thinking' },
+            { name: 'Calculus Fundamentals', type: 'lecture', description: 'Comprehensive calculus course from basics to advanced' },
+            { name: 'Physics: Mechanics', type: 'lecture', description: 'Classical mechanics and motion principles' },
+            { name: 'Chemistry: Organic Compounds', type: 'lecture', description: 'Study organic chemistry and molecular structures' },
+            { name: 'History of Science', type: 'lecture', description: 'Explore the evolution of scientific thought' },
+            { name: 'Mathematics PYQs', type: 'material', description: 'Previous year questions for mathematics (2019-2024)' },
+            { name: 'Physics PYQs', type: 'material', description: 'Previous year questions for physics (2018-2024)' },
+            { name: 'Chemistry PYQs', type: 'material', description: 'Previous year questions for chemistry (2019-2024)' },
+            { name: 'Programming Assignments', type: 'material', description: 'Data structures and algorithms assignments' },
+            { name: 'Statistics Assignments', type: 'material', description: 'Probability and regression analysis assignments' },
+            { name: 'Lab Assignments', type: 'material', description: 'Physics and chemistry laboratory experiments' }
+        ];
+
+        // Show search results
+        function showSearchResults(results) {
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div class="search-result-item">No results found</div>';
+            } else {
+                searchResults.innerHTML = results.map(item => `
+                    <div class="search-result-item" onclick="navigateToItem('${item.type}', '${item.name}')">
+                        <div class="search-result-title">${item.name}</div>
+                        <div class="search-result-description">${item.description}</div>
+                        <div class="search-result-type">${item.type}</div>
+                    </div>
+                `).join('');
+            }
+            searchResults.style.display = 'block';
+        }
+
+        // Hide search results
+        function hideSearchResults() {
+            searchResults.style.display = 'none';
+        }
+
+        // Navigate to search result
+        function navigateToItem(type, name) {
+            hideSearchResults();
+            searchInput.value = '';
+            searchContainer.style.display = 'none';
+
+            switch (type) {
+                case 'tool':
+                    if (name === 'Calculator') showTool('calculator');
+                    else if (name === 'Timer') showTool('timer');
+                    else if (name === 'Notepad') showTool('notepad');
+                    break;
+                case 'section':
+                    if (name === 'Study Simulations') showTool('simulations');
+                    else if (name === 'Lectures') showTool('lectures');
+                    else if (name === 'Study Material') showTool('study-material');
+                    break;
+                case 'simulation':
+                case 'lecture':
+                case 'material':
+                    // For simulations and lectures, show the parent section
+                    if (type === 'simulation') showTool('simulations');
+                    else if (type === 'lecture') showTool('lectures');
+                    else if (type === 'material') showTool('study-material');
+                    break;
+            }
+        }
+
+        // Search input event listener
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase().trim();
+            
+            if (query === '') {
+                hideSearchResults();
+                return;
+            }
+
+            const results = searchData.filter(item => 
+                item.name.toLowerCase().includes(query) || 
+                item.description.toLowerCase().includes(query) ||
+                item.type.toLowerCase().includes(query)
+            );
+
+            showSearchResults(results);
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+K to open search
+            if (e.ctrlKey && e.key === 'k') {
+                e.preventDefault();
+                searchContainer.style.display = 'block';
+                searchInput.focus();
+            }
+            
+            // Escape to close search
+            if (e.key === 'Escape') {
+                searchContainer.style.display = 'none';
+                hideSearchResults();
+                searchInput.value = '';
+            }
+        });
+
+        // Close search when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!searchContainer.contains(e.target)) {
+                searchContainer.style.display = 'none';
+                hideSearchResults();
+            }
+        });
+
+        // Prevent search container from closing when clicking inside it
+        searchContainer.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    </script>
+</body>
+</html>
