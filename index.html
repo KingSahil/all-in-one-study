@@ -2741,11 +2741,29 @@
             color: #0f172a;
         }
 
-        /* Drag visual feedback */
+        /* Drag visual feedback - Enhanced for smooth performance */
         .window-dragging {
-            opacity: 0.8;
-            transform: scale(0.98);
+            opacity: 0.9;
+            transform: scale(1.02) !important;
             z-index: 1002;
+            transition: none !important;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4) !important;
+            cursor: grabbing !important;
+        }
+
+        .floating-window {
+            will-change: transform;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+
+        .window-header {
+            cursor: grab;
+            user-select: none;
+        }
+
+        .window-header:active {
+            cursor: grabbing;
         }
 
         .snap-zone {
@@ -3272,7 +3290,7 @@
             <!-- Materials Display -->
             <div class="materials-container">
                 <div class="materials-header">
-                    <h3>� Your Study Materials</h3>
+                    <h3>🚀 Your Study Materials</h3>
                     <div class="materials-stats" id="materialsStats">
                         <span class="stat-item">Total: <span id="totalMaterials">0</span></span>
                     </div>
@@ -3665,9 +3683,13 @@
         }
 
         // Angle mode toggle function
-        function toggleAngleMode() {
-            const degBtn = document.getElementById('degreeMode');
-            const radBtn = document.getElementById('radianMode');
+        function toggleAngleMode(context = '') {
+            const degBtnId = context ? `degreeMode-${context}` : 'degreeMode';
+            const radBtnId = context ? `radianMode-${context}` : 'radianMode';
+            const degBtn = document.getElementById(degBtnId);
+            const radBtn = document.getElementById(radBtnId);
+            
+            if (!degBtn || !radBtn) return;
             
             if (angleMode === 'deg') {
                 angleMode = 'rad';
@@ -3683,8 +3705,9 @@
         }
 
         // Calculator Functions
-        function initializeCalculator() {
-            const input = document.getElementById('calculatorInput');
+        function initializeCalculator(context = '') {
+            const inputId = context ? `calculatorInput-${context}` : 'calculatorInput';
+            const input = document.getElementById(inputId);
             if (input && !input.value) {
                 input.value = '0';
             }
@@ -3693,8 +3716,28 @@
             }
         }
 
-        function appendTrigFunction(funcName) {
-            const input = document.getElementById('calculatorInput');
+        function initializeChatbot(context = '') {
+            const inputId = context ? `chatInput-${context}` : 'chatInput';
+            const input = document.getElementById(inputId);
+            
+            if (input) {
+                // Add Enter key support for chat input
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendMessage(context);
+                    }
+                });
+                
+                input.focus();
+            }
+        }
+
+        function appendTrigFunction(funcName, context = '') {
+            const inputId = context ? `calculatorInput-${context}` : 'calculatorInput';
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            
             const currentValue = input.value;
             const lastChar = currentValue.slice(-1);
             
@@ -3711,8 +3754,11 @@
             input.focus();
         }
 
-        function appendToCalculator(value) {
-            const input = document.getElementById('calculatorInput');
+        function appendToCalculator(value, context = '') {
+            const inputId = context ? `calculatorInput-${context}` : 'calculatorInput';
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            
             const currentValue = input.value;
             
             if (currentValue === '0' && value !== '.' && value !== ')') {
@@ -3745,12 +3791,17 @@
             }
         }
 
-        function clearCalculator() {
-            document.getElementById('calculatorInput').value = '0';
+        function clearCalculator(context = '') {
+            const inputId = context ? `calculatorInput-${context}` : 'calculatorInput';
+            const input = document.getElementById(inputId);
+            if (input) input.value = '0';
         }
 
-        function deleteLastCalculator() {
-            const input = document.getElementById('calculatorInput');
+        function deleteLastCalculator(context = '') {
+            const inputId = context ? `calculatorInput-${context}` : 'calculatorInput';
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            
             if (input.value.length > 1) {
                 input.value = input.value.slice(0, -1);
             } else {
@@ -3867,8 +3918,11 @@
             return expression;
         }
 
-        function calculateResult() {
-            const input = document.getElementById('calculatorInput');
+        function calculateResult(context = '') {
+            const inputId = context ? `calculatorInput-${context}` : 'calculatorInput';
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            
             try {
                 let expression = input.value;
                 
@@ -3940,9 +3994,10 @@
         }
 
         // Notepad Functions
-        function saveNote() {
-            const content = document.getElementById('notepadText').value;
-            if (!content.trim()) {
+        function saveNote(context = '') {
+            const textareaId = context ? `notepadTextarea-${context}` : 'notepadText';
+            const content = document.getElementById(textareaId)?.value;
+            if (!content || !content.trim()) {
                 showNotification('Nothing to save! 📝', 'warning');
                 return;
             }
@@ -3980,12 +4035,25 @@
             updateSavedFilesList();
         }
 
-        function clearNote() {
+        function clearNote(context = '') {
             if (confirm('Are you sure you want to clear all text?')) {
-                document.getElementById('notepadText').value = '';
-                localStorage.removeItem('notepad_content');
-                showNotification('Note cleared! 🗑️', 'info');
+                const textareaId = context ? `notepadTextarea-${context}` : 'notepadText';
+                const textarea = document.getElementById(textareaId);
+                if (textarea) {
+                    textarea.value = '';
+                    localStorage.removeItem('notepad_content');
+                    showNotification('Note cleared! 🗑️', 'info');
+                }
             }
+        }
+
+        // Aliases for floating windows
+        function clearNotepad(context) {
+            clearNote(context);
+        }
+
+        function saveNotepadContent(context) {
+            saveNote(context);
         }
 
         function downloadNote() {
@@ -4007,10 +4075,12 @@
             showNotification('Note downloaded! 📥', 'success');
         }
 
-        function loadNotepadContent() {
+        function loadNotepadContent(context = '') {
+            const textareaId = context ? `notepadTextarea-${context}` : 'notepadText';
             const savedContent = localStorage.getItem('notepad_content');
-            if (savedContent) {
-                document.getElementById('notepadText').value = savedContent;
+            const textarea = document.getElementById(textareaId);
+            if (savedContent && textarea) {
+                textarea.value = savedContent;
             }
             updateSavedFilesList();
         }
@@ -4092,31 +4162,46 @@
         }
 
         // Timer Functions
-        function initializeTimer() {
+        function initializeTimer(context = '') {
+            if (context) {
+                // Basic initialization for floating timer
+                return;
+            }
             switchTimerTab('timer');
         }
 
-        function switchTimerTab(tab) {
-            const timerTab = document.getElementById('timerTab');
-            const stopwatchTab = document.getElementById('stopwatchTab');
-            const timerSection = document.getElementById('timerSection');
-            const stopwatchSection = document.getElementById('stopwatchSection');
+        // Timer function stubs for floating windows
+        function switchTimerMode(mode, context) {
+            if (!context) return;
+            const countdownTab = document.getElementById(`countdownTab-${context}`);
+            const stopwatchTab = document.getElementById(`stopwatchTab-${context}`);
+            const countdownTimer = document.getElementById(`countdownTimer-${context}`);
+            const stopwatchTimer = document.getElementById(`stopwatchTimer-${context}`);
             
-            if (tab === 'timer') {
-                timerTab.classList.add('active');
-                stopwatchTab.classList.remove('active');
-                timerSection.style.display = 'block';
-                stopwatchSection.style.display = 'none';
+            if (mode === 'countdown') {
+                countdownTab?.classList.add('active');
+                stopwatchTab?.classList.remove('active');
+                if (countdownTimer) countdownTimer.style.display = 'block';
+                if (stopwatchTimer) stopwatchTimer.style.display = 'none';
             } else {
-                timerTab.classList.remove('active');
-                stopwatchTab.classList.add('active');
-                timerSection.style.display = 'none';
-                stopwatchSection.style.display = 'block';
+                countdownTab?.classList.remove('active');
+                stopwatchTab?.classList.add('active');
+                if (countdownTimer) countdownTimer.style.display = 'none';
+                if (stopwatchTimer) stopwatchTimer.style.display = 'block';
             }
         }
 
-        function startTimer() {
+        function startTimer(context = '') {
+            if (context) {
+                showNotification('Timer functionality coming soon in floating windows! ⏱️', 'info');
+                return;
+            }
+            // Original timer functionality for homepage
             const startBtn = document.getElementById('startTimer');
+            const resetBtn = document.getElementById('resetTimer');
+            
+            // Check current button state to determine action
+            if (startBtn.textContent === 'Start') {
             const resetBtn = document.getElementById('resetTimer');
             
             // Check current button state to determine action
@@ -4191,7 +4276,12 @@
             }
         }
 
-        function resetTimer() {
+        function resetTimer(context = '') {
+            if (context) {
+                showNotification('Timer reset functionality coming soon! 🔄', 'info');
+                return;
+            }
+            // Original reset functionality
             clearInterval(timerInterval);
             timerInterval = null;
             timerPaused = false;
@@ -4204,7 +4294,37 @@
             document.getElementById('timerSeconds').value = 0;
         }
 
-        function startStopwatch() {
+        // Timer function stubs for floating windows
+        function pauseTimer(context) {
+            if (context) {
+                showNotification('Timer pause functionality coming soon! ⏸️', 'info');
+            }
+        }
+
+        function pauseStopwatch(context) {
+            if (context) {
+                showNotification('Stopwatch pause functionality coming soon! ⏸️', 'info');
+            }
+        }
+
+        function resetStopwatch(context) {
+            if (context) {
+                showNotification('Stopwatch reset functionality coming soon! 🔄', 'info');
+            }
+        }
+
+        function addLap(context) {
+            if (context) {
+                showNotification('Lap functionality coming soon! 🏁', 'info');
+            }
+        }
+
+        function startStopwatch(context = '') {
+            if (context) {
+                showNotification('Stopwatch functionality coming soon! ⏰', 'info');
+                return;
+            }
+            // Original stopwatch functionality
             const startBtn = document.getElementById('startStopwatch');
             
             if (startBtn.textContent === 'Start') {
@@ -5321,18 +5441,19 @@
         const GEMINI_API_KEY = 'AIzaSyBRdwjXVqAdmOfuNhUtqeZB4UFFSDfiLlg'; // Replace with your actual API key
         const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
 
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
+        function sendMessage(context = '') {
+            const inputId = context ? `chatInput-${context}` : 'chatInput';
+            const input = document.getElementById(inputId);
+            const message = input?.value.trim();
             
             if (!message || isProcessing) return;
             
             // Add user message
-            addMessage(message, 'user');
+            addMessage(message, 'user', context);
             input.value = '';
             
             // Process the message
-            processUserMessage(message);
+            processUserMessage(message, context);
         }
 
         function formatAIResponse(text) {
@@ -5380,8 +5501,11 @@
             return formatted;
         }
 
-        function addMessage(text, type) {
-            const messagesContainer = document.getElementById('chatMessages');
+        function addMessage(text, type, context = '') {
+            const messagesId = context ? `chatMessages-${context}` : 'chatMessages';
+            const messagesContainer = document.getElementById(messagesId);
+            if (!messagesContainer) return;
+            
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${type}-message`;
             
@@ -5406,8 +5530,11 @@
             chatHistory.push({ text, type, timestamp: new Date() });
         }
 
-        function showTypingIndicator() {
-            const messagesContainer = document.getElementById('chatMessages');
+        function showTypingIndicator(context = '') {
+            const messagesId = context ? `chatMessages-${context}` : 'chatMessages';
+            const messagesContainer = document.getElementById(messagesId);
+            if (!messagesContainer) return;
+            
             const typingDiv = document.createElement('div');
             typingDiv.className = 'message assistant-message typing-indicator-message';
             typingDiv.innerHTML = `
@@ -5428,28 +5555,33 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
-        function hideTypingIndicator() {
-            const typingIndicator = document.querySelector('.typing-indicator-message');
+        function hideTypingIndicator(context = '') {
+            const messagesId = context ? `chatMessages-${context}` : 'chatMessages';
+            const messagesContainer = document.getElementById(messagesId);
+            if (!messagesContainer) return;
+            
+            const typingIndicator = messagesContainer.querySelector('.typing-indicator-message');
             if (typingIndicator) {
                 typingIndicator.remove();
             }
         }
 
-        async function processUserMessage(message) {
+        async function processUserMessage(message, context = '') {
             if (isProcessing) return;
             
             isProcessing = true;
-            const sendButton = document.getElementById('sendButton');
-            sendButton.disabled = true;
+            const sendButtonId = context ? `sendButton-${context}` : 'sendButton';
+            const sendButton = document.getElementById(sendButtonId) || document.querySelector(`#${context ? 'floating' : 'ai-chatbot'} .send-button`);
+            if (sendButton) sendButton.disabled = true;
             
-            showTypingIndicator();
+            showTypingIndicator(context);
             
             try {
                 // Check if API key is configured
                 if (GEMINI_API_KEY === 'YOUR_GEMINI_API_KEY_HERE') {
-                    hideTypingIndicator();
+                    hideTypingIndicator(context);
                     const fallbackResponse = generateAIResponse(message);
-                    addMessage(fallbackResponse + '\n\n⚠️ Note: Using fallback responses. Please add your Gemini API key for full AI capabilities.', 'assistant');
+                    addMessage(fallbackResponse + '\n\n⚠️ Note: Using fallback responses. Please add your Gemini API key for full AI capabilities.', 'assistant', context);
                     return;
                 }
 
@@ -5487,26 +5619,26 @@
 
                 const data = await response.json();
                 
-                hideTypingIndicator();
+                hideTypingIndicator(context);
                 
                 // Extract the response text from Gemini API response
                 if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts[0]) {
                     const aiResponse = data.candidates[0].content.parts[0].text;
-                    addMessage(aiResponse, 'assistant');
+                    addMessage(aiResponse, 'assistant', context);
                 } else {
                     throw new Error('Invalid response format from API');
                 }
                 
             } catch (error) {
-                hideTypingIndicator();
+                hideTypingIndicator(context);
                 console.error('Gemini API error:', error);
                 
                 // Fallback to local responses if API fails
                 const fallbackResponse = generateAIResponse(message);
-                addMessage(fallbackResponse + '\n\n⚠️ Note: AI API temporarily unavailable, using fallback response.', 'assistant');
+                addMessage(fallbackResponse + '\n\n⚠️ Note: AI API temporarily unavailable, using fallback response.', 'assistant', context);
             } finally {
                 isProcessing = false;
-                sendButton.disabled = false;
+                if (sendButton) sendButton.disabled = false;
             }
         }
 
@@ -6390,6 +6522,8 @@
         let isDragging = false;
         let dragOffset = { x: 0, y: 0 };
         let activeWindow = null;
+        let windowBounds = { width: 0, height: 0 };
+        let lastFrameTime = 0;
 
         function openFloatingWindow(toolType) {
             // Check if window already exists
@@ -6471,19 +6605,19 @@
             switch(toolType) {
                 case 'calculator':
                     content.innerHTML = createCalculatorContent();
-                    initializeCalculator();
+                    initializeCalculator('floating');
                     break;
                 case 'notepad':
                     content.innerHTML = createNotepadContent();
-                    loadNotepadContent();
+                    loadNotepadContent('floating');
                     break;
                 case 'timer':
                     content.innerHTML = createTimerContent();
-                    initializeTimer();
+                    initializeTimer('floating');
                     break;
                 case 'ai-chatbot':
                     content.innerHTML = createChatbotContent();
-                    initializeChatbot();
+                    initializeChatbot('floating');
                     break;
             }
         }
@@ -6685,7 +6819,7 @@
             updateTaskbar();
         }
 
-        // Drag functionality
+        // Drag functionality - Optimized for smooth performance
         function startDrag(event, windowId) {
             event.preventDefault();
             const window = document.getElementById(windowId);
@@ -6696,40 +6830,84 @@
             activeWindow = window;
             window.classList.add('window-dragging');
             
+            // Store window bounds for performance (avoid repeated getBoundingClientRect calls)
             const rect = window.getBoundingClientRect();
+            windowBounds.width = rect.width;
+            windowBounds.height = rect.height;
+            
             dragOffset.x = event.clientX - rect.left;
             dragOffset.y = event.clientY - rect.top;
             
             bringWindowToFront(window);
             
-            document.addEventListener('mousemove', drag);
+            // Use requestAnimationFrame for smoother performance
+            document.addEventListener('mousemove', onMouseMove, { passive: true });
             document.addEventListener('mouseup', stopDrag);
+            
+            // Prevent text selection while dragging
+            document.body.style.userSelect = 'none';
+            document.body.style.cursor = 'grabbing';
         }
 
-        function drag(event) {
+        let pendingDrag = null;
+        
+        function onMouseMove(event) {
             if (!isDragging || !activeWindow) return;
             
-            const x = event.clientX - dragOffset.x;
-            const y = event.clientY - dragOffset.y;
+            // Cancel previous animation frame if it hasn't executed yet
+            if (pendingDrag) {
+                cancelAnimationFrame(pendingDrag);
+            }
             
-            // Keep window within viewport
-            const windowRect = activeWindow.getBoundingClientRect();
-            const maxX = window.innerWidth - windowRect.width;
-            const maxY = window.innerHeight - windowRect.height;
+            // Schedule the drag update for the next frame
+            pendingDrag = requestAnimationFrame(() => {
+                updateWindowPosition(event.clientX, event.clientY);
+                pendingDrag = null;
+            });
+        }
+
+        function updateWindowPosition(clientX, clientY) {
+            if (!activeWindow || !isDragging) return;
             
-            activeWindow.style.left = `${Math.max(0, Math.min(x, maxX))}px`;
-            activeWindow.style.top = `${Math.max(0, Math.min(y, maxY))}px`;
+            const x = clientX - dragOffset.x;
+            const y = clientY - dragOffset.y;
+            
+            // Calculate viewport constraints more efficiently
+            const maxX = window.innerWidth - windowBounds.width;
+            const maxY = window.innerHeight - windowBounds.height;
+            
+            const constrainedX = Math.max(0, Math.min(x, maxX));
+            const constrainedY = Math.max(0, Math.min(y, maxY));
+            
+            // Use transform for better performance (hardware accelerated)
+            activeWindow.style.transform = `translate(${constrainedX}px, ${constrainedY}px)`;
+            
+            // Update position for future operations
+            activeWindow.style.left = `${constrainedX}px`;
+            activeWindow.style.top = `${constrainedY}px`;
         }
 
         function stopDrag() {
             if (activeWindow) {
                 activeWindow.classList.remove('window-dragging');
+                // Reset transform to prevent conflicts
+                activeWindow.style.transform = '';
+            }
+            
+            // Cancel any pending animation frame
+            if (pendingDrag) {
+                cancelAnimationFrame(pendingDrag);
+                pendingDrag = null;
             }
             
             isDragging = false;
             activeWindow = null;
             
-            document.removeEventListener('mousemove', drag);
+            // Restore user selection and cursor
+            document.body.style.userSelect = '';
+            document.body.style.cursor = '';
+            
+            document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', stopDrag);
         }
 
