@@ -1445,6 +1445,573 @@
         .notification.info {
             background: #3b82f6;
         }
+
+        /* AI Chatbot Styles */
+        .chatbot-container {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            overflow: hidden;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 2rem;
+        }
+
+        .chat-header {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 1rem;
+            border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #f1f5f9;
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 80%;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .assistant-message {
+            align-self: flex-start;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .user-message .message-avatar {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .assistant-message .message-avatar {
+            background: rgba(6, 182, 212, 0.2);
+        }
+
+        .message-content {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+
+        .user-message .message-content {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .message-text {
+            color: #f1f5f9;
+            line-height: 1.5;
+            margin-bottom: 0.25rem;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            color: rgba(241, 245, 249, 0.6);
+        }
+
+        .chat-input-container {
+            border-top: 1px solid rgba(6, 182, 212, 0.2);
+            padding: 1rem;
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        #chatInput {
+            flex: 1;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            color: #f1f5f9;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        #chatInput:focus {
+            border-color: rgba(6, 182, 212, 0.6);
+            box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2);
+        }
+
+        #chatInput::placeholder {
+            color: rgba(241, 245, 249, 0.5);
+        }
+
+        .send-button {
+            background: var(--primary-color);
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-button:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .send-button:disabled {
+            background: rgba(79, 70, 229, 0.5);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .send-icon {
+            font-size: 1.1rem;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .quick-action-btn {
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            color: rgba(6, 182, 212, 0.9);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .quick-action-btn:hover {
+            background: rgba(6, 182, 212, 0.2);
+            border-color: rgba(6, 182, 212, 0.5);
+            color: #f1f5f9;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(241, 245, 249, 0.6);
+            font-style: italic;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 2px;
+        }
+
+        .typing-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(6, 182, 212, 0.6);
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+
+        .tool-description {
+            color: rgba(241, 245, 249, 0.8);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        /* AI Response Formatting Styles */
+        .message-text strong {
+            color: #06b6d4;
+            font-weight: 700;
+        }
+
+        .message-text em {
+            color: #a855f7;
+            font-style: italic;
+        }
+
+        .message-text .code-block {
+            display: block;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #10b981;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .message-text .inline-code {
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 0.25rem;
+            padding: 0.2rem 0.4rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #06b6d4;
+        }
+
+        .message-text .response-header {
+            color: #f97316;
+            font-weight: 600;
+            margin: 1rem 0 0.5rem 0;
+            line-height: 1.2;
+        }
+
+        .message-text h1.response-header {
+            font-size: 1.4rem;
+            border-bottom: 2px solid rgba(249, 115, 22, 0.3);
+            padding-bottom: 0.25rem;
+        }
+
+        .message-text h2.response-header {
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(249, 115, 22, 0.2);
+            padding-bottom: 0.2rem;
+        }
+
+        .message-text h3.response-header {
+            font-size: 1.1rem;
+        }
+
+        .message-text .formatted-list {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .message-text .formatted-list li {
+            margin: 0.25rem 0;
+            color: #f1f5f9;
+            line-height: 1.4;
+        }
+
+        .message-text ol.formatted-list {
+            list-style-type: decimal;
+        }
+
+        .message-text ul.formatted-list {
+            list-style-type: disc;
+        }
+
+        .message-text .formatted-list li::marker {
+            color: #06b6d4;
+        }
+
+        /* Enhanced message text spacing */
+        .message-text {
+            line-height: 1.6;
+        }
+
+        .message-text p {
+            margin: 0.5rem 0;
+        }
+
+        .message-text br + br {
+            display: block;
+            margin: 0.5rem 0;
+        }
+
+        /* Material Management Styles */
+        .add-material-section {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(168, 85, 247, 0.1));
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .add-material-section h3 {
+            color: #06b6d4;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .material-form {
+            max-width: 800px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #f1f5f9;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 0.5rem;
+            color: #f1f5f9;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #06b6d4;
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+        }
+
+        .form-hint {
+            color: rgba(241, 245, 249, 0.6);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        .materials-container {
+            margin-top: 2rem;
+        }
+
+        .materials-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .materials-header h3 {
+            color: #f1f5f9;
+            margin: 0;
+        }
+
+        .materials-stats {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .stat-item {
+            color: rgba(241, 245, 249, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .stat-item span {
+            color: #06b6d4;
+            font-weight: 600;
+        }
+
+        .category-filters {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            color: #f1f5f9;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .filter-btn:hover {
+            background: rgba(6, 182, 212, 0.1);
+            border-color: #06b6d4;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            border-color: #06b6d4;
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .material-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.8));
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .material-card:hover {
+            transform: translateY(-2px);
+            border-color: #06b6d4;
+            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.2);
+        }
+
+        .material-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .material-info h4 {
+            color: #f1f5f9;
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .material-category-badge {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            color: #0f172a;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .material-description {
+            color: rgba(241, 245, 249, 0.8);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+
+        .material-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .material-actions .btn {
+            flex: 1;
+            padding: 0.6rem;
+            font-size: 0.85rem;
+        }
+
+        .material-card .btn-danger {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            border-color: #dc2626;
+            color: white;
+            flex: 0 0 auto;
+            padding: 0.6rem 0.75rem;
+        }
+
+        .material-card .btn-danger:hover {
+            background: linear-gradient(135deg, #b91c1c, #991b1b);
+            transform: translateY(-1px);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            grid-column: 1 / -1;
+        }
+
+        .empty-state .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h4 {
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: rgba(241, 245, 249, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .materials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-filters {
+                justify-content: center;
+            }
+            
+            .materials-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1494,6 +2061,12 @@
                 <h3>Lectures</h3>
                 <p>Educational content and courses</p>
                 <button class="btn btn-primary">Browse Lectures</button>
+            </div>
+            <div class="tool-card" onclick="showTool('ai-chatbot')">
+                <div class="tool-icon">🤖</div>
+                <h3>AI Study Assistant</h3>
+                <p>Get help with study doubts and questions</p>
+                <button class="btn btn-primary">Start Chat</button>
             </div>
             <div class="tool-card" onclick="showTool('study-material')">
                 <div class="tool-icon">📚</div>
@@ -1874,203 +2447,120 @@
         <!-- Study Material Tool -->
         <div id="study-materialTool" class="tool-section">
             <h2>Study Material</h2>
-            <div class="study-material-grid">
-                <div class="material-category">
-                    <h3>📄 Previous Year Questions (PYQs)</h3>
-                    <div class="material-list">
-                        <div class="material-item">
-                            <div class="material-header">
-                                <div class="material-icon">🧮</div>
-                                <div class="material-info">
-                                    <h4>Mathematics PYQs</h4>
-                                    <div class="material-meta">Calculus, Algebra, Statistics • 2019-2024</div>
-                                </div>
-                            </div>
-                            <div class="material-description">
-                                Comprehensive collection of previous year mathematics questions covering calculus, linear algebra, differential equations, and statistics.
-                            </div>
-                            <div class="material-details">
-                                <div class="detail-item">
-                                    <div class="label">Years</div>
-                                    <div class="value">2019-2024</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="label">Questions</div>
-                                    <div class="value">500+</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="label">Format</div>
-                                    <div class="value">PDF</div>
-                                </div>
-                            </div>
-                            <div class="material-actions">
-                                <button class="btn btn-primary" onclick="downloadMaterial('math-pyqs')">📥 Download</button>
-                                <button class="btn btn-secondary" onclick="viewMaterial('math-pyqs')">👁 Preview</button>
-                            </div>
+            <p class="tool-description">Add and manage your study materials, assignments, and PYQs with Google Drive links</p>
+            
+            <!-- Add Material Form -->
+            <div class="add-material-section">
+                <h3>➕ Add New Material</h3>
+                <div class="material-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="materialTitle">📝 Title</label>
+                            <input type="text" id="materialTitle" placeholder="e.g., Mathematics PYQs 2024, Physics Lab Manual" maxlength="100">
                         </div>
-
-                        <div class="material-item">
-                            <div class="material-header">
-                                <div class="material-icon">🔬</div>
-                                <div class="material-info">
-                                    <h4>Physics PYQs</h4>
-                                    <div class="material-meta">Mechanics, Thermodynamics, Optics • 2018-2024</div>
-                                </div>
-                            </div>
-                            <div class="material-description">
-                                Previous year physics questions covering mechanics, thermodynamics, electromagnetism, optics, and modern physics concepts.
-                            </div>
-                            <div class="material-details">
-                                <div class="detail-item">
-                                    <div class="label">Years</div>
-                                    <div class="value">2018-2024</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="label">Questions</div>
-                                    <div class="value">450+</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="label">Format</div>
-                                    <div class="value">PDF</div>
-                                </div>
-                            </div>
-                            <div class="material-actions">
-                                <button class="btn btn-primary" onclick="downloadMaterial('physics-pyqs')">📥 Download</button>
-                                <button class="btn btn-secondary" onclick="viewMaterial('physics-pyqs')">👁 Preview</button>
-                            </div>
-                        </div>
-
-                        <div class="material-item">
-                            <div class="material-header">
-                                <div class="material-icon">🧪</div>
-                                <div class="material-info">
-                                    <h4>Chemistry PYQs</h4>
-                                    <div class="material-meta">Organic, Inorganic, Physical • 2019-2024</div>
-                                </div>
-                            </div>
-                            <div class="material-description">
-                                Previous year chemistry questions covering organic chemistry, inorganic chemistry, physical chemistry, and chemical bonding.
-                            </div>
-                            <div class="material-details">
-                                <div class="detail-item">
-                                    <div class="label">Years</div>
-                                    <div class="value">2019-2024</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="label">Questions</div>
-                                    <div class="value">400+</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="label">Format</div>
-                                    <div class="value">PDF</div>
-                                </div>
-                            </div>
-                            <div class="material-actions">
-                                <button class="btn btn-primary" onclick="downloadMaterial('chemistry-pyqs')">📥 Download</button>
-                                <button class="btn btn-secondary" onclick="viewMaterial('chemistry-pyqs')">👁 Preview</button>
-                            </div>
+                        <div class="form-group">
+                            <label for="materialCategory">📂 Category</label>
+                            <select id="materialCategory">
+                                <option value="pyq">📄 Previous Year Questions</option>
+                                <option value="assignment">📝 Assignment</option>
+                                <option value="notes">📚 Study Notes</option>
+                                <option value="lab">⚗️ Lab Manual</option>
+                                <option value="other">📋 Other</option>
+                            </select>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="materialLink">� Google Drive Link</label>
+                        <input type="url" id="materialLink" placeholder="https://drive.google.com/file/d/..." required>
+                        <small class="form-hint">Make sure your Google Drive file is set to "Anyone with the link can view"</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="materialDescription">📋 Description (Optional)</label>
+                        <textarea id="materialDescription" placeholder="Brief description of the material..." rows="2" maxlength="200"></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="addMaterial()">
+                        <span>➕ Add Material</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Materials Display -->
+            <div class="materials-container">
+                <div class="materials-header">
+                    <h3>� Your Study Materials</h3>
+                    <div class="materials-stats" id="materialsStats">
+                        <span class="stat-item">Total: <span id="totalMaterials">0</span></span>
+                    </div>
+                </div>
+                
+                <!-- Category Filters -->
+                <div class="category-filters">
+                    <button class="filter-btn active" onclick="filterMaterials('all')" data-category="all">All</button>
+                    <button class="filter-btn" onclick="filterMaterials('pyq')" data-category="pyq">� PYQs</button>
+                    <button class="filter-btn" onclick="filterMaterials('assignment')" data-category="assignment">📝 Assignments</button>
+                    <button class="filter-btn" onclick="filterMaterials('notes')" data-category="notes">📚 Notes</button>
+                    <button class="filter-btn" onclick="filterMaterials('lab')" data-category="lab">⚗️ Lab</button>
+                    <button class="filter-btn" onclick="filterMaterials('other')" data-category="other">� Other</button>
                 </div>
 
-                <div class="material-category">
-                    <h3>📝 Assignments</h3>
-                    <div class="material-list">
-                        <div class="material-item">
-                            <div class="material-header">
-                                <div class="material-icon">💻</div>
-                                <div class="material-info">
-                                    <h4>Programming Assignments</h4>
-                                    <div class="material-meta">Data Structures, Algorithms, OOP • 12 Assignments</div>
-                                </div>
-                            </div>
-                            <div class="material-description">
-                                Comprehensive programming assignments covering data structures, algorithms, object-oriented programming, and software design patterns.
-                            </div>
-                            <div class="material-details">
-                                <div class="detail-item">
-                                    <div class="label">Level</div>
-                                    <div class="value">Intermediate</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="label">Count</div>
-                                    <div class="value">12</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="label">Language</div>
-                                    <div class="value">Python/Java</div>
-                                </div>
-                            </div>
-                            <div class="material-actions">
-                                <button class="btn btn-primary" onclick="downloadMaterial('programming-assignments')">📥 Download</button>
-                                <button class="btn btn-secondary" onclick="viewMaterial('programming-assignments')">👁 Preview</button>
-                            </div>
-                        </div>
-
-                        <div class="material-item">
-                            <div class="material-header">
-                                <div class="material-icon">📊</div>
-                                <div class="material-info">
-                                    <h4>Statistics Assignments</h4>
-                                    <div class="material-meta">Probability, Hypothesis Testing, Regression • 8 Assignments</div>
-                                </div>
-                            </div>
-                            <div class="material-description">
-                                Statistical analysis assignments covering probability distributions, hypothesis testing, regression analysis, and data interpretation.
-                            </div>
-                            <div class="material-details">
-                                <div class="detail-item">
-                                    <div class="label">Level</div>
-                                    <div class="value">Advanced</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="label">Count</div>
-                                    <div class="value">8</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="label">Tools</div>
-                                    <div class="value">R/SPSS</div>
-                                </div>
-                            </div>
-                            <div class="material-actions">
-                                <button class="btn btn-primary" onclick="downloadMaterial('statistics-assignments')">📥 Download</button>
-                                <button class="btn btn-secondary" onclick="viewMaterial('statistics-assignments')">👁 Preview</button>
-                            </div>
-                        </div>
-
-                        <div class="material-item">
-                            <div class="material-header">
-                                <div class="material-icon">⚗️</div>
-                                <div class="material-info">
-                                    <h4>Lab Assignments</h4>
-                                    <div class="material-meta">Physics Lab, Chemistry Lab • 15 Experiments</div>
-                                </div>
-                            </div>
-                            <div class="material-description">
-                                Practical laboratory assignments with detailed procedures, observations, and analysis for physics and chemistry experiments.
-                            </div>
-                            <div class="material-details">
-                                <div class="detail-item">
-                                    <div class="label">Type</div>
-                                    <div class="value">Practical</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="label">Count</div>
-                                    <div class="value">15</div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="label">Format</div>
-                                    <div class="value">Lab Manual</div>
-                                </div>
-                            </div>
-                            <div class="material-actions">
-                                <button class="btn btn-primary" onclick="downloadMaterial('lab-assignments')">📥 Download</button>
-                                <button class="btn btn-secondary" onclick="viewMaterial('lab-assignments')">👁 Preview</button>
-                            </div>
-                        </div>
+                <!-- Materials Grid -->
+                <div class="materials-grid" id="materialsGrid">
+                    <div class="empty-state" id="emptyState">
+                        <div class="empty-icon">📚</div>
+                        <h4>No materials added yet</h4>
+                        <p>Add your first study material using the form above!</p>
                     </div>
                 </div>
             </div>
+
+            <div class="tool-controls">
+                <button class="btn btn-outline" onclick="showTool('home')">← Back to Tools</button>
+            </div>
+        </div>
+
+        <!-- AI Chatbot Tool -->
+        <div id="ai-chatbotTool" class="tool-section">
+            <h2>🤖 AI Study Assistant</h2>
+            <p class="tool-description">Get instant help with your study doubts, explanations, and academic questions!</p>
+            
+            <!-- Chat Container -->
+            <div class="chatbot-container">
+                <div class="chat-header">
+                    <div class="chat-status">
+                        <div class="status-dot online"></div>
+                        <span>AI Assistant Online</span>
+                    </div>
+                    <button class="btn btn-secondary" onclick="clearChat()">Clear Chat</button>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message assistant-message">
+                        <div class="message-avatar">🤖</div>
+                        <div class="message-content">
+                            <div class="message-text">
+                                Hello! I'm your AI Study Assistant. I'm here to help you with any study doubts, explanations, or academic questions you might have. Just type your question below and I'll do my best to help! 📚
+                            </div>
+                            <div class="message-time">Just now</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-input-container">
+                    <div class="chat-input-wrapper">
+                        <input type="text" id="chatInput" placeholder="Ask your study question here..." autocomplete="off">
+                        <button class="send-button" id="sendButton" onclick="sendMessage()">
+                            <span class="send-icon">📤</span>
+                        </button>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="quick-action-btn" onclick="insertQuickPrompt('Explain this concept: ')">Explain Concept</button>
+                        <button class="quick-action-btn" onclick="insertQuickPrompt('Help me solve: ')">Solve Problem</button>
+                        <button class="quick-action-btn" onclick="insertQuickPrompt('What is the difference between: ')">Compare Topics</button>
+                        <button class="quick-action-btn" onclick="insertQuickPrompt('Give me examples of: ')">Get Examples</button>
+                    </div>
+                </div>
+            </div>
+            
             <div class="tool-controls">
                 <button class="btn btn-outline" onclick="showTool('home')">← Back to Tools</button>
             </div>
@@ -2092,7 +2582,7 @@
         // Navigation function
         function showTool(toolName) {
             // Hide all tools
-            const tools = ['calculatorTool', 'notepadTool', 'timerTool', 'simulationsTool', 'lecturesTool', 'study-materialTool'];
+            const tools = ['calculatorTool', 'notepadTool', 'timerTool', 'simulationsTool', 'lecturesTool', 'study-materialTool', 'ai-chatbotTool'];
             tools.forEach(tool => {
                 document.getElementById(tool).style.display = 'none';
             });
@@ -3776,6 +4266,522 @@
         searchContainer.addEventListener('click', function(e) {
             e.stopPropagation();
         });
+
+        // AI Chatbot Functions
+        let chatHistory = [];
+        let isProcessing = false;
+
+        // Gemini API Configuration
+        // To get your API key:
+        // 1. Go to https://makersuite.google.com/app/apikey
+        // 2. Sign in with your Google account
+        // 3. Create a new API key
+        // 4. Replace 'YOUR_GEMINI_API_KEY_HERE' below with your actual API key
+        // 5. Keep your API key secure and never share it publicly
+        const GEMINI_API_KEY = 'AIzaSyBRdwjXVqAdmOfuNhUtqeZB4UFFSDfiLlg'; // Replace with your actual API key
+        const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message || isProcessing) return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // Process the message
+            processUserMessage(message);
+        }
+
+        function formatAIResponse(text) {
+            // Handle various markdown-like formatting
+            let formatted = text;
+            
+            // Convert **bold** to <strong>bold</strong>
+            formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            // Convert *italic* to <em>italic</em>
+            formatted = formatted.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            
+            // Convert code blocks ```code``` to <code>code</code>
+            formatted = formatted.replace(/```(.*?)```/gs, '<code class="code-block">$1</code>');
+            
+            // Convert inline code `code` to <code>code</code>
+            formatted = formatted.replace(/`(.*?)`/g, '<code class="inline-code">$1</code>');
+            
+            // Convert numbered lists (1. item)
+            formatted = formatted.replace(/^\d+\.\s(.+)$/gm, '<li class="numbered-list">$1</li>');
+            
+            // Convert bullet points (- item or • item)
+            formatted = formatted.replace(/^[-•]\s(.+)$/gm, '<li class="bullet-list">$1</li>');
+            
+            // Wrap consecutive list items in appropriate list tags
+            formatted = formatted.replace(/(<li class="numbered-list">.*?<\/li>(\s*<li class="numbered-list">.*?<\/li>)*)/gs, '<ol class="formatted-list">$1</ol>');
+            formatted = formatted.replace(/(<li class="bullet-list">.*?<\/li>(\s*<li class="bullet-list">.*?<\/li>)*)/gs, '<ul class="formatted-list">$1</ul>');
+            
+            // Clean up list class names after wrapping
+            formatted = formatted.replace(/class="numbered-list"/g, '');
+            formatted = formatted.replace(/class="bullet-list"/g, '');
+            
+            // Convert line breaks to <br> tags
+            formatted = formatted.replace(/\n/g, '<br>');
+            
+            // Convert ### Headers to <h3>
+            formatted = formatted.replace(/^### (.+)$/gm, '<h3 class="response-header">$1</h3>');
+            
+            // Convert ## Headers to <h2>
+            formatted = formatted.replace(/^## (.+)$/gm, '<h2 class="response-header">$1</h2>');
+            
+            // Convert # Headers to <h1>
+            formatted = formatted.replace(/^# (.+)$/gm, '<h1 class="response-header">$1</h1>');
+            
+            return formatted;
+        }
+
+        function addMessage(text, type) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}-message`;
+            
+            const avatar = type === 'user' ? '👤' : '🤖';
+            const currentTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            // Format AI responses but keep user messages as plain text
+            const formattedText = type === 'assistant' ? formatAIResponse(text) : text;
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${avatar}</div>
+                <div class="message-content">
+                    <div class="message-text">${formattedText}</div>
+                    <div class="message-time">${currentTime}</div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Store in chat history
+            chatHistory.push({ text, type, timestamp: new Date() });
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message assistant-message typing-indicator-message';
+            typingDiv.innerHTML = `
+                <div class="message-avatar">🤖</div>
+                <div class="message-content">
+                    <div class="typing-indicator">
+                        <span>AI is thinking</span>
+                        <div class="typing-dots">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const typingIndicator = document.querySelector('.typing-indicator-message');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        async function processUserMessage(message) {
+            if (isProcessing) return;
+            
+            isProcessing = true;
+            const sendButton = document.getElementById('sendButton');
+            sendButton.disabled = true;
+            
+            showTypingIndicator();
+            
+            try {
+                // Check if API key is configured
+                if (GEMINI_API_KEY === 'YOUR_GEMINI_API_KEY_HERE') {
+                    hideTypingIndicator();
+                    const fallbackResponse = generateAIResponse(message);
+                    addMessage(fallbackResponse + '\n\n⚠️ Note: Using fallback responses. Please add your Gemini API key for full AI capabilities.', 'assistant');
+                    return;
+                }
+
+                // Prepare the request payload for Gemini API
+                const requestBody = {
+                    contents: [
+                        {
+                            parts: [
+                                {
+                                    text: `You are a helpful AI study assistant. The user is asking: "${message}". Please provide a clear, educational response that helps with their study question. Focus on being educational and supportive.`
+                                }
+                            ]
+                        }
+                    ],
+                    generationConfig: {
+                        temperature: 0.7,
+                        topP: 0.8,
+                        topK: 10,
+                        maxOutputTokens: 2048,
+                    }
+                };
+
+                // Make API call to Gemini
+                const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API request failed: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                hideTypingIndicator();
+                
+                // Extract the response text from Gemini API response
+                if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts[0]) {
+                    const aiResponse = data.candidates[0].content.parts[0].text;
+                    addMessage(aiResponse, 'assistant');
+                } else {
+                    throw new Error('Invalid response format from API');
+                }
+                
+            } catch (error) {
+                hideTypingIndicator();
+                console.error('Gemini API error:', error);
+                
+                // Fallback to local responses if API fails
+                const fallbackResponse = generateAIResponse(message);
+                addMessage(fallbackResponse + '\n\n⚠️ Note: AI API temporarily unavailable, using fallback response.', 'assistant');
+            } finally {
+                isProcessing = false;
+                sendButton.disabled = false;
+            }
+        }
+
+        function generateAIResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Study-related responses
+            if (lowerMessage.includes('math') || lowerMessage.includes('mathematics') || lowerMessage.includes('calculus') || lowerMessage.includes('algebra')) {
+                return "I'd be happy to help with mathematics! Could you be more specific about the topic or problem you're working on? Whether it's calculus, algebra, geometry, or statistics, I can provide explanations, examples, and step-by-step solutions.";
+            }
+            
+            if (lowerMessage.includes('physics') || lowerMessage.includes('mechanics') || lowerMessage.includes('thermodynamics')) {
+                return "Physics can be challenging but fascinating! What specific area are you studying? I can help explain concepts in mechanics, thermodynamics, electromagnetism, optics, or modern physics with clear examples and practical applications.";
+            }
+            
+            if (lowerMessage.includes('chemistry') || lowerMessage.includes('organic') || lowerMessage.includes('inorganic')) {
+                return "Chemistry involves understanding how matter behaves at the molecular level. What topic are you working on? I can help with organic chemistry, inorganic chemistry, physical chemistry, or general chemistry concepts.";
+            }
+            
+            if (lowerMessage.includes('biology') || lowerMessage.includes('anatomy') || lowerMessage.includes('cell')) {
+                return "Biology is the study of life! Are you looking at cell biology, anatomy, genetics, ecology, or another area? I can explain biological processes, structures, and systems in an easy-to-understand way.";
+            }
+            
+            if (lowerMessage.includes('computer') || lowerMessage.includes('programming') || lowerMessage.includes('coding')) {
+                return "Computer science and programming are exciting fields! What language or concept are you learning? I can help with algorithms, data structures, programming languages, or computer science theory.";
+            }
+            
+            if (lowerMessage.includes('english') || lowerMessage.includes('literature') || lowerMessage.includes('writing')) {
+                return "I can assist with English language and literature! Whether you need help with grammar, essay writing, literary analysis, or reading comprehension, I'm here to guide you through it.";
+            }
+            
+            if (lowerMessage.includes('history') || lowerMessage.includes('historical')) {
+                return "History helps us understand the past and present! What time period or region are you studying? I can provide context, explain historical events, and help you understand their significance.";
+            }
+            
+            // General study help
+            if (lowerMessage.includes('study') || lowerMessage.includes('learn') || lowerMessage.includes('understand')) {
+                return "Great that you're focused on learning! What subject or topic would you like to study? I can help break down complex concepts, suggest study strategies, and provide explanations tailored to your learning style.";
+            }
+            
+            if (lowerMessage.includes('exam') || lowerMessage.includes('test') || lowerMessage.includes('preparation')) {
+                return "Exam preparation is crucial for success! What subject is your exam on? I can help you review key concepts, suggest study schedules, and provide practice questions to boost your confidence.";
+            }
+            
+            if (lowerMessage.includes('homework') || lowerMessage.includes('assignment')) {
+                return "I'd be happy to help with your homework! Please share the specific question or topic you're working on, and I'll guide you through the solution step by step.";
+            }
+            
+            // Encouraging responses for vague questions
+            if (lowerMessage.includes('help') || lowerMessage.includes('doubt') || lowerMessage.includes('question')) {
+                return "I'm here to help with your studies! Please feel free to ask specific questions about any subject - mathematics, science, literature, history, or any other topic you're learning. The more details you provide, the better I can assist you!";
+            }
+            
+            // Default response
+            return "That's an interesting question! Could you provide more details about what you'd like to learn or understand? I'm here to help with any academic subject or study-related topic you're working on. Feel free to ask about specific concepts, problems, or areas where you need clarification!";
+        }
+
+        function insertQuickPrompt(prompt) {
+            const input = document.getElementById('chatInput');
+            input.value = prompt;
+            input.focus();
+        }
+
+        function clearChat() {
+            const messagesContainer = document.getElementById('chatMessages');
+            messagesContainer.innerHTML = `
+                <div class="message assistant-message">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <div class="message-text">
+                            Hello! I'm your AI Study Assistant. I'm here to help you with any study doubts, explanations, or academic questions you might have. Just type your question below and I'll do my best to help! 📚
+                        </div>
+                        <div class="message-time">Just now</div>
+                    </div>
+                </div>
+            `;
+            chatHistory = [];
+        }
+
+        // Handle Enter key for chat input
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatInput = document.getElementById('chatInput');
+            if (chatInput) {
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendMessage();
+                    }
+                });
+            }
+            
+            // Load materials when page loads
+            loadMaterials();
+        });
+
+        // Material Management Functions
+        let materials = [];
+
+        function loadMaterials() {
+            const saved = localStorage.getItem('studyMaterials');
+            if (saved) {
+                materials = JSON.parse(saved);
+            }
+            displayMaterials();
+            updateStats();
+        }
+
+        function saveMaterials() {
+            localStorage.setItem('studyMaterials', JSON.stringify(materials));
+            updateStats();
+        }
+
+        function addMaterial() {
+            const title = document.getElementById('materialTitle').value.trim();
+            const category = document.getElementById('materialCategory').value;
+            const link = document.getElementById('materialLink').value.trim();
+            const description = document.getElementById('materialDescription').value.trim();
+
+            // Validation
+            if (!title) {
+                alert('Please enter a title for the material.');
+                return;
+            }
+
+            if (!link) {
+                alert('Please enter a Google Drive link.');
+                return;
+            }
+
+            // Validate Google Drive link
+            if (!isValidGoogleDriveLink(link)) {
+                alert('Please enter a valid Google Drive link.');
+                return;
+            }
+
+            const material = {
+                id: Date.now(),
+                title: title,
+                category: category,
+                link: link,
+                description: description,
+                dateAdded: new Date().toISOString()
+            };
+
+            materials.push(material);
+            saveMaterials();
+            displayMaterials();
+            clearForm();
+            
+            // Show success message
+            showNotification('Material added successfully! 🎉', 'success');
+        }
+
+        function isValidGoogleDriveLink(url) {
+            const drivePatterns = [
+                /^https:\/\/drive\.google\.com\/file\/d\/[a-zA-Z0-9_-]+/,
+                /^https:\/\/docs\.google\.com\/[a-zA-Z]+\/d\/[a-zA-Z0-9_-]+/,
+                /^https:\/\/drive\.google\.com\/open\?id=[a-zA-Z0-9_-]+/
+            ];
+            return drivePatterns.some(pattern => pattern.test(url));
+        }
+
+        function clearForm() {
+            document.getElementById('materialTitle').value = '';
+            document.getElementById('materialCategory').value = 'pyq';
+            document.getElementById('materialLink').value = '';
+            document.getElementById('materialDescription').value = '';
+        }
+
+        function displayMaterials(filter = 'all') {
+            const grid = document.getElementById('materialsGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            let filteredMaterials = materials;
+            if (filter !== 'all') {
+                filteredMaterials = materials.filter(material => material.category === filter);
+            }
+
+            if (filteredMaterials.length === 0) {
+                if (filter === 'all' && materials.length === 0) {
+                    emptyState.style.display = 'block';
+                    grid.innerHTML = '';
+                    grid.appendChild(emptyState);
+                } else {
+                    grid.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon">🔍</div>
+                            <h4>No materials found</h4>
+                            <p>No materials found in this category.</p>
+                        </div>
+                    `;
+                }
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            
+            grid.innerHTML = filteredMaterials.map(material => {
+                const categoryEmojis = {
+                    pyq: '📄',
+                    assignment: '📝',
+                    notes: '📚',
+                    lab: '⚗️',
+                    other: '📋'
+                };
+                
+                const categoryNames = {
+                    pyq: 'PYQ',
+                    assignment: 'Assignment',
+                    notes: 'Notes',
+                    lab: 'Lab Manual',
+                    other: 'Other'
+                };
+
+                return `
+                    <div class="material-card" data-category="${material.category}">
+                        <div class="material-card-header">
+                            <div class="material-info">
+                                <h4>${material.title}</h4>
+                                <div class="material-category-badge">
+                                    ${categoryEmojis[material.category]} ${categoryNames[material.category]}
+                                </div>
+                            </div>
+                        </div>
+                        ${material.description ? `<div class="material-description">${material.description}</div>` : ''}
+                        <div class="material-actions">
+                            <button class="btn btn-primary" onclick="openMaterial('${material.link}')">
+                                🔗 Open Link
+                            </button>
+                            <button class="btn btn-secondary" onclick="copyLink('${material.link}')">
+                                📋 Copy Link
+                            </button>
+                            <button class="btn btn-danger" onclick="deleteMaterial(${material.id})">
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterMaterials(category) {
+            // Update active filter button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-category="${category}"]`).classList.add('active');
+            
+            displayMaterials(category);
+        }
+
+        function openMaterial(link) {
+            window.open(link, '_blank');
+        }
+
+        function copyLink(link) {
+            navigator.clipboard.writeText(link).then(() => {
+                showNotification('Link copied to clipboard! 📋', 'success');
+            }).catch(() => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = link;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification('Link copied to clipboard! 📋', 'success');
+            });
+        }
+
+        function deleteMaterial(id) {
+            if (confirm('Are you sure you want to delete this material?')) {
+                materials = materials.filter(material => material.id !== id);
+                saveMaterials();
+                displayMaterials();
+                showNotification('Material deleted successfully! 🗑️', 'success');
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('totalMaterials').textContent = materials.length;
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'linear-gradient(135deg, #10b981, #059669)' : 'linear-gradient(135deg, #06b6d4, #0891b2)'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 0.5rem;
+                z-index: 10000;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+                font-weight: 600;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
     </script>
 </body>
 </html>
