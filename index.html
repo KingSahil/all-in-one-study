@@ -505,6 +505,14 @@
             flex-wrap: wrap;
         }
 
+        .timer-mode {
+            display: none;
+        }
+
+        .timer-mode.active {
+            display: block;
+        }
+
         .lap-times {
             margin-top: 2rem;
             max-height: 200px;
@@ -2696,6 +2704,40 @@
             padding: 1rem;
         }
 
+        /* Ensure floating window inputs are interactive */
+        .floating-window input,
+        .floating-window textarea,
+        .floating-window button {
+            pointer-events: auto !important;
+            user-select: text !important;
+            cursor: text !important;
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+        }
+        
+        .floating-window textarea {
+            resize: vertical !important;
+            white-space: pre-wrap !important;
+        }
+        
+        .floating-window input:focus,
+        .floating-window textarea:focus {
+            outline: 2px solid rgba(79, 70, 229, 0.6) !important;
+            outline-offset: 2px !important;
+        }
+        
+        /* Override any conflicting styles */
+        .floating-window input[disabled],
+        .floating-window textarea[disabled],
+        .floating-window input[readonly],
+        .floating-window textarea[readonly] {
+            opacity: 1 !important;
+            cursor: text !important;
+            background-color: transparent !important;
+            pointer-events: auto !important;
+        }
+
         .floating-window.minimized .window-content {
             display: none;
         }
@@ -3720,16 +3762,133 @@
             const inputId = context ? `chatInput-${context}` : 'chatInput';
             const input = document.getElementById(inputId);
             
+            console.log(`Initializing chatbot with context: "${context}", input ID: "${inputId}", input found:`, !!input);
+            
             if (input) {
-                // Add Enter key support for chat input
-                input.addEventListener('keypress', function(e) {
+                // Clear any existing event listeners by cloning
+                const newInput = input.cloneNode(true);
+                input.parentNode.replaceChild(newInput, input);
+                
+                // Force enable the input completely
+                newInput.removeAttribute('disabled');
+                newInput.removeAttribute('readonly');
+                newInput.style.pointerEvents = 'auto';
+                newInput.style.userSelect = 'text';
+                newInput.style.cursor = 'text';
+                newInput.tabIndex = 0;
+                newInput.contentEditable = false; // Reset contentEditable
+                
+                // Add comprehensive event handling
+                newInput.addEventListener('keydown', function(e) {
+                    e.stopPropagation();
                     if (e.key === 'Enter' && !e.shiftKey) {
                         e.preventDefault();
                         sendMessage(context);
                     }
-                });
+                }, true);
                 
-                input.focus();
+                newInput.addEventListener('keypress', function(e) {
+                    e.stopPropagation();
+                    console.log('Chat keypress:', e.key);
+                }, true);
+                
+                newInput.addEventListener('input', function(e) {
+                    e.stopPropagation();
+                    console.log('Chat input detected:', e.target.value);
+                }, true);
+                
+                newInput.addEventListener('focus', function(e) {
+                    e.stopPropagation();
+                    console.log('Chat input focused');
+                }, true);
+                
+                newInput.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    console.log('Chat input clicked');
+                    newInput.focus();
+                }, true);
+                
+                // Force focus multiple times
+                setTimeout(() => {
+                    newInput.focus();
+                    newInput.click();
+                    newInput.select();
+                }, 100);
+                
+                console.log(`Chatbot input initialized successfully for context: "${context}"`);
+            } else {
+                console.error(`Failed to find chatbot input with ID: "${inputId}"`);
+            }
+        }
+
+        function initializeNotepad(context = '') {
+            const textareaId = context ? `notepadTextarea-${context}` : 'notepadText';
+            const textarea = document.getElementById(textareaId);
+            
+            console.log(`Initializing notepad with context: "${context}", textarea ID: "${textareaId}", textarea found:`, !!textarea);
+            
+            if (textarea) {
+                // Clear any existing event listeners by cloning
+                const newTextarea = textarea.cloneNode(true);
+                textarea.parentNode.replaceChild(newTextarea, textarea);
+                
+                // Force enable the textarea completely
+                newTextarea.removeAttribute('disabled');
+                newTextarea.removeAttribute('readonly');
+                newTextarea.style.pointerEvents = 'auto';
+                newTextarea.style.userSelect = 'text';
+                newTextarea.style.cursor = 'text';
+                newTextarea.tabIndex = 0;
+                newTextarea.contentEditable = false; // Reset contentEditable
+                
+                // Add comprehensive event handling
+                newTextarea.addEventListener('keydown', function(e) {
+                    e.stopPropagation();
+                    console.log('Notepad keydown:', e.key);
+                }, true);
+                
+                newTextarea.addEventListener('keypress', function(e) {
+                    e.stopPropagation();
+                    console.log('Notepad keypress:', e.key);
+                }, true);
+                
+                newTextarea.addEventListener('input', function(e) {
+                    e.stopPropagation();
+                    const content = newTextarea.value;
+                    localStorage.setItem('notepad_content', content);
+                    
+                    // Update word count if element exists
+                    const wordCountId = context ? `wordCount-${context}` : 'wordCount';
+                    const wordCountElement = document.getElementById(wordCountId);
+                    if (wordCountElement) {
+                        const words = content.trim() ? content.trim().split(/\s+/).length : 0;
+                        wordCountElement.textContent = `${words} word${words !== 1 ? 's' : ''}`;
+                    }
+                    
+                    console.log('Notepad content updated:', content.length, 'characters');
+                }, true);
+                
+                newTextarea.addEventListener('focus', function(e) {
+                    e.stopPropagation();
+                    console.log('Notepad focused');
+                }, true);
+                
+                newTextarea.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    console.log('Notepad clicked');
+                    newTextarea.focus();
+                }, true);
+                
+                // Force focus multiple times
+                setTimeout(() => {
+                    newTextarea.focus();
+                    newTextarea.click();
+                    newTextarea.select();
+                }, 100);
+                
+                console.log(`Notepad textarea initialized successfully for context: "${context}"`);
+            } else {
+                console.error(`Failed to find notepad textarea with ID: "${textareaId}"`);
             }
         }
 
@@ -4181,13 +4340,13 @@
             if (mode === 'countdown') {
                 countdownTab?.classList.add('active');
                 stopwatchTab?.classList.remove('active');
-                if (countdownTimer) countdownTimer.style.display = 'block';
-                if (stopwatchTimer) stopwatchTimer.style.display = 'none';
+                countdownTimer?.classList.add('active');
+                stopwatchTimer?.classList.remove('active');
             } else {
                 countdownTab?.classList.remove('active');
                 stopwatchTab?.classList.add('active');
-                if (countdownTimer) countdownTimer.style.display = 'none';
-                if (stopwatchTimer) stopwatchTimer.style.display = 'block';
+                countdownTimer?.classList.remove('active');
+                stopwatchTimer?.classList.add('active');
             }
         }
 
@@ -4198,10 +4357,6 @@
             }
             // Original timer functionality for homepage
             const startBtn = document.getElementById('startTimer');
-            const resetBtn = document.getElementById('resetTimer');
-            
-            // Check current button state to determine action
-            if (startBtn.textContent === 'Start') {
             const resetBtn = document.getElementById('resetTimer');
             
             // Check current button state to determine action
@@ -6547,6 +6702,12 @@
             bringWindowToFront(window);
             initializeFloatingTool(toolType, window);
             
+            // Auto-fix inputs after a short delay
+            setTimeout(() => {
+                enableAllInputs(window);
+                autoFixFloatingInputs();
+            }, 150);
+            
             showNotification(`${getToolTitle(toolType)} opened in floating window! 🪟`, 'success');
         }
 
@@ -6560,8 +6721,8 @@
             const toolTitle = getToolTitle(toolType);
             
             window.innerHTML = `
-                <div class="window-header" onmousedown="startDrag(event, '${windowId}')">
-                    <div class="window-title">
+                <div class="window-header">
+                    <div class="window-title" onmousedown="startDrag(event, '${windowId}')" style="cursor: grab; flex: 1;">
                         <span>${toolIcon}</span>
                         <span>${toolTitle}</span>
                     </div>
@@ -6571,7 +6732,7 @@
                         <button class="window-control-btn close-btn" onclick="closeFloatingWindow('${windowId}')" title="Close">×</button>
                     </div>
                 </div>
-                <div class="window-content" id="${windowId}-content">
+                <div class="window-content" id="${windowId}-content" onclick="event.stopPropagation();">
                     <div class="loading-message">Loading ${toolTitle}...</div>
                 </div>
             `;
@@ -6605,21 +6766,84 @@
             switch(toolType) {
                 case 'calculator':
                     content.innerHTML = createCalculatorContent();
-                    initializeCalculator('floating');
+                    // Use setTimeout to ensure DOM is ready
+                    setTimeout(() => initializeCalculator('floating'), 100);
                     break;
                 case 'notepad':
                     content.innerHTML = createNotepadContent();
-                    loadNotepadContent('floating');
+                    setTimeout(() => {
+                        loadNotepadContent('floating');
+                        initializeNotepad('floating');
+                        enableAllInputs(window);
+                    }, 100);
                     break;
                 case 'timer':
                     content.innerHTML = createTimerContent();
-                    initializeTimer('floating');
+                    setTimeout(() => initializeTimer('floating'), 100);
                     break;
                 case 'ai-chatbot':
                     content.innerHTML = createChatbotContent();
-                    initializeChatbot('floating');
+                    setTimeout(() => {
+                        initializeChatbot('floating');
+                        enableAllInputs(window);
+                    }, 100);
                     break;
             }
+        }
+
+        // Comprehensive function to enable all inputs in a floating window
+        function enableAllInputs(window) {
+            const inputs = window.querySelectorAll('input, textarea, button');
+            inputs.forEach(element => {
+                // Remove any disabling attributes
+                element.removeAttribute('disabled');
+                element.removeAttribute('readonly');
+                
+                // Ensure proper CSS for interaction
+                element.style.pointerEvents = 'auto';
+                element.style.userSelect = 'text';
+                element.style.cursor = 'text';
+                
+                // Add tabindex if needed
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    element.tabIndex = 0;
+                    
+                    // Force enable input events directly
+                    element.addEventListener('keydown', function(e) {
+                        e.stopPropagation();
+                        console.log('Keydown event:', e.key, 'in element:', element.id);
+                    });
+                    
+                    element.addEventListener('keypress', function(e) {
+                        e.stopPropagation();
+                        console.log('Keypress event:', e.key, 'in element:', element.id);
+                    });
+                    
+                    element.addEventListener('input', function(e) {
+                        e.stopPropagation();
+                        console.log('Input event:', e.target.value, 'in element:', element.id);
+                    });
+                    
+                    element.addEventListener('change', function(e) {
+                        e.stopPropagation();
+                        console.log('Change event:', e.target.value, 'in element:', element.id);
+                    });
+                    
+                    // Add focus and click handlers
+                    element.addEventListener('focus', function(e) {
+                        console.log('Focus event in element:', element.id);
+                        e.stopPropagation();
+                    });
+                    
+                    element.addEventListener('click', function(e) {
+                        console.log('Click event in element:', element.id);
+                        e.stopPropagation();
+                        element.focus();
+                    });
+                }
+            });
+            
+            console.log('All inputs enabled in floating window:', window.id);
         }
 
         function createCalculatorContent() {
@@ -6821,6 +7045,16 @@
 
         // Drag functionality - Optimized for smooth performance
         function startDrag(event, windowId) {
+            // Don't start dragging if clicking on input elements
+            if (event.target.tagName === 'INPUT' || 
+                event.target.tagName === 'TEXTAREA' || 
+                event.target.tagName === 'BUTTON' ||
+                event.target.closest('.chat-input-container') ||
+                event.target.closest('.notepad') ||
+                event.target.closest('.calculator')) {
+                return; // Allow normal input interaction
+            }
+            
             event.preventDefault();
             const window = document.getElementById(windowId);
             
@@ -6919,10 +7153,152 @@
                     closeFloatingWindow(activeWindow.id);
                 }
             }
+            
+            // F12 key to debug and fix input issues in floating windows
+            if (e.key === 'F12' && e.ctrlKey) {
+                e.preventDefault();
+                debugAndFixInputs();
+            }
         });
 
-        // Click outside to remove focus
+        // Debug and fix input functionality in floating windows
+        function debugAndFixInputs() {
+            console.log('=== DEBUGGING FLOATING WINDOW INPUTS ===');
+            
+            const floatingWindows = document.querySelectorAll('.floating-window');
+            floatingWindows.forEach(window => {
+                const windowId = window.id;
+                console.log(`Checking window: ${windowId}`);
+                
+                const inputs = window.querySelectorAll('input, textarea');
+                inputs.forEach((input, index) => {
+                    console.log(`  Input ${index}: ID=${input.id}, Type=${input.type || 'textarea'}, Disabled=${input.disabled}, Readonly=${input.readOnly}`);
+                    
+                    // Force enable
+                    input.disabled = false;
+                    input.readOnly = false;
+                    input.style.pointerEvents = 'auto';
+                    input.style.userSelect = 'text';
+                    input.style.cursor = 'text';
+                    input.tabIndex = 0;
+                    
+                    // Clear and reset the input
+                    if (input.tagName === 'INPUT') {
+                        input.type = 'text';
+                        input.value = '';
+                    } else if (input.tagName === 'TEXTAREA') {
+                        input.value = '';
+                    }
+                    
+                    // Add test value to verify it works
+                    setTimeout(() => {
+                        input.focus();
+                        input.value = 'Test input working!';
+                        console.log(`Test value set for ${input.id}: ${input.value}`);
+                    }, 100);
+                    
+                    // Test click event
+                    input.addEventListener('click', function() {
+                        console.log(`Input clicked: ${input.id}`);
+                    });
+                    
+                    // Test input event
+                    input.addEventListener('input', function() {
+                        console.log(`Input changed: ${input.id}, Value: ${input.value}`);
+                    });
+                });
+                
+                // Re-enable specific tools
+                const toolType = window.getAttribute('data-tool-type');
+                if (toolType === 'ai-chatbot') {
+                    setTimeout(() => initializeChatbot('floating'), 50);
+                } else if (toolType === 'notepad') {
+                    setTimeout(() => initializeNotepad('floating'), 50);
+                }
+            });
+            
+            console.log('=== INPUT DEBUG COMPLETE ===');
+            showNotification('Input debugging complete! Check console for details.', 'info');
+        }
+
+        // Add a test function accessible from browser console
+        window.testFloatingInputs = function() {
+            console.log('Testing floating window inputs...');
+            const chatInput = document.getElementById('chatInput-floating');
+            const notepadTextarea = document.getElementById('notepadTextarea-floating');
+            
+            if (chatInput) {
+                chatInput.value = 'AI chat test - type here!';
+                chatInput.focus();
+                console.log('✓ Chat input found and test value set');
+            } else {
+                console.log('✗ Chat input not found');
+            }
+            
+            if (notepadTextarea) {
+                notepadTextarea.value = 'Notepad test - type here!';
+                notepadTextarea.focus();
+                console.log('✓ Notepad textarea found and test value set');
+            } else {
+                console.log('✗ Notepad textarea not found');
+            }
+            
+            return { chatInput: !!chatInput, notepadTextarea: !!notepadTextarea };
+        };
+
+        // Auto-fix inputs when floating windows are created
+        function autoFixFloatingInputs() {
+            setTimeout(() => {
+                const floatingWindows = document.querySelectorAll('.floating-window');
+                floatingWindows.forEach(window => {
+                    enableAllInputs(window);
+                });
+            }, 200);
+        }
+
+        // Call auto-fix periodically to ensure inputs remain functional
+        setInterval(autoFixFloatingInputs, 5000);
+
+        // Global event delegation for floating window inputs
+        document.addEventListener('keydown', function(e) {
+            const activeElement = document.activeElement;
+            if (activeElement && 
+                (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA') &&
+                activeElement.closest('.floating-window')) {
+                
+                console.log('Global keydown for floating input:', e.key, activeElement.id);
+                e.stopPropagation();
+            }
+        }, true);
+
+        document.addEventListener('keypress', function(e) {
+            const activeElement = document.activeElement;
+            if (activeElement && 
+                (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA') &&
+                activeElement.closest('.floating-window')) {
+                
+                console.log('Global keypress for floating input:', e.key, activeElement.id);
+                e.stopPropagation();
+            }
+        }, true);
+
+        document.addEventListener('input', function(e) {
+            if (e.target && 
+                (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') &&
+                e.target.closest('.floating-window')) {
+                
+                console.log('Global input for floating element:', e.target.value, e.target.id);
+                e.stopPropagation();
+            }
+        }, true);
+
+        // Click outside to remove focus - but don't interfere with input elements
         document.addEventListener('click', function(e) {
+            // Don't remove focus if clicking on an input element
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'BUTTON') {
+                return;
+            }
+            
             if (!e.target.closest('.floating-window')) {
                 document.querySelectorAll('.floating-window').forEach(w => w.classList.remove('active'));
                 activeWindow = null;
